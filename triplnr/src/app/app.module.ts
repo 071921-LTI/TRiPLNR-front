@@ -10,6 +10,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TripDashboardComponent } from './components/trip-dashboard/trip-dashboard.component';
 import { TripDashboardManagerComponent } from './components/trip-dashboard-manager/trip-dashboard-manager.component';
 import { CreateTripComponent } from './components/create-trip/create-trip.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { CreateTripComponent } from './components/create-trip/create-trip.compon
     DashboardComponent,
     TripDashboardComponent,
     TripDashboardManagerComponent,
-    CreateTripComponent
+    CreateTripComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
