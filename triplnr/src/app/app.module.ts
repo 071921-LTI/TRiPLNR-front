@@ -12,6 +12,7 @@ import { TripDashboardManagerComponent } from './components/trip-dashboard-manag
 import { CreateTripComponent } from './components/create-trip/create-trip.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { BannerComponent } from './components/banner/banner.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { BannerComponent } from './components/banner/banner.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule
   ],
   providers: [],
