@@ -1,1 +1,39 @@
-<p>register works!</p>
+<div id="myRegister" class="text-center">
+    <div class="form-signin">
+    
+        <h1 class="h3 mb-3 fw-normal">Please register</h1>
+        <div id="error">
+        </div>
+        <div class="form-floating">
+          <input type="username" class="form-control"  placeholder="Username" [(ngModel)]="username">
+          <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control"  placeholder="First Name" [(ngModel)]="first">
+            <label for="floatingInput">First Name</label>
+          </div>
+          <div class="form-floating">
+            <input type="text" class="form-control"  placeholder="Last Name" [(ngModel)]="last">
+            <label for="floatingInput">Last Name</label>
+          </div>
+          <div class="form-floating">
+            <input type="email" class="form-control" placeholder="Email" [(ngModel)]="email">
+            <label for="floatingInput">Email</label>
+          </div>
+        
+    
+        <div class="checkbox mb-3">
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="input" (click)='login()'>Sign in</button>
+        <div id="test">{{showUsername}}
+            <br>{{showPassword}}
+            <br>{{showFirst}}
+            <br>{{showLast}}
+            <br>{{showEmail}}
+        </div>
+      </div>
+    </div>
