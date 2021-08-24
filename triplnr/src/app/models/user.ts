@@ -8,6 +8,8 @@ export class User {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.address = null;
+        this.trips = null;
     }
 
     
@@ -17,6 +19,10 @@ export class User {
     password : String;
     firstName : String;
     lastName : String;
+    //address
+    address : null;
+    //trips
+    trips : null;
 
 
 
