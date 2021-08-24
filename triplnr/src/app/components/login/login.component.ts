@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
 
     login(): void{
-      this.user =  new User(0, this.username, this.password, "first", "last");
+      this.user =  new User(1, this.username, this.password, "first", "last");
       this.authService.login(this.user).subscribe(
         response => {
           this.token = response;
