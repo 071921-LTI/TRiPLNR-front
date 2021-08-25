@@ -17,12 +17,14 @@ export class LoginComponent implements OnInit {
     username:String = '';
     password:String = '';
 
-    user?:User;
     token:String = 'hello';
-
+    user?:User;
 
     login(): void{
-      this.user =  new User(1, this.username, this.password, "first", "last");
+      this.user = {
+        username: this.username,
+        password: this.password
+      }
       this.authService.login(this.user).subscribe(
         response => {
           this.token = response;
