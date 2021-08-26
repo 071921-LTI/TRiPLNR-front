@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.user).subscribe(
         response => {
           this.token = response;
-          if (this.token != null){
+ if (this.token != null){
           sessionStorage.setItem("token", this.token.valueOf());
           this.router.navigate(['/dashboard']);
           }else{

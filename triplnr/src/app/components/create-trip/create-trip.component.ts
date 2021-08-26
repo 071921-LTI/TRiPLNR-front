@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Timestamp } from 'rxjs/internal/operators/timestamp';
+import { TripServiceService } from 'src/app/services/trip-service.service';
 
 @Component({
   selector: 'app-create-trip',
@@ -7,7 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateTripComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tripService: TripServiceService, private router:Router) { }
+
+  destination: String = '';
+  origin: String = '';
+  tripName: String = '';
+  startTime: String = '';
 
   ngOnInit(): void {
   }
