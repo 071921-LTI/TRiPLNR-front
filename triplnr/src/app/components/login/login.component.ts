@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.user).subscribe(
         response => {
           this.token = response;
+          sessionStorage.setItem("token", this.token.valueOf())
         }
       )
     }
