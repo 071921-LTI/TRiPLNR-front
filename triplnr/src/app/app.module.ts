@@ -13,6 +13,7 @@ import { CreateTripComponent } from './components/create-trip/create-trip.compon
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { FormsModule } from '@angular/forms';
+import { AddressFormComponent } from './components/address-form/address-form.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FormsModule } from '@angular/forms';
     TripDashboardManagerComponent,
     CreateTripComponent,
     NavBarComponent,
-    BannerComponent
+    BannerComponent,
+    AddressFormComponent
   ],
   imports: [
     BrowserModule,

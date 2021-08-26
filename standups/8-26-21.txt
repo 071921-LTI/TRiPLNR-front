@@ -1,0 +1,15 @@
+Thing we did yesterday:
+- Address validation
+- Migrate to springboot
+- Added lombok
+
+What we will do today:
+- Start splitting stuff up
+	- Testing, Logging, Exceptions
+- Chris - trip creation, Exceptions
+- Andy - Testing
+- Michael - Logging, dashboard
+- David - Registration, (trip) dashboard
+
+Blockers:
+- Nope
