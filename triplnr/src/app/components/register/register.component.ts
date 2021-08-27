@@ -1,4 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
+import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { AddressFormComponent } from '../address-form/address-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -7,30 +11,45 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService : AuthServiceService, private router:Router) { }
 
+  toEmit = false;
 
   username: String = '';
-  showUsername: String = '';
   password: String = '';
-  showPassword: String = '';
   first: String = '';
-  showFirst: String = '';
   last: String = '';
-  showLast: String = '';
   address : String = '';
-  showAddress : String = '';
+
+  error:String = '';
+
+  user?:User;
+
+  token: String = '';
 
   getAddress(fullAddress : String){
     this.address = fullAddress;
   }
 
-  login(): void {
-    this.showUsername = this.username;
-    this.showPassword = this.password;
-    this.showFirst = this.first;
-    this.showLast = this.last;
-    this.showAddress = this.address;
+  register(): void {
+    this.user = {
+      username: this.username,
+      password: this.password,
+      firstName: this.first,
+      lastName: this.last,
+      address: this.address
+    }
+    this.authService.register(this.user).subscribe(
+      response => {
+        this.token = response;
+        if (this.token != null){
+        sessionStorage.setItem("token", this.token.valueOf());
+        this.router.navigate(['/dashboard']);
+        }else{
+          this.error = "Register error";
+        }
+      }
+    )
   }
 
   ngOnInit(): void {
