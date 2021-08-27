@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +11,17 @@ import { User } from '../models/user';
 export class UserServiceService {
 
   constructor(private http: HttpClient) { }
+  // authToken: any = sessionStorage.getItem("token");
+    authToken: String = "1:user"
 
   update(user: User): Observable<String>{
-    return this.http.post("http://localhost:8080/triplnr/user/update", user).pipe(
+    
+    return this.http.put(environment.userURL + "update/"  +  this.authToken.split(":")[0], user).pipe(
       map(response => response as String));
   }
 
   getCurrentUser(): Observable<User>{
-    let authToken = sessionStorage.getItemItem("token");
-    return this.http.get("http://localhost:8080/triplnr/user/" +  authToken.split(":")[0]).pipe(
+    return this.http.get(environment.userURL +  this.authToken.split(":")[0]).pipe(
       map(response => response as User));
   }
 }

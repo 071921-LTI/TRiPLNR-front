@@ -17,15 +17,20 @@ export class UserPreferencesComponent implements OnInit {
   address? : String;
 
   constructor(private userService : UserServiceService) { 
-    this.userService.getCurrentUser().subscribe(
-      response => {
-        this.username = response.username;
-        this.password = response.password;
-        this.first = response.firstName;
-        this.last = response.lastName;
-        this.address = response.address;
-      }
-    )
+        this.username = "username";
+        this.password = "password";
+        this.first = "firstName";
+        this.last = "lastName";
+        this.address = "address";
+    // this.userService.getCurrentUser().subscribe(
+    //   response => {
+    //     this.username = response.username;
+    //     this.password = response.password;
+    //     this.first = response.firstName;
+    //     this.last = response.lastName;
+    //     this.address = response.address;
+    //   }
+    // )
   }
 
   getAddress(fullAddress : String){
@@ -50,21 +55,7 @@ export class UserPreferencesComponent implements OnInit {
     this.userService.update(this.user).subscribe(
       response => {
 
-        alert(response);
-        //not sure if needed to be reset or is dynamically 
-        //updating for display
-        // if (String(response) == "successfull"){
-        //   this.userService.getCurrentUser().subscribe(
-        //     response => {
-        //       this.username = response.username;
-        //       this.password = response.password;
-        //       this.first = response.firstName;
-        //       this.last = response.lastName;
-        //       this.address = response.address;
-            
-        //  }
-        //   )
-        // }
+        this.response = response;
       }    
     )
     }
