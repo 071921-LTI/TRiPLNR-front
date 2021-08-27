@@ -16,27 +16,35 @@ export class CreateTripComponent implements OnInit {
   tripName: String = '';
   manager: String = '';
   error: String = '';
-
+  token?:string;
   trip?:Trip;
+
   
-  token = sessionStorage.getItem("token");
   //either pass token through with trip data or 
   //add new header
 
 
 
   createTrip(): void {
+
+    sessionStorage.setItem("token", "1:user");
+    this.token= sessionStorage.getItem("token") || '';
+  
+    console.log(this.token);
+    
+    
     this.trip = {
       destination: this.destination,
       tripName: this.tripName
     }
-    this.tripService.create(this.trip).subscribe(
+    this.tripService.create(this.trip, this.token).subscribe(
       response => {
         if(response != null){
           this.router.navigate(['/trip-dashboard']);
         } else {
-        this.error = "Trip Creation Error"
+        this.error = "Trip Creation Error";
       }
+    }
     )
   }
 

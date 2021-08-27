@@ -4,13 +4,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Trip } from '../models/trip';
 
-let token = sessionStorage.getItem("token");
-console.log("token");
-
-let header = new HttpHeaders();
-if(token != null){
-  header.set('Authorization', token)
-}
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +11,22 @@ if(token != null){
  
 export class TripServiceService {
 
-  constructor(private http: HttpClient, private headers: HttpHeaders) { }
+
+
+
+
+  constructor(private http: HttpClient) { }
   
-  create(trip: Trip): Observable<String>{
-    return this.http.post("http://localhost:8080/triplnr/trip/create", trip, {
-      headers: header}).pipe(
+  create(trip: Trip, token:string): Observable<String>{
+    console.log("in create in service");
+    let headers = new HttpHeaders({
+      Authorization: token
+    });
+    
+    //headers.set('Authorization', token);
+    console.log(headers);
+
+    return this.http.post("http://localhost:8080/triplnr/trip/create", trip, {headers}).pipe(
       map(response => response as String));
   }  
 
