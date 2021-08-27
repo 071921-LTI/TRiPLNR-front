@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   authURL: "http://localhost:8080/auth/",
+  userURL: "http://localhost:8080/users/",
   tripURL: "http://localhost:8080/trip/"
 };
 
