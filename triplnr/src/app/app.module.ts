@@ -14,6 +14,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { FormsModule } from '@angular/forms';
 import { AddressFormComponent } from './components/address-form/address-form.component';
+import { AuthServiceService } from './services/auth-service.service';
 import { UserPreferencesComponent } from './components/user-preferences/user-preferences.component';
 
 @NgModule({
@@ -37,7 +38,7 @@ import { UserPreferencesComponent } from './components/user-preferences/user-pre
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ AuthServiceService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,7 +9,7 @@ export interface Trip {
     destination?: String;
     origin?: String;
     tripName?: String;
-    manager?: null;
+    manager?: any;
     stops?: null;
     passengers?: null;
     startTime?: null;
