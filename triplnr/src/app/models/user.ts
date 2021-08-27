@@ -7,7 +7,7 @@ export interface User {
     password?: String;
     firstName?: String;
     lastName?: String;
-    address?: null;
+    address?: String;
     trips?: null;
 
 

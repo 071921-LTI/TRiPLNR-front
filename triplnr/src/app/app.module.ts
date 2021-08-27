@@ -14,6 +14,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { FormsModule } from '@angular/forms';
 import { AddressFormComponent } from './components/address-form/address-form.component';
+import { UserPreferencesComponent } from './components/user-preferences/user-preferences.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AddressFormComponent } from './components/address-form/address-form.com
     CreateTripComponent,
     NavBarComponent,
     BannerComponent,
-    AddressFormComponent
+    AddressFormComponent,
+    UserPreferencesComponent
   ],
   imports: [
     BrowserModule,

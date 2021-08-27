@@ -1,5 +1,5 @@
-<div id="myRegister" class="text-center">
-    <div class="form-signin">
+<div id="myPreferences" class="text-center">
+    <div class="form-edit">
     
         <h1 class="h3 mb-3 fw-normal">Please register</h1>
         <div id="error">
@@ -27,8 +27,14 @@
     
         <div class="checkbox mb-3">
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="input" (click)='register()'>Register</button>
-        <div id="test">{{token}}
+        <button class="w-100 btn btn-lg btn-primary" type="input" (click)='update()'>Edit</button>
+        <div id="test">
+            {{username}}
+            <br>{{password}}
+            <br>{{first}}
+            <br>{{last}}
+            <br>{{address}}
+            <br>{{response}}
         </div>
       </div>
     </div>

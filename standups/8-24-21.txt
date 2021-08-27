@@ -1,0 +1,10 @@
+What we did yesterday:
+- Login page with nav bar 
+	- Links light up
+- Set up angular
+
+What we're going to do:
+- Angular Login <-> Java/Spring Controller
+- Maybe change nav bar if logged in
+- Look into EC2/Jenkins/Database
+
