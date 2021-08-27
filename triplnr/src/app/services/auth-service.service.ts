@@ -12,9 +12,10 @@ export class AuthServiceService {
 
   constructor(private http: HttpClient) { }
 
-  login(user: User): Observable<String>{
-    return this.http.post(environment.authURL+"login", user).pipe(
-      map(response => response as String));
+  login(user: User): Observable<any>{
+    return this.http.post(environment.authURL+"login", user, {observe: 'response'})
+    .pipe(
+      map(resp => resp));
   }
 
   register(user: User): Observable<String>{

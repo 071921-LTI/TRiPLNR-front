@@ -18,10 +18,10 @@ export class LoginComponent implements OnInit {
     username:String = '';
     password:String = '';
 
-    token?:String;
+    token:String = '';
     user?:User;
     error:String = '';
-
+    
 
 
     login(): void{
@@ -30,9 +30,9 @@ export class LoginComponent implements OnInit {
         password: this.password
       }
       this.authService.login(this.user).subscribe(
-        response => {
-          this.token = response;
- if (this.token != null){
+        (response) => {
+          this.token = response.headers.get("Authorization") || '';
+ if (this.token != null || this.token != ''){
           sessionStorage.setItem("token", this.token.valueOf());
           this.router.navigate(['/dashboard']);
           }else{
