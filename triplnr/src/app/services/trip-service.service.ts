@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Trip } from '../models/trip';
+import { environment } from 'src/environments/environment'
 
 
 @Injectable({
@@ -25,8 +26,9 @@ export class TripServiceService {
     
     //headers.set('Authorization', token);
     console.log(headers);
+    console.log(trip);
 
-    return this.http.post("http://localhost:8080/triplnr/trip/create", trip, {headers}).pipe(
+    return this.http.post(environment.tripURL+"create", trip, {headers}).pipe(
       map(response => response as String));
   }  
 
