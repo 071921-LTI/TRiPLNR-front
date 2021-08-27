@@ -15,6 +15,7 @@ import { BannerComponent } from './components/banner/banner.component';
 import { FormsModule } from '@angular/forms';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { AuthServiceService } from './services/auth-service.service';
+import { UserPreferencesComponent } from './components/user-preferences/user-preferences.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AuthServiceService } from './services/auth-service.service';
     CreateTripComponent,
     NavBarComponent,
     BannerComponent,
-    AddressFormComponent
+    AddressFormComponent,
+    UserPreferencesComponent
   ],
   imports: [
     BrowserModule,
