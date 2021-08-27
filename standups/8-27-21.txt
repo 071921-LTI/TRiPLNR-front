@@ -1,0 +1,16 @@
+Yesterday
+- Michael: Show table with dummy values
+- Andy: Most of user prefs ui stuff done, backend works
+- Chris: Trip controller, trip service, added 2 components, front end stuff
+- David: Setup testing, auth service tested
+
+Today:
+- Michael: Figuring out how to show actual trips from backend
+- Andy: Talk to backend
+- Chris: Authorization header finished, test whats going on
+- David: Get header working, write more tests
+
+Universal blocker:
+- Auth header doesn't work
+
+
