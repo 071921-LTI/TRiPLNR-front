@@ -14,8 +14,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { FormsModule } from '@angular/forms';
 import { AddressFormComponent } from './components/address-form/address-form.component';
-import { AuthServiceService } from './services/auth-service.service';
-import { UserPreferencesComponent } from './components/user-preferences/user-preferences.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -29,16 +28,16 @@ import { UserPreferencesComponent } from './components/user-preferences/user-pre
     CreateTripComponent,
     NavBarComponent,
     BannerComponent,
-    AddressFormComponent,
-    UserPreferencesComponent
+    AddressFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule
   ],
-  providers: [ AuthServiceService ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

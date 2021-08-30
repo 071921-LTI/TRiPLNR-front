@@ -1,2 +1,61 @@
-<p>dashboard works!</p>
-{{token}}
+<h2>Current Trips</h2>
+<table mat-table [dataSource]="trips" class="mat-elevation-z8 demo-table">
+    <ng-container matColumnDef="tripName">
+      <th mat-header-cell *matHeaderCellDef>Trip Name</th>
+      <td mat-cell *matCellDef="let element">{{element.tripName}}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="origin">
+      <th mat-header-cell *matHeaderCellDef>Trip Origin</th>
+      <td mat-cell *matCellDef="let element">{{element.origin}}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="stops">
+      <th mat-header-cell *matHeaderCellDef>Trip Stops</th>
+      <td mat-cell *matCellDef="let element">{{element.stops}}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="destination">
+      <th mat-header-cell *matHeaderCellDef>Trip Destination</th>
+      <td mat-cell *matCellDef="let element">{{element.destination}}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="manager">
+      <th mat-header-cell *matHeaderCellDef>Trip Manager</th>
+      <td mat-cell *matCellDef="let element">{{element.manager}}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="passengers">
+      <th mat-header-cell *matHeaderCellDef>Passengers</th>
+      <td mat-cell *matCellDef="let element">{{element.passengers}}</td>
+    </ng-container>
+  
+    <ng-container matColumnDef="startTime">
+      <th mat-header-cell *matHeaderCellDef>Start Time</th>
+      <td mat-cell *matCellDef="let element">{{element.startTime}}</td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+        mat-row
+        (click)="clickedRows.add(row)"
+        [class.demo-row-is-clicked]="clickedRows.has(row)"
+        *matRowDef="let row; columns: displayedColumns;"
+    ></tr>
+  </table>
+  
+  <div>
+    <h3>
+      Click Log
+    </h3>
+  </div>
+  
+  <div *ngIf="!clickedRows.size">
+    Clicked rows will be logged here
+  </div>
+  
+  <ul>
+    <li *ngFor="let clickedRow of clickedRows">
+      Clicked on {{clickedRow.tripName}}
+    </li>
+  </ul>
