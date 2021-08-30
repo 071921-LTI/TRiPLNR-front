@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TripDashboardComponent } from './components/trip-dashboard/trip-dashboard.component';
 import { CreateTripComponent } from './components/create-trip/create-trip.component';
+import { UserPreferencesComponent } from './components/user-preferences/user-preferences.component';
 
 const routes: Routes = [{
   path:'login',
@@ -15,7 +16,7 @@ const routes: Routes = [{
   component:RegisterComponent
 }, {
   path: '',
-  component: HomepageComponent
+  component: DashboardComponent
 }, {
   path: 'dashboard',
   component: DashboardComponent
@@ -26,7 +27,10 @@ const routes: Routes = [{
   path: 'create-trip',
   component: CreateTripComponent
 } ,
-
+{
+  path: 'user-preferences',
+  component: UserPreferencesComponent
+}
 
 ];
 

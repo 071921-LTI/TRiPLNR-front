@@ -1,1 +1,24 @@
-<p>create-trip works!</p>
+<div id="MyTrip" class="text-center">
+    <div class="form-signin">
+    
+        <h1 class="h3 mb-3 fw-normal">Trip Creation</h1>
+        <div id="error">
+        </div>
+        <div class="form-floating">
+          <input type="text" class="form-control"  placeholder="Destination" [(ngModel)]="destination">
+          <label for="floatingInput">Destination</label>
+        </div>
+        <div class="form-floating">
+          <input type="text" class="form-control" placeholder="Trip Name" [(ngModel)]="tripName">
+          <label for="floatingPassword">Trip Name</label>
+        </div>
+          </div>
+          <br>
+          <!--<app-address-form (newAddressEvent)="getAddress($event)"></app-address-form>-->
+          
+        
+    
+        <div class="checkbox mb-3">
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="input" (click)='createTrip()'>Create Trip</button>
+      </div>
