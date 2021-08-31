@@ -13,7 +13,7 @@ export interface Trip {
     stops?: null;
     passengers?: null;
     startTime?: null;
-    EndTime?: null;
+    endTime?: null;
 
 
 
