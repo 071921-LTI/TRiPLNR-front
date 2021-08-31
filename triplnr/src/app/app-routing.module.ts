@@ -16,7 +16,7 @@ const routes: Routes = [{
   component:RegisterComponent
 }, {
   path: '',
-  component: HomepageComponent
+  component: DashboardComponent
 }, {
   path: 'dashboard',
   component: DashboardComponent

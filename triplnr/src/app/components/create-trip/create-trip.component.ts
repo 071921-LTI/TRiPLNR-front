@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Trip } from 'src/app/models/trip'
-import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-create-trip',
@@ -19,7 +18,6 @@ export class CreateTripComponent implements OnInit {
   error: String = '';
   token?:string;
   trip?:Trip;
-  user?:User;
 
   
   //either pass token through with trip data or 
@@ -29,7 +27,7 @@ export class CreateTripComponent implements OnInit {
 
   createTrip(): void {
 
-    sessionStorage.setItem("token", "1:string");
+    sessionStorage.setItem("token", "1:user");
     this.token= sessionStorage.getItem("token") || '';
   
     console.log(this.token);
