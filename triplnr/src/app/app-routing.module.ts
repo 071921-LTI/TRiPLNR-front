@@ -31,7 +31,6 @@ const routes: Routes = [{
   path: 'user-preferences',
   component: UserPreferencesComponent
 }
-
 ];
 
 @NgModule({
