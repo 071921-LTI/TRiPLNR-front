@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
     token:String = '';
     user?:User;
     error:String = '';
+    isNotLoggedIn:boolean = true;
     
 
 
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
           this.token = response.headers.get("Authorization") || '';
  if (this.token != null || this.token != ''){
           sessionStorage.setItem("token", this.token.valueOf());
+          this.isNotLoggedIn = true;
           this.router.navigate(['/dashboard']);
           }else{
             this.error = "Login error";
