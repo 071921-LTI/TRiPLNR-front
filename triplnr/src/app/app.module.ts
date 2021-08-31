@@ -14,7 +14,8 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { FormsModule } from '@angular/forms';
 import { AddressFormComponent } from './components/address-form/address-form.component';
-import {MatTableModule} from '@angular/material/table';
+import { UserPreferencesComponent } from './components/user-preferences/user-preferences.component';
+//import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -28,14 +29,15 @@ import {MatTableModule} from '@angular/material/table';
     CreateTripComponent,
     NavBarComponent,
     BannerComponent,
-    AddressFormComponent
+    AddressFormComponent,
+    UserPreferencesComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    MatTableModule
+    //MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
