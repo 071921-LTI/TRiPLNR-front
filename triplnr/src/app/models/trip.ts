@@ -1,5 +1,6 @@
 import { SystemJsNgModuleLoader } from "@angular/core";
 import { Timestamp } from "rxjs/internal/operators/timestamp";
+import { User } from "./user";
 
 export interface Trip {
 
@@ -9,7 +10,7 @@ export interface Trip {
     destination?: String;
     origin?: String;
     tripName?: String;
-    manager?: any;
+    manager?: User;
     stops?: null;
     passengers?: null;
     startTime?: null;
