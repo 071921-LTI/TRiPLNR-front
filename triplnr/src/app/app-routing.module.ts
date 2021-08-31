@@ -16,24 +16,21 @@ const routes: Routes = [{
   component:RegisterComponent
 }, {
   path: '',
-  component: HomepageComponent
+  component: DashboardComponent
 }, {
   path: 'dashboard',
   component: DashboardComponent
 }, {
   path: 'trip-dashboard',
   component: TripDashboardComponent
-}, 
 }, {
   path: 'create-trip',
   component: CreateTripComponent
-} ,{
+} ,
+{
   path: 'user-preferences',
   component: UserPreferencesComponent
 }
-
-
-
 ];
 
 @NgModule({

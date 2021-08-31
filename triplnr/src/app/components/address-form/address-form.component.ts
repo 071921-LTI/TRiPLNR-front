@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-address-form',
@@ -13,6 +13,7 @@ export class AddressFormComponent implements OnInit {
   }
 
   @Output() newAddressEvent = new EventEmitter<String>();
+  @Input() toEmit = false;
 
   streetAddress : String = '';
   city : String = '';
@@ -22,7 +23,8 @@ export class AddressFormComponent implements OnInit {
   fullAddress : String = this.streetAddress + ", " + this.city + ", " + this.state + " " + this.zip;
 
 
-  emitAddress() : void{
+  emitAddress(){
+    this.fullAddress = this.streetAddress + ", " + this.city + ", " + this.state + " " + this.zip;
     this.newAddressEvent.emit(this.fullAddress);
   }
 

@@ -14,6 +14,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { FormsModule } from '@angular/forms';
 import { AddressFormComponent } from './components/address-form/address-form.component';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AddressFormComponent } from './components/address-form/address-form.com
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
