@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserServiceService } from 'src/app/services/user-service.service';
 @Component({
@@ -14,9 +14,18 @@ export class UserPreferencesComponent implements OnInit {
   password?: String;
   first?: String;
   last?: String;
+  streetAddress ?: String ;
+  city ?: String ;
+  state ?: String ;
+  zip ?: String ;
   address? : String;
 
   constructor(private userService : UserServiceService) { 
+        // this.username = "username";
+        // this.password = "password";
+        // this.first = "firstName";
+        // this.last = "lastName";
+        // this.address = "address";
     this.userService.getCurrentUser().subscribe(
       response => {
         this.username = response.username;
@@ -24,12 +33,27 @@ export class UserPreferencesComponent implements OnInit {
         this.first = response.firstName;
         this.last = response.lastName;
         this.address = response.address;
+        var splitted = response.address?.split(",",3); 
+        var temp = splitted?.pop()?.split(" ");
+        this.zip = temp?.pop();
+        this.state = temp?.pop();
+        this.city = splitted?.pop();
+        this.streetAddress = splitted?.pop();
+        
       }
     )
   }
 
-  getAddress(fullAddress : String){
-    this.address = fullAddress;
+  @Output() newAddressEvent = new EventEmitter<String>();
+  @Input() toEmit = false;
+
+
+  fullAddress : String = this.streetAddress + ", " + this.city + ", " + this.state + " " + this.zip;
+
+
+  emitAddress(){
+    this.fullAddress = this.streetAddress + ", " + this.city + ", " + this.state + " " + this.zip;
+    this.newAddressEvent.emit(this.fullAddress);
   }
 
   
@@ -50,23 +74,8 @@ export class UserPreferencesComponent implements OnInit {
     this.userService.update(this.user).subscribe(
       response => {
 
-        alert(response);
-        //not sure if needed to be reset or is dynamically 
-        //updating for display
-        // if (String(response) == "successfull"){
-        //   this.userService.getCurrentUser().subscribe(
-        //     response => {
-        //       this.username = response.username;
-        //       this.password = response.password;
-        //       this.first = response.firstName;
-        //       this.last = response.lastName;
-        //       this.address = response.address;
-            
-        //  }
-        //   )
-        // }
+        this.response = response;
       }    
     )
     }
   }
-

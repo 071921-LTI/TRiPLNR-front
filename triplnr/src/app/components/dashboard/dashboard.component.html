@@ -1,2 +1,80 @@
-<p>dashboard works!</p>
-{{token}}
+<h2>Current Trips</h2>
+  <table class="center"  table border="3" table cellpadding="10" table bordercolor="#ffffff" >
+    <thead>
+  <tr>
+  
+  <th>Trip Id</th>
+  <th>Trip Name</th>
+  <th>Trip Origin</th>
+  <th>Trip Destination</th>
+  <th>Trip Manager</th>
+  <th>Passengers</th>
+  <th>Start Time</th>
+  <th>End Time</th>
+</tr>
+</thead>
+  <tr *ngFor="let row of currentTrips">
+    <td>{{row.tripId}}</td>
+    <td>{{row.tripName}}</td>
+    <td>{{row.origin}}</td>
+    <td>{{row.destination}}</td>
+    <td>{{row.manager}}</td>
+    <td>{{row.passengers}}</td>
+    <td>{{row.startTime}}</td>
+    <td>{{row.endTime}}</td>
+    </tr>
+    </table>
+
+  <h2>Future Trips</h2>
+  <table class="center"  table border="3" table cellpadding="10" table bordercolor="#ffffff" >
+    <thead>
+  <tr>
+  
+  <th>Trip Id</th>
+  <th>Trip Name</th>
+  <th>Trip Origin</th>
+  <th>Trip Destination</th>
+  <th>Trip Manager</th>
+  <th>Passengers</th>
+</tr>
+</thead>
+  <tr *ngFor="let row of futureTrips">
+    <td>{{row.tripId}}</td>
+    <td>{{row.tripName}}</td>
+    <td>{{row.origin}}</td>
+    <td>{{row.destination}}</td>
+    <td>{{row.manager}}</td>
+    <td>{{row.passengers}}</td>
+
+    </tr>
+    </table>
+
+    <h2>Past Trips</h2>
+    <table class="center"  table border="3" table cellpadding="10" table bordercolor="#ffffff" >
+      <thead>
+    <tr>
+    
+    <th>Trip Id</th>
+    <th>Trip Name</th>
+    <th>Trip Origin</th>
+    <th>Stops</th>
+    <th>Trip Destination</th>
+    <th>Trip Manager</th>
+    <th>Passengers</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+  </tr>
+  </thead>
+    <tr *ngFor="let row of pastTrips">
+      <td>{{row.tripId}}</td>
+      <td>{{row.tripName}}</td>
+      <td>{{row.origin}}</td>
+      <td>{{row.stops}}</td>
+      <td>{{row.destination}}</td>
+      <td>{{row.manager}}</td>
+      <td>{{row.passengers}}</td>
+      <td>{{row.startTime}}</td>
+      <td>{{row.endTime}}</td>
+  
+      </tr>
+    </table>
