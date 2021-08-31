@@ -21,6 +21,7 @@ export class DashboardComponent implements OnInit {
   constructor(private tripService: TripServiceService, private router:Router) { }
 
   ngOnInit(): void {
+    sessionStorage.setItem('token', "1:string");
     this.token= sessionStorage.getItem("token") || '';
     console.log(this.token);
     this.tripService.getTrips(this.token).subscribe(

@@ -11,8 +11,8 @@ import { environment } from 'src/environments/environment';
 export class UserServiceService {
 
   constructor(private http: HttpClient) { }
-  // authToken: any = sessionStorage.getItem("token");
-    authToken: String = "1:user"
+  authToken: any = sessionStorage.getItem("token");
+    // authToken: String = "1:user"
 
   update(user: User): Observable<String>{
     
