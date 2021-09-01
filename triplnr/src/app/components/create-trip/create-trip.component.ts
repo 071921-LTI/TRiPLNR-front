@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Trip } from 'src/app/models/trip'
+import { User } from 'src/app/models/user';
+import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-create-trip',
@@ -14,29 +16,49 @@ export class CreateTripComponent implements OnInit {
 
   destination: String = '';
   tripName: String = '';
-  manager: String = '';
+
+  passengers: Array<User> = [];
+  
+  userId?: number;
+  
   error: String = '';
+  
   token?:string;
+  user?:User;
   trip?:Trip;
 
-  
-  //either pass token through with trip data or 
-  //add new header
 
-
+  addPassenger(): void{
+    this.user = {
+      userId: this.userId
+    }
+    console.log(typeof this.userId)
+      if(typeof this.userId === 'number'){
+        this.passengers.push(this.user)
+        console.log(this.passengers);
+       this.userId = undefined;
+      } else { 
+        this.userId = undefined;
+      }
+      
+    
+  }
+ 
 
   createTrip(): void {
 
-    sessionStorage.setItem("token", "1:user");
+    sessionStorage.setItem("token", "1:cpantani");
     this.token= sessionStorage.getItem("token") || '';
   
     console.log(this.token);
     
-    
     this.trip = {
       destination: this.destination,
-      tripName: this.tripName
-    }
+      tripName: this.tripName,
+      passengers: this.passengers
+
+    } 
+    console.log(this.trip);
     this.tripService.create(this.trip, this.token).subscribe(
       response => {
         if(response != null){
