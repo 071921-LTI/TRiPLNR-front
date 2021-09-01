@@ -8,7 +8,8 @@ export const environment = {
   authURL: "http://localhost:8080/auth/",
   userURL: "http://localhost:8080/users/",
   tripURL: "http://localhost:8080/trip/",
-  requestURL: "http://localhost:8080/friends/"
+  requestURL: "http://localhost:8080/friends/",
+  mapsKey: "AIzaSyBdMa5mObr7e3k11wJ3AxhCRenQ9EnOeKw"
 };
 
 /*

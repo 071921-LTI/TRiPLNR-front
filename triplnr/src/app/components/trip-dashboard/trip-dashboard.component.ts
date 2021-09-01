@@ -3,6 +3,7 @@ import { Trip } from 'src/app/models/trip';
 import { User } from 'src/app/models/user';
 import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Loader } from '@googlemaps/js-api-loader';
+import { environment } from 'src/environments/environment';
 
 declare var google:any;
 
@@ -37,6 +38,7 @@ export class TripDashboardComponent implements OnInit {
     this.initMap();
   }
 
+  mapsurl:String = "https://maps.googleapis.com/maps/api/js?key="+environment.mapsKey +"&callback=initMap";
 
   map?: google.maps.Map;
 
