@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Trip } from 'src/app/models/trip'
 import { User } from 'src/app/models/user';
+import { timestamp, Timestamp } from 'rxjs/internal/operators/timestamp';
 
 @Component({
   selector: 'app-create-trip',
@@ -21,10 +22,12 @@ export class CreateTripComponent implements OnInit {
   userId?: number;
   
   error: String = '';
-  
+  startTimeString?: string;
   token?:string;
   user?:User;
   trip?:Trip;
+
+  startTime: string = '';
 
 
   addPassenger(): void{
@@ -47,17 +50,30 @@ export class CreateTripComponent implements OnInit {
   createTrip(): void {
 
     this.token= sessionStorage.getItem("token") || '';
-  
-    console.log(this.token);
+
+    
+    console.log(this.startTime);
+
+    this.startTime = this.startTime.replace('T', ' ') || '';
+    this.startTime = this.startTime+":00";
+
+    if(this.startTime != ":00"){
+      this.startTimeString = this.startTime;
+    } else {
+      this.startTimeString = '0000-00-00 00:00:00';
+    }
+    
+
+    console.log(this.startTimeString);
     
     this.trip = {
       destination: this.destination,
       tripName: this.tripName,
-      passengers: this.passengers
+      passengers: this.passengers,
 
     } 
     console.log(this.trip);
-    this.tripService.create(this.trip, this.token).subscribe(
+    this.tripService.create(this.trip, this.token, this.startTimeString).subscribe(
       response => {
         if(response != null){
           this.router.navigate(['/trip-dashboard']);
