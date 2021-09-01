@@ -25,7 +25,6 @@ export class CreateTripComponent implements OnInit {
   token?:string;
   user?:User;
   trip?:Trip;
-  user?:User;
 
 
   addPassenger(): void{
