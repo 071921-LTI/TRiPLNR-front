@@ -83,3 +83,12 @@ th{
 
 tr:nth-child(even) {background-color: darkgray;}
 
+label {
+  display: block;
+  font: 1rem 'Fira Sans', sans-serif;
+}
+
+input,
+label {
+  margin: .4rem 0;
+}

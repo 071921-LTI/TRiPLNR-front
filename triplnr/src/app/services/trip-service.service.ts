@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Trip } from '../models/trip';
-import { User } from '../models/user';
 import { environment } from 'src/environments/environment'
 
 
@@ -20,13 +19,12 @@ export class TripServiceService {
 
   constructor(private http: HttpClient) { }
   
-  create(trip: Trip, token:string): Observable<String>{
+  create(trip: Trip, token:string, startTimeString:string): Observable<String>{
 
     let headers = new HttpHeaders({
-      Authorization: token
+      Authorization: token,
+      StartTime: startTimeString,
     });
-    
-    //headers.set('Authorization', token);
 
 
     return this.http.post(environment.tripURL+"create", trip, {headers}).pipe(

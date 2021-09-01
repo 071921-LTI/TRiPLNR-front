@@ -20,6 +20,15 @@
           <button class="w-100 btn btn-lg btn-dark" type="input" (click)='addPassenger()'>Add Passener</button>
         </div>
         <br>
+
+        <div class="form-floating">
+          <input type="datetime-local" id="trip-start-time" name="trip-start-time" [(ngModel)]="startTime">
+        </div>
+        <div>
+          <label for="trip-start-time">Choose a time for your trip:</label>
+        </div>
+
+        <br>
         <br>
         <button class="w-100 btn btn-lg btn-primary" type="input" (click)='createTrip()'>Create Trip</button>
         
