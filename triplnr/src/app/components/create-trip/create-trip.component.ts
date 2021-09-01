@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Trip } from 'src/app/models/trip'
 import { User } from 'src/app/models/user';
-import { EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-create-trip',
@@ -26,6 +25,7 @@ export class CreateTripComponent implements OnInit {
   token?:string;
   user?:User;
   trip?:Trip;
+  user?:User;
 
 
   addPassenger(): void{
@@ -47,7 +47,6 @@ export class CreateTripComponent implements OnInit {
 
   createTrip(): void {
 
-    sessionStorage.setItem("token", "1:cpantani");
     this.token= sessionStorage.getItem("token") || '';
   
     console.log(this.token);

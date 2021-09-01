@@ -18,8 +18,9 @@ export class AuthServiceService {
       map(resp => resp));
   }
 
-  register(user: User): Observable<String>{
-    return this.http.post(environment.authURL+"register", user).pipe(
-      map(response => response as String));
+  register(user: User): Observable<any>{
+    return this.http.post(environment.authURL+"register", user, {observe: 'response'})
+    .pipe(
+      map(resp => resp));
   }
 }

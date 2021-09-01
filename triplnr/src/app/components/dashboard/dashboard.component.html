@@ -1,5 +1,5 @@
 <h2>Current Trips</h2>
-  <table class="center"  table border="3" table cellpadding="10" table bordercolor="#ffffff" >
+  <table class="center"  table cellpadding="10" table bordercolor="#ffffff" >
     <thead>
   <tr>
   
@@ -18,7 +18,7 @@
     <td>{{row.tripName}}</td>
     <td>{{row.origin}}</td>
     <td>{{row.destination}}</td>
-    <td>{{row.manager}}</td>
+    <td>{{row.manager?.firstName + " " + row.manager?.lastName}}</td>
     <td>{{row.passengers}}</td>
     <td>{{row.startTime}}</td>
     <td>{{row.endTime}}</td>
@@ -26,7 +26,7 @@
     </table>
 
   <h2>Future Trips</h2>
-  <table class="center"  table border="3" table cellpadding="10" table bordercolor="#ffffff" >
+  <table class="center"  table cellpadding="10" table bordercolor="#ffffff" >
     <thead>
   <tr>
   
@@ -39,18 +39,18 @@
 </tr>
 </thead>
   <tr *ngFor="let row of futureTrips">
-    <td>{{row.tripId}}</td>
+    <td><a href="http://localhost:4200/trip-dashboard/" >{{row.tripId}}</a></td>
     <td>{{row.tripName}}</td>
     <td>{{row.origin}}</td>
     <td>{{row.destination}}</td>
-    <td>{{row.manager}}</td>
+    <td>{{row.manager?.firstName + " " + row.manager?.lastName}}</td>
     <td>{{row.passengers}}</td>
 
     </tr>
     </table>
 
     <h2>Past Trips</h2>
-    <table class="center"  table border="3" table cellpadding="10" table bordercolor="#ffffff" >
+    <table class="center"  table cellpadding="10" table bordercolor="#ffffff" >
       <thead>
     <tr>
     
@@ -71,10 +71,11 @@
       <td>{{row.origin}}</td>
       <td>{{row.stops}}</td>
       <td>{{row.destination}}</td>
-      <td>{{row.manager}}</td>
+      <td>{{row.manager?.firstName + " " + row.manager?.lastName}}</td>
       <td>{{row.passengers}}</td>
       <td>{{row.startTime}}</td>
       <td>{{row.endTime}}</td>
   
       </tr>
     </table>
+    

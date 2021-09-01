@@ -15,6 +15,10 @@ import { BannerComponent } from './components/banner/banner.component';
 import { FormsModule } from '@angular/forms';
 import { AddressFormComponent } from './components/address-form/address-form.component';
 import { UserPreferencesComponent } from './components/user-preferences/user-preferences.component';
+import { FriendsSidebarComponent } from './components/friends-sidebar/friends-sidebar.component';
+import { PendingRequestComponent } from './components/pending-request/pending-request.component';
+import { ProfilesComponent } from './components/profiles/profiles.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 //import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
@@ -30,7 +34,11 @@ import { UserPreferencesComponent } from './components/user-preferences/user-pre
     NavBarComponent,
     BannerComponent,
     AddressFormComponent,
-    UserPreferencesComponent
+    UserPreferencesComponent,
+    FriendsSidebarComponent,
+    PendingRequestComponent,
+    ProfilesComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

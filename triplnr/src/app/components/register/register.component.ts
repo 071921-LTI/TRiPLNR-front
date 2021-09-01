@@ -40,9 +40,9 @@ export class RegisterComponent implements OnInit {
       address: this.address
     }
     this.authService.register(this.user).subscribe(
-      response => {
-        this.token = response;
-        if (this.token != null){
+      (response) => {
+        this.token = response.headers.get("Authorization") || '';
+        if (this.token != null && this.token != ''){
         sessionStorage.setItem("token", this.token.valueOf());
         this.router.navigate(['/dashboard']);
         }else{
