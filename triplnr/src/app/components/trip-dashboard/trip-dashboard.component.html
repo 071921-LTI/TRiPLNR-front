@@ -1,1 +1,35 @@
-<p>trip-dashboard works!</p>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<div id="myPreferences" class="text-center">
+    <div class="form-edit">
+
+        <h1 class="h3 mb-3 fw-normal">Update Trip</h1>
+        <div id="error">
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" placeholder="Trip Name" [(ngModel)]="tripName">
+            <label for="floatingInput">Trip Name</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" placeholder="Trip Origin" [(ngModel)]="tripOrigin">
+            <label for="floatingPassword">Trip Origin</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" placeholder="Trip Destination" [(ngModel)]="tripDestination">
+            <label for="floatingInput">Trip Destination</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" placeholder="Trip Manager" [(ngModel)]="tripManager" readonly>
+            <label for="floatingInput">Trip Manager</label>
+        </div>
+        <br>
+        
+        <div id="map"></div>
+
+        <div class="checkbox mb-3">
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" type="input">Update</button>
+    </div>
+</div>
+<script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdMa5mObr7e3k11wJ3AxhCRenQ9EnOeKw&callback=initMap&libraries=&v=weekly">
+</script>

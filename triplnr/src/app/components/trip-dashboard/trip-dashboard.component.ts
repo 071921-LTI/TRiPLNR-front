@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Trip } from 'src/app/models/trip';
+import { User } from 'src/app/models/user';
+import { TripServiceService } from 'src/app/services/trip-service.service';
+import { Loader } from '@googlemaps/js-api-loader';
+
+declare var google:any;
 
 @Component({
   selector: 'app-trip-dashboard',
@@ -7,9 +13,50 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TripDashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private tripService: TripServiceService) {
+   }
 
   ngOnInit(): void {
+    
+    this.token = sessionStorage.getItem('Authorization') || '';
+    this.tripService.getTripById(this.token, Number(sessionStorage.getItem('tripId'))).subscribe(
+      response => {
+        this.trip = response;
+        this.tripName = this.trip.tripName || '';
+        this.tripOrigin = this.trip.origin || '';
+        this.tripDestination = this.trip.destination || '';
+        this.tripManagerFirst = this.trip.manager?.firstName || '';
+        this.tripManagerLast = this.trip.manager?.lastName || '';
+        this.tripManager = this.tripManagerFirst + " " + this.tripManagerLast;
+      }
+    );
+    
   }
+
+  ionViewDidEnter(){
+    this.initMap();
+  }
+
+
+  map?: google.maps.Map;
+
+  tripManagerLast:String = '';
+  tripManagerFirst:String = '';
+  tripName:String = '';
+  tripOrigin:String  = '';
+  tripDestination:String = '';
+  tripManager:String = '';
+  trip?:Trip;
+  token?:string;
+
+  initMap():void{
+    this.map = new google.maps.Map(document.getElementById('map') as HTMLElement, {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 8
+    });
+  }
+
+
+ 
 
 }
