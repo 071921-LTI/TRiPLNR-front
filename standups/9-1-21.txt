@@ -1,0 +1,13 @@
+Things to do be done:
+- Homepage - Andy
+- Banner - Andy
+- Powepoint presentation
+	- Burndown chart
+	- Screenshots of jenkins, code, maybe tests
+- Readme files for front and back
+
+- Finishing up create trip - Chris
+- Friend/profile funcitonality
+- Trip management dashboard - David and Michael
+	- To show trip that was clicked on
+	- Show map of route
