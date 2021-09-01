@@ -29,4 +29,13 @@ export class UserServiceService {
     return this.http.get(environment.userURL + "user",  {headers}).pipe(
       map(response => response as User));
   }
+
+  getFriends(token:string):Observable<User[]>{
+    let headers = new HttpHeaders({
+      Authorization: token
+    });
+    return this.http.get(environment.userURL+"myfriends", {headers}).pipe(
+      map(response => response as User[])
+    );
+  }
 }

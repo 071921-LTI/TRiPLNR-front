@@ -1,0 +1,16 @@
+<ng-container *ngIf="!isNotLoggedIn">
+<div class="s-layout">
+    <!-- Sidebar -->
+    <div class="s-layout__sidebar">
+
+        <nav class="s-sidebar__nav">
+            <ul>
+                <li class="s-sidebar__nav-link" *ngFor="let friend of friends">
+                    <em>{{friend.firstName + " " +friend.lastName}}</em>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
+</ng-container>

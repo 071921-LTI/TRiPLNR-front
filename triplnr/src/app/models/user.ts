@@ -9,6 +9,7 @@ export interface User {
     lastName?: String;
     address?: String;
     trips?: null;
+    friends?: null;
 
 
 
