@@ -1,3 +1,5 @@
+<body>
+
 <div id="MyTrip" class="text-center">
     <div class="form-signin">
     
@@ -12,13 +14,50 @@
           <input type="text" class="form-control" placeholder="Trip Name" [(ngModel)]="tripName">
           <label for="floatingPassword">Trip Name</label>
         </div>
-          </div>
-          <br>
-          <!--<app-address-form (newAddressEvent)="getAddress($event)"></app-address-form>-->
-          
-        
-    
-        <div class="checkbox mb-3">
+        <div class="form-floating">
+          <input type="number" class="form-control" placeholder="Trip Name" [(ngModel)]="userId">
+          <label for="floatingPassword">Passenger ID number</label>
+          <button class="w-100 btn btn-lg btn-dark" type="input" (click)='addPassenger()'>Add Passener</button>
         </div>
+        <br>
+        <br>
         <button class="w-100 btn btn-lg btn-primary" type="input" (click)='createTrip()'>Create Trip</button>
+        
       </div>
+        
+          <!--<app-address-form (newAddressEvent)="getAddress($event)"></app-address-form>-->
+        <div class="checkbox mb-3"></div>
+        
+        <br>
+        
+</div>
+
+
+     
+
+<h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Passengers</h2>
+<div id="MyTrip" class="text-center">
+  
+  <table>
+    
+    <thead>
+      
+      <tr>
+        <th scope = 'col'>user Id</th>
+        <th scope = 'col'>username</th>
+        <th scope = 'col'>name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let row of passengers">
+        <td>{{row.userId}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+
+     
+      
+      

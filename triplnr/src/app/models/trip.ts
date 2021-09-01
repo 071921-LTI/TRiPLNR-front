@@ -11,7 +11,7 @@ export interface Trip {
     tripName?: String;
     manager?: any;
     stops?: null;
-    passengers?: null;
+    passengers?: any;
     startTime?: null;
     endTime?: null;
 
