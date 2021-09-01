@@ -28,17 +28,6 @@ export class CreateTripComponent implements OnInit {
   trip?:Trip;
   startTime: string = '';
 
-  addTime(): void{
-    console.log(typeof this.addTime);
-    console.log(this.startTime?.valueOf);
-    if(typeof this.addTime != undefined){
-
-      
-    }
-
-  }
-
-
   addPassenger(): void{
     this.user = {
       userId: this.userId
