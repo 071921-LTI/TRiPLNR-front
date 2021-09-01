@@ -8,7 +8,12 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 })
 export class UserPreferencesComponent implements OnInit {
 
-  
+
+  user?:User;
+  response?: String;
+
+  // token = "1:user";
+  token = sessionStorage.getItem("token") || '';
   
   username?: String;
   password?: String;
@@ -21,12 +26,7 @@ export class UserPreferencesComponent implements OnInit {
   address? : String;
 
   constructor(private userService : UserServiceService) { 
-        // this.username = "username";
-        // this.password = "password";
-        // this.first = "firstName";
-        // this.last = "lastName";
-        // this.address = "address";
-    this.userService.getCurrentUser().subscribe(
+    this.userService.getCurrentUser(this.token).subscribe(
       response => {
         this.username = response.username;
         this.password = response.password;
@@ -48,12 +48,9 @@ export class UserPreferencesComponent implements OnInit {
   @Input() toEmit = false;
 
 
-  fullAddress : String = this.streetAddress + ", " + this.city + ", " + this.state + " " + this.zip;
-
-
   emitAddress(){
-    this.fullAddress = this.streetAddress + ", " + this.city + ", " + this.state + " " + this.zip;
-    this.newAddressEvent.emit(this.fullAddress);
+    this.address = this.streetAddress + ", " + this.city + ", " + this.state + " " + this.zip;
+    this.newAddressEvent.emit(this.address);
   }
 
   
@@ -61,8 +58,7 @@ export class UserPreferencesComponent implements OnInit {
     
   }
 
-  user?:User;
-  response?: String;
+
   update(): void {
     this.user = {
       username: this.username,
@@ -71,11 +67,17 @@ export class UserPreferencesComponent implements OnInit {
       lastName: this.last,
       address: this.address
     }
-    this.userService.update(this.user).subscribe(
+    
+    console.log(this.user);
+    this.userService.update(this.user,this.token).subscribe(
       response => {
-
+        console.log(response);
         this.response = response;
-      }    
+      },error => {
+        console.log(error.error);
+        this.response = error.error;
+      }
+
     )
     }
   }
