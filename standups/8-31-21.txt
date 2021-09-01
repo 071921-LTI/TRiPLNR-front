@@ -1,2 +1,17 @@
 What we did yesterday:
 - Setup jenkins
+
+What we will do today:
+- we did things
+
+Things to do:
+front end:
+- Clean up code for components that are working which include:
+	-User prefs
+	-dashboard
+
+-What we will do:
+	-Add links to dashboard
+	-add trip dashboard
+	-add more exceptions to user service
+	-add more exceptions to trip service
