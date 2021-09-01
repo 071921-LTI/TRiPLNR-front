@@ -41,5 +41,15 @@ export class TripServiceService {
       map(response => response as Trip[]));
   }
 
+  getTripById(token: string, tripId:number): Observable<Trip>{
+
+    let headers = new HttpHeaders({
+      Authorization: token
+    });
+
+    return this.http.get<Trip>(environment.tripURL + tripId, {headers}).pipe(
+      map(response => response as Trip));
+  }
+
 }
 

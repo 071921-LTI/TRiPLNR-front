@@ -53,6 +53,12 @@ export class DashboardComponent implements OnInit {
     console.log(this.pastTrips);
     
     }
+openTrip(trip:Trip){
 
+  sessionStorage.setItem('tripId', trip.tripId?.toString() || '');
+  this.router.navigate(['/trip-dashboard']);
+
+}
+    
 }
 

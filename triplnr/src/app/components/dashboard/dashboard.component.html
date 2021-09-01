@@ -13,7 +13,7 @@
   <th>End Time</th>
 </tr>
 </thead>
-  <tr *ngFor="let row of currentTrips">
+  <tr *ngFor="let row of currentTrips" (click)="openTrip(row)">
     <td>{{row.tripId}}</td>
     <td>{{row.tripName}}</td>
     <td>{{row.origin}}</td>
@@ -38,8 +38,8 @@
   <th>Passengers</th>
 </tr>
 </thead>
-  <tr *ngFor="let row of futureTrips">
-    <td><a href="http://localhost:4200/trip-dashboard/" >{{row.tripId}}</a></td>
+  <tr *ngFor="let row of futureTrips" (click)="openTrip(row)">
+    <td>{{row.tripId}}</td>
     <td>{{row.tripName}}</td>
     <td>{{row.origin}}</td>
     <td>{{row.destination}}</td>
@@ -65,7 +65,7 @@
     <th>End Time</th>
   </tr>
   </thead>
-    <tr *ngFor="let row of pastTrips">
+    <tr *ngFor="let row of pastTrips" (click)="openTrip(row)">
       <td>{{row.tripId}}</td>
       <td>{{row.tripName}}</td>
       <td>{{row.origin}}</td>
