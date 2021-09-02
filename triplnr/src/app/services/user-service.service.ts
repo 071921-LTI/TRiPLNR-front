@@ -38,4 +38,13 @@ export class UserServiceService {
       map(response => response as User[])
     );
   }
+
+  getProfiles(token:string):Observable<User[]>{
+    let headers = new HttpHeaders({
+      Authorization: token
+    });
+    return this.http.get(environment.userURL+"profiles", {headers}).pipe(
+      map(response => response as User[])
+    );
+  }
 }
