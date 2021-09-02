@@ -23,7 +23,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
 
     this.token= sessionStorage.getItem("token") || '';
-    console.log(this.token);
     this.tripService.getTrips(this.token).subscribe(
       response => {this.trips = response;
 
@@ -48,9 +47,6 @@ export class DashboardComponent implements OnInit {
    
     
   })
-  console.log(this.futureTrips);
-    console.log(this.currentTrips);
-    console.log(this.pastTrips);
     
     }
 openTrip(trip:Trip){

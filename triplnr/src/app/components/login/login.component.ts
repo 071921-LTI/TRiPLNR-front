@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(private authService : AuthServiceService, private router:Router, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    sessionStorage.clear();
   }
 
     username:String = '';

@@ -1,1 +1,13 @@
-<p>profiles works!</p>
+<table class="center"  table cellpadding="10" table bordercolor="#ffffff" >
+    <thead>
+  <tr>
+  
+  <th>First Name</th>
+  <th>Last Name</th>
+</tr>
+</thead>
+<tr *ngFor="let row of profiles" (click)="openProfile(row)">
+    <td>{{row.firstName}}</td>
+    <td>{{row.lastName}}</td>
+</tr>
+</table>
