@@ -12,8 +12,8 @@ export class UserServiceService {
 
   constructor(private http: HttpClient) { }
   authToken: any = sessionStorage.getItem("token");
-    // authToken: String = "1:user"
-
+  
+  //update users will make a http put request for the current user to the server and log the result
   update(user: User, token:string): Observable<String>{
     let headers = new HttpHeaders({
       Authorization: token
@@ -22,6 +22,7 @@ export class UserServiceService {
       map(response => response as String));
   }
 
+  //gets the currents info of the user that is logged in using a http get request
   getCurrentUser(token: string): Observable<User>{
     let headers = new HttpHeaders({
       Authorization: token
@@ -30,6 +31,7 @@ export class UserServiceService {
       map(response => response as User));
   }
 
+  //gets the friends list of the user that is logged in using a http get request
   getFriends(token:string):Observable<User[]>{
     let headers = new HttpHeaders({
       Authorization: token

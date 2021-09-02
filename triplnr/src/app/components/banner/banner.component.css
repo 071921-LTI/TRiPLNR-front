@@ -7,19 +7,21 @@
 
 .jumbotron {
    
-    background-image: linear-gradient(45deg, rgb(43, 48, 112), rgb(161, 161, 161) );
-    color: white;
-    padding: 1%;
-    border-bottom: 2px solid black;
+    /* background-image: linear-gradient(45deg,rgb(9, 88, 9), rgb(15, 117, 15) ); */
+    color:whitesmoke;
+    /* background-color: rgb(9, 88, 9); */
+    background-color:rgb(35, 68, 167);
+    /* border-bottom: 2px solid black; */
 }
 
 .jumbotron h1{
-    /* display: inline; */
-    text-align:center;
+    display:inline-block;
+    /* text-align:center; */
+    align-content: center;
 }
-.jumbotron img {
-    width: 100px;
-    height: 100px;
+.jumbotron image {
+    width: 120px;
+    height: 80px;
     vertical-align: middle;
-    /* display:inline; */
+    display:inline;
 }

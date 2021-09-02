@@ -12,7 +12,7 @@ export class UserPreferencesComponent implements OnInit {
   user?:User;
   response?: String;
 
-  // token = "1:user";
+  //token is set to the authorization token that is stored by the current session
   token = sessionStorage.getItem("token") || '';
   
   username?: String;
@@ -25,6 +25,7 @@ export class UserPreferencesComponent implements OnInit {
   zip ?: String ;
   address? : String;
 
+  //initializes the current users information by getting the current user data from user service
   constructor(private userService : UserServiceService) { 
     this.userService.getCurrentUser(this.token).subscribe(
       response => {
@@ -44,6 +45,7 @@ export class UserPreferencesComponent implements OnInit {
     )
   }
 
+  //this directive is used to emit a formatted address to be passed in to the user object
   @Output() newAddressEvent = new EventEmitter<String>();
   @Input() toEmit = false;
 
@@ -59,6 +61,8 @@ export class UserPreferencesComponent implements OnInit {
   }
 
 
+//these variables will be dynamically assigned using two way databinding which implements NgModel to get form inputs from html
+//sets the user info to the update values
   update(): void {
     this.user = {
       username: this.username,
@@ -69,6 +73,8 @@ export class UserPreferencesComponent implements OnInit {
     }
     
     console.log(this.user);
+
+    //calls the update function in the user service and logs the response and any errors
     this.userService.update(this.user,this.token).subscribe(
       response => {
         console.log(response);

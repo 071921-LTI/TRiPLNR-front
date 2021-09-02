@@ -10,7 +10,8 @@ export class BannerComponent implements OnInit {
 
   constructor() { }
 
-  imageSrc = 'https://i.imgur.com/AmgUi4c.jpegs'
+//  imageSrc = 'https://i.imgur.com/mKv9tR8.jpg'
+  imageSrc = 'https://i.imgur.com/8MwN8jI.jpg'
   imageAlt = 'logo'
 
   ngOnInit(): void {
