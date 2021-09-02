@@ -12,7 +12,7 @@ export class UserPreferencesComponent implements OnInit {
   user?:User;
   response?: String;
 
-  // token = "1:user";
+  //gets token item from storage
   token = sessionStorage.getItem("token") || '';
   
   username?: String;
@@ -28,6 +28,7 @@ export class UserPreferencesComponent implements OnInit {
   constructor(private userService : UserServiceService) { 
     this.userService.getCurrentUser(this.token).subscribe(
       response => {
+        //response object containing data of current user
         this.username = response.username;
         this.password = response.password;
         this.first = response.firstName;
@@ -79,6 +80,7 @@ export class UserPreferencesComponent implements OnInit {
 
 
   update(): void {
+    //user new user object to replace existing object 
     this.user = {
       username: this.username,
       password: this.password,
@@ -87,7 +89,7 @@ export class UserPreferencesComponent implements OnInit {
       address: this.address
     }
     
-    console.log(this.user);
+    //calls user service to update existing user
     this.userService.update(this.user,this.token).subscribe(
       response => {
         console.log(response);

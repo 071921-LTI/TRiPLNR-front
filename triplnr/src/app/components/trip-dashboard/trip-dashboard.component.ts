@@ -18,7 +18,7 @@ export class TripDashboardComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
+    //gets current user authorization token from session storage
     this.token = sessionStorage.getItem('Authorization') || '';
     this.tripService.getTripById(this.token, Number(sessionStorage.getItem('tripId'))).subscribe(
       response => {
@@ -38,6 +38,7 @@ export class TripDashboardComponent implements OnInit {
     this.initMap();
   }
 
+  //google maps api url, including api key
   mapsurl:String = "https://maps.googleapis.com/maps/api/js?key="+environment.mapsKey +"&callback=initMap";
 
   map?: google.maps.Map;
@@ -52,6 +53,7 @@ export class TripDashboardComponent implements OnInit {
   token?:string;
 
   initMap():void{
+    //populates dashboard with google map privided by the api
     this.map = new google.maps.Map(document.getElementById('map') as HTMLElement, {
       center: {lat: -34.397, lng: 150.644},
       zoom: 8

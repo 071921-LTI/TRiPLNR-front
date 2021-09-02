@@ -10,7 +10,7 @@
           <input type="text" class="form-control"  placeholder="Destination" [(ngModel)]="destination">
           <label for="floatingInput">Destination</label>
         </div>
-        <div class="form-floating">
+        <div class="form-floating">                 <!-- [(ngModel)] referes to variable in typeScript file -->
           <input type="text" class="form-control" placeholder="Trip Name" [(ngModel)]="tripName">
           <label for="floatingPassword">Trip Name</label>
         </div>
@@ -57,7 +57,8 @@
         <th scope = 'col'>name</th>
       </tr>
     </thead>
-    <tbody>
+     <tbody>  
+       <!-- populates table with data from passengers -->
       <tr *ngFor = "let row of passengers">
         <td>{{row.userId}}</td>
       </tr>

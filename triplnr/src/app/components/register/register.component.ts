@@ -27,11 +27,14 @@ export class RegisterComponent implements OnInit {
 
   token: String = '';
 
+  //
   getAddress(fullAddress : String){
     this.address = fullAddress;
   }
 
+
   register(): void {
+    //new user object
     this.user = {
       username: this.username,
       password: this.password,
@@ -39,10 +42,13 @@ export class RegisterComponent implements OnInit {
       lastName: this.last,
       address: this.address
     }
+    //calls authService register method passes through new user object
     this.authService.register(this.user).subscribe(
       (response) => {
+        //sets token from header
         this.token = response.headers.get("Authorization") || '';
         if (this.token != null && this.token != ''){
+        //checks token and saves token in sessoion for later use if not null or empty
         sessionStorage.setItem("token", this.token.valueOf());
         this.router.navigate(['/dashboard']);
         }
