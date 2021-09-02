@@ -15,9 +15,15 @@ export class TripServiceService {
 
 
 
-
+  
 
   constructor(private http: HttpClient) { }
+
+  getCoords(address:String):Observable<any>{
+    return this.http.get("https://maps.googleapis.com/maps/api/geocode/json?&address="+address+"&key="+"AIzaSyBF5PtKSivpcDm_7d-MBqAnkolq0MvKKxk").pipe(
+      map(response => response)
+    );
+  }
   
   create(trip: Trip, token:string, startTimeString:string): Observable<String>{
 

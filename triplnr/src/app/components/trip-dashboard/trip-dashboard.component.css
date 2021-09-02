@@ -5,6 +5,18 @@
     -moz-user-select: none;
     user-select: none;
   }
+
+  #container {
+    height: 100%;
+    width: 60%;
+    display: flex;
+  }
+  #map {
+    flex-basis: 0;
+    flex-grow: 4;
+    height: 100%;
+    width: 80%;
+  }
   
   @media (min-width: 768px) {
     .bd-placeholder-img-lg {
