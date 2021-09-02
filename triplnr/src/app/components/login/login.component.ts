@@ -27,14 +27,17 @@ export class LoginComponent implements OnInit {
 
 
     login(): void{
+      //creates user object contating user entered login and password
       this.user = {
         username: this.username,
         password: this.password
       }
+      //calls authService method login
       this.authService.login(this.user).subscribe(
         (response) => {
           this.token = response.headers.get("Authorization") || '';
  if (this.token != null && this.token != ''){
+          //saves Athorization token in session storage for later use
           sessionStorage.setItem("token", this.token.valueOf());
           this.isNotLoggedIn = true;
           this.router.navigate(['/dashboard']);
