@@ -75,7 +75,7 @@ export class UserPreferencesComponent implements OnInit {
         this.response = response;
       },error => {
         console.log(error.error);
-        this.response = error.error;
+        this.response = error.error.message;
       }
 
     )

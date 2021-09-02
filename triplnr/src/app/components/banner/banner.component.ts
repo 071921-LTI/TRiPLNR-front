@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BannerComponent implements OnInit {
 
+
   constructor() { }
+
+  imageSrc = 'https://i.imgur.com/AmgUi4c.jpegs'
+  imageAlt = 'logo'
 
   ngOnInit(): void {
   }
