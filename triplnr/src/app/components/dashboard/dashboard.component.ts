@@ -25,8 +25,6 @@ export class DashboardComponent implements OnInit {
     
     //Athorization token containing `[userId]:[username]` of current user
     this.token= sessionStorage.getItem("token") || '';
-
-    console.log(this.token);
     //calls getTrips method in trip-sevice.sevice
     this.tripService.getTrips(this.token).subscribe(
       response => {this.trips = response;
@@ -51,9 +49,6 @@ export class DashboardComponent implements OnInit {
    
     
   })
-  console.log(this.futureTrips);
-    console.log(this.currentTrips);
-    console.log(this.pastTrips);
     
     }
 openTrip(trip:Trip){

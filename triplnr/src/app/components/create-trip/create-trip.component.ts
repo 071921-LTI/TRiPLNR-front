@@ -82,7 +82,7 @@ export class CreateTripComponent implements OnInit {
     this.tripService.create(this.trip, this.token, this.startTimeString).subscribe(
       response => {
         if(response != null){
-          this.router.navigate(['/trip-dashboard']);
+          this.router.navigate(['/dashboard']);
         } else {
         this.error = "Trip Creation Error";
       }
