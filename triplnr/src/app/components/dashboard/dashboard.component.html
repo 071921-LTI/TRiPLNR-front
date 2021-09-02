@@ -13,6 +13,7 @@
   <th>End Time</th>
 </tr>
 </thead>
+<!-- populates table with datat from trips lists -->
   <tr *ngFor="let row of currentTrips" (click)="openTrip(row)">
     <td>{{row.tripId}}</td>
     <td>{{row.tripName}}</td>

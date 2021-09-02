@@ -5,10 +5,12 @@
 
 export const environment = {
   production: false,
+  //urls assigned to variables for mapping purposes
   authURL: "http://localhost:8080/auth/",
   userURL: "http://localhost:8080/users/",
   tripURL: "http://localhost:8080/trip/",
   requestURL: "http://localhost:8080/friends/",
+  //api key for Google Maps api
   mapsKey: "AIzaSyBdMa5mObr7e3k11wJ3AxhCRenQ9EnOeKw"
 };
 

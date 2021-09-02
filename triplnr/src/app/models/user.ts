@@ -1,7 +1,6 @@
+
+//user model that matches user model in back end
 export interface User {
-
-    
-
     userId?: number;
     username?: String;
     password?: String;
@@ -10,7 +9,4 @@ export interface User {
     address?: String;
     trips?: null;
     friends?: null;
-
-
-
 }

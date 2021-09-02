@@ -9,7 +9,7 @@ export class BannerComponent implements OnInit {
 
 
   constructor() { }
-
+  //link to project logo
   imageSrc = 'https://i.imgur.com/AmgUi4c.jpegs'
   imageAlt = 'logo'
 
