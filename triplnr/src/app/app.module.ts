@@ -19,6 +19,7 @@ import { FriendsSidebarComponent } from './components/friends-sidebar/friends-si
 import { PendingRequestComponent } from './components/pending-request/pending-request.component';
 import { ProfilesComponent } from './components/profiles/profiles.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { FilterPipe } from './pipes/filter.pipe';
 //import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
@@ -38,7 +39,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     FriendsSidebarComponent,
     PendingRequestComponent,
     ProfilesComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

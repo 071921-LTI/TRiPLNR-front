@@ -51,9 +51,9 @@ export class RegisterComponent implements OnInit {
         //checks token and saves token in sessoion for later use if not null or empty
         sessionStorage.setItem("token", this.token.valueOf());
         this.router.navigate(['/dashboard']);
-        }else{
-          this.error = "Register error";
         }
+      }, error => {
+        this.error = "Register Failed";
       }
     )
   }

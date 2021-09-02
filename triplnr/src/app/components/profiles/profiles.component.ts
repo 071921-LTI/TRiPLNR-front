@@ -25,6 +25,11 @@ export class ProfilesComponent implements OnInit {
 
   token:string = '';
   profiles?:User[];
+  filter:String = '';
+
+  filterUsers(){
+   
+  }
 
   openProfile(user:User){
     sessionStorage.setItem("userId", user.userId?.toString() || '');

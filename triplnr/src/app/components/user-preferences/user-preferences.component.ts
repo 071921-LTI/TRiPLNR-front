@@ -59,6 +59,25 @@ export class UserPreferencesComponent implements OnInit {
     
   }
 
+  reset(){
+    this.userService.getCurrentUser(this.token).subscribe(
+      response => {
+        this.username = response.username;
+        this.password = response.password;
+        this.first = response.firstName;
+        this.last = response.lastName;
+        this.address = response.address;
+        var splitted = response.address?.split(",",3); 
+        var temp = splitted?.pop()?.split(" ");
+        this.zip = temp?.pop();
+        this.state = temp?.pop();
+        this.city = splitted?.pop();
+        this.streetAddress = splitted?.pop();
+        
+      }
+    )
+  }
+
 
   update(): void {
     //user new user object to replace existing object 

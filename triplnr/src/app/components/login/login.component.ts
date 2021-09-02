@@ -37,16 +37,17 @@ export class LoginComponent implements OnInit {
         (response) => {
           this.token = response.headers.get("Authorization") || '';
  if (this.token != null && this.token != ''){
+          this.error = "";
           //saves Athorization token in session storage for later use
           sessionStorage.setItem("token", this.token.valueOf());
           this.isNotLoggedIn = true;
           this.router.navigate(['/dashboard']);
-          }else{
-            this.error = "Login error";
-            this.changeDetector.detectChanges();
           }
+        }, error => {
+          this.error = "Login failed";
         }
-      )
+      );
+      
     }
 
 
