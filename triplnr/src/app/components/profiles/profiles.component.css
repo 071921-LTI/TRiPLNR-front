@@ -5,6 +5,7 @@ h2 {
   .center {
     margin-left: auto;
     margin-right: auto;
+    margin-top: 2%;
   }
   td {
     text-align: center;
@@ -20,4 +21,19 @@ h2 {
   
   table {
     border: 3px solid black;
+  }
+
+  .clickRow:hover { 
+    background: rgb(201, 201, 201);
+    cursor: pointer
+  }
+
+  .centerfield {
+    width: 100vw;
+  position: relative;
+
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  margin-top: 2%;
   }

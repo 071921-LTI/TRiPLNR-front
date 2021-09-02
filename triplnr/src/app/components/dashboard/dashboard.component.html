@@ -13,13 +13,13 @@
   <th>End Time</th>
 </tr>
 </thead>
-  <tr *ngFor="let row of currentTrips" (click)="openTrip(row)">
+  <tr *ngFor="let row of currentTrips" (click)="openTrip(row)" class="clickRow">
     <td>{{row.tripId}}</td>
     <td>{{row.tripName}}</td>
     <td>{{row.origin}}</td>
     <td>{{row.destination}}</td>
     <td>{{row.manager?.firstName + " " + row.manager?.lastName}}</td>
-    <td>{{row.passengers}}</td>
+    <td>{{((row.passengers[0]?.firstName || '') + (row.passengers[0]?.lastName || '')) + ", " + ((row.passengers[1]?.firstName || '') + (row.passengers[1]?.lastName || '')) + ", " + ((row.passengers[2]?.firstName || '') + (row.passengers[2]?.lastName || ''))}}</td>
     <td>{{row.startTime}}</td>
     <td>{{row.endTime}}</td>
     </tr>
@@ -38,7 +38,7 @@
   <th>Passengers</th>
 </tr>
 </thead>
-  <tr *ngFor="let row of futureTrips" (click)="openTrip(row)">
+  <tr *ngFor="let row of futureTrips" (click)="openTrip(row)" class="clickRow">
     <td>{{row.tripId}}</td>
     <td>{{row.tripName}}</td>
     <td>{{row.origin}}</td>
@@ -65,7 +65,7 @@
     <th>End Time</th>
   </tr>
   </thead>
-    <tr *ngFor="let row of pastTrips" (click)="openTrip(row)">
+    <tr *ngFor="let row of pastTrips" (click)="openTrip(row)" class="clickRow">
       <td>{{row.tripId}}</td>
       <td>{{row.tripName}}</td>
       <td>{{row.origin}}</td>
