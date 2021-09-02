@@ -1,1 +1,8 @@
-<p>pending-request works!</p>
+
+<table>
+    <tr *ngFor="let row of requests">
+        <td>{{row.from?.firstName + " " + row.from?.lastName}}</td>
+        <td><input type="button" value="Accept" (click)="acceptRequest(row)"></td>
+        <td><input type="button" value="Deny" (click)="denyRequest(row)"></td>
+    </tr>
+</table>
