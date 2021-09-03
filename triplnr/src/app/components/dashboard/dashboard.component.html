@@ -21,9 +21,9 @@
     <td>{{row.origin}}</td>
     <td>{{row.destination}}</td>
     <td>{{row.manager?.firstName + " " + row.manager?.lastName}}</td>
-    <td>{{((row.passengers[0]?.firstName || '') + (row.passengers[0]?.lastName || '')) + ", " +
-      ((row.passengers[1]?.firstName || '') + (row.passengers[1]?.lastName || '')) + ", " +
-      ((row.passengers[2]?.firstName || '') + (row.passengers[2]?.lastName || ''))}}</td>
+    <td>{{((row.passengers[0]?.firstName || '') + " " + (row.passengers[0]?.lastName || '')) + ", " +
+      ((row.passengers[1]?.firstName || '') + " " + (row.passengers[1]?.lastName || '')) + ", " +
+      ((row.passengers[2]?.firstName || '') + " " + (row.passengers[2]?.lastName || ''))}}</td>
     <td>{{row.startTime | date:'medium'}}</td>
     <td>{{row.endTime | date:'medium'}}</td>
   </tr>
@@ -48,9 +48,9 @@
     <td>{{row.origin}}</td>
     <td>{{row.destination}}</td>
     <td>{{row.manager?.firstName + " " + row.manager?.lastName}}</td>
-    <td>{{((row.passengers[0]?.firstName || '') + (row.passengers[0]?.lastName || '')) + ", " +
-      ((row.passengers[1]?.firstName || '') + (row.passengers[1]?.lastName || '')) + ", " +
-      ((row.passengers[2]?.firstName || '') + (row.passengers[2]?.lastName || ''))}}</td>
+    <td>{{((row.passengers[0]?.firstName || '') + " " + (row.passengers[0]?.lastName || '')) + ", " +
+      ((row.passengers[1]?.firstName || '') + " " + (row.passengers[1]?.lastName || '')) + ", " +
+      ((row.passengers[2]?.firstName || '') + " " + (row.passengers[2]?.lastName || ''))}}</td>
     <td>{{row.startTime | date:'medium'}}</td>
     <td>{{row.endTime | date:'medium'}}</td>
 
@@ -78,9 +78,9 @@
     <td>{{row.origin}}</td>
     <td>{{row.destination}}</td>
     <td>{{row.manager?.firstName + " " + row.manager?.lastName}}</td>
-    <td>{{((row.passengers[0]?.firstName || '') + (row.passengers[0]?.lastName || '')) + ", " +
-      ((row.passengers[1]?.firstName || '') + (row.passengers[1]?.lastName || '')) + ", " +
-      ((row.passengers[2]?.firstName || '') + (row.passengers[2]?.lastName || ''))}}</td>
+    <td>{{((row.passengers[0]?.firstName || '') + " " + (row.passengers[0]?.lastName || '')) + ", " +
+      ((row.passengers[1]?.firstName || '') + " " + (row.passengers[1]?.lastName || '')) + ", " +
+      ((row.passengers[2]?.firstName || '') + " " + (row.passengers[2]?.lastName || ''))}}</td>
     <td>{{row.startTime | date:'medium'}}</td>
     <td>{{row.endTime | date:'medium'}}</td>
 

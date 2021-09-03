@@ -43,8 +43,6 @@ export class TripDashboardComponent implements OnInit {
   tripDestination:String = '';
   tripManager:String = '';
 
-  origin: String = this.tripOrigin;
-  destination: String = this.tripDestination;
   tripName: String = '';
   passengers: Array<User> = [];
 
@@ -84,25 +82,28 @@ export class TripDashboardComponent implements OnInit {
       //sets startTimeString equal to formated startTime
       this.endTimeString = this.endTime;
     } else {
-      this.endTimeString = '0000-00-00 00:00:00';
+      this.endTimeString = this.trip?.endTime!;
     }
 
     if(this.startTime != ":00"){
       //sets startTimeString equal to formated startTime
       this.startTimeString = this.startTime;
     } else {
-      this.startTimeString = '0000-00-00 00:00:00';
+      this.startTimeString = this.trip?.startTime;
     }
 
     //sets fields in trip object to data entered by user
     this.trip = {
-      destination: this.destination,
+      tripId: this.trip?.tripId,
+      destination: this.tripDestination,
       tripName: this.tripName,
-      passengers: this.passengers,
-      origin: this.origin,
+      passengers: this.trip?.passengers,
+      origin: this.tripOrigin,
     } 
 
-    this.tripService.update(this.trip, this.token, this.startTimeString, this.endTimeString).subscribe(
+    
+
+    this.tripService.update(this.trip, this.token, this.startTimeString!, this.endTimeString).subscribe(
       response => {
         if(response != null){
           this.router.navigate(['/dashboard']);
@@ -223,7 +224,12 @@ export class TripDashboardComponent implements OnInit {
     
   }
   ngAfterViewInit() {
-    
+    (<any>window).googleMapsReady=this.initMap.bind(this);
+    var script = document.createElement("script");
+   script.type = "text/javascript";
+   document.getElementsByTagName("head")[0].appendChild(script);
+   script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBF5PtKSivpcDm_7d-MBqAnkolq0MvKKxk&sensor=false&callback=googleMapsReady&libraries=geometry";
+ 
     
     
   }

@@ -1,8 +1,8 @@
 
 <table>
     <tr *ngFor="let row of requests">
-        <td>{{row.from?.firstName + " " + row.from?.lastName}}</td>
-        <td><input type="button" value="Accept" (click)="acceptRequest(row)"></td>
-        <td><input type="button" value="Deny" (click)="denyRequest(row)"></td>
+        <td id="name">{{row.from?.firstName + " " + row.from?.lastName}}</td>
+        <td><input type="button" value="Accept" (click)="acceptRequest(row)" id="accept"></td>
+        <td><input type="button" value="Deny" (click)="denyRequest(row)" id="deny"></td>
     </tr>
 </table>
