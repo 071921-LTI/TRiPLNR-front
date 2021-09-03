@@ -1,11 +1,16 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
 <ng-container *ngIf="!isNotLoggedIn">
 <div class="s-layout">
     <!-- Sidebar -->
     <div class="s-layout__sidebar">
-
+        <a class="s-sidebar__trigger" href="#0">
+           <i class="fa fa-fw fa-user"></i>
+         </a>
         <nav class="s-sidebar__nav">
+            <br>
+            <h1 style="text-align: center; text-decoration: underline;">Friends</h1>
             <ul>
-                <li class="s-sidebar__nav-link" *ngFor="let friend of friends">
+                <li *ngFor="let friend of friends">
                     <em>{{friend.userId + " " + friend.firstName + " " +friend.lastName}}</em>
                 </li>
             </ul>
