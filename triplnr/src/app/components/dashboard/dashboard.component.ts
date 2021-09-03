@@ -31,16 +31,19 @@ export class DashboardComponent implements OnInit {
 
       //loops through all trips and sorts into futre current and past trips list by startTime
       for(let i = 0; i< this.trips.length; i++){
-        if(this.trips[i].startTime === null) {
-
+        let startTime = new Date(this.trips[i].startTime!).getTime();
+        let endTime = new Date(this.trips[i].endTime!).getTime();
+        let timeNow = Date.now();
+        if(startTime > timeNow) {
+          
           this.futureTrips.push(this.trips[i]);
 
         }
-        if(this.trips[i].startTime !== null && this.trips[i].endTime === null){
+        else if(startTime < timeNow && endTime > timeNow){
 
           this.currentTrips.push(this.trips[i]);
         }
-        if(this.trips[i].startTime !== null && this.trips[i].endTime !== null){
+        else if(endTime < timeNow){
 
           this.pastTrips.push(this.trips[i]);
         }

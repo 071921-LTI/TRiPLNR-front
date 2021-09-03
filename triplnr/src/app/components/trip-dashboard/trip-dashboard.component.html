@@ -26,6 +26,25 @@
             <label for="floatingInput">Trip Manager</label>
         </div>
         <br>
+        <div class="form-floating">
+            <input type="number" class="form-control" placeholder="Trip Name" [(ngModel)]="userId">
+            <label for="floatingPassword">Passenger ID number</label>
+            <button class="w-100 btn btn-lg btn-dark" type="input" (click)='addPassenger()'>Add Passenger</button>
+          </div>
+          <br>
+        <div class="form-floating">
+            <input type="datetime-local" id="trip-start-time" name="trip-start-time" [(ngModel)]="startTime">
+          </div>
+          <div>
+            <label for="trip-start-time">Choose a start time for your trip:</label>
+          </div>
+          <div class="form-floating">
+            <input type="datetime-local" id="trip-end-time" name="trip-end-time" [(ngModel)]="endTime">
+          </div>
+          <div>
+            <label for="trip-end-time">Choose an end time for your trip:</label>
+          </div>
+        <br>
 
             
         
