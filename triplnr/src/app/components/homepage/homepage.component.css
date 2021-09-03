@@ -11,6 +11,7 @@
   /* Declare heights because of positioning of img element */
   .carousel-item {
     height: 32rem;
+    
   }
   .carousel-item > img {
     position: absolute;
@@ -23,3 +24,60 @@
 h1{
     text-align: center;
 }  
+.hero-image {
+    background-image: url("https://mytravelobsession.com/wp-content/uploads/2019/09/lets-go-travel.jpg");
+    background-color: #cccccc;
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .marketing h2 {
+    font-weight: 400;
+  }
+  /* rtl:begin:ignore */
+  .marketing .col-lg-4 p {
+    margin-right: .75rem;
+    margin-left: .75rem;
+  }
+  /* rtl:end:ignore */
+
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+
+  .marketing img {
+    /* border-radius: 50%; */
+    max-width:15%;
+    height:auto;
+  }
+  .marketing{
+      position: relative;
+  }
+
+  
+  .carousel img {
+    /* border-radius: 50%; */
+    max-width:30%;
+    height:auto;
+  }
