@@ -10,7 +10,7 @@
         <div id="error">
         </div>
         <div class="form-floating">
-            <input type="text" class="form-control" placeholder="Trip Name" [(ngModel)]="tripName">
+            <input type="text" class="form-control" id="tripNameinput" placeholder="Trip Name" [(ngModel)]="tripName">
             <label for="floatingInput">Trip Name</label>
         </div>
         <div class="form-floating">
@@ -46,7 +46,25 @@
           </div>
         <br>
 
+        <h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Current Passengers</h2>
+        <div id="MyTrip" class="text-center">
+          
+          <table>
             
+            <thead>
+              
+              <tr>
+                <th scope = 'col'>user Id</th>
+              </tr>
+            </thead>
+             <tbody>  
+               <!-- populates table with data from passengers -->
+              <tr *ngFor = "let row of passengers">
+                <td>{{row.userId}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         
         <!-- <div id="directions-panel"></div> -->
 
@@ -56,6 +74,10 @@
         <button class="w-100 btn btn-lg btn-primary" type="input" (click)="updateTrip()">Update</button>
         
     </div>
+
+   
+
+
 </div>
 <div id="container">
     <div id="map"></div>

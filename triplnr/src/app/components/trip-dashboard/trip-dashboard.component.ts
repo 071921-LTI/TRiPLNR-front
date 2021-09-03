@@ -47,6 +47,10 @@ export class TripDashboardComponent implements OnInit {
   passengers: Array<User> = [];
 
 
+
+  
+  
+
   addPassenger(): void{
     //User object containt one field to be filled by user
     this.user = {
@@ -114,9 +118,31 @@ export class TripDashboardComponent implements OnInit {
     )
   }
 
+  isUserManager(): void {
+    let token = sessionStorage.getItem('Authorization');
+        console.log("this is my token: "+ token);
+        let myArr = token?.split(":") || '';
+        let curUserId = parseInt(myArr[0]);
+        console.log("manager Id: "+this.trip?.manager?.userId + "| loged in user id: " + curUserId)
+        if (curUserId != this.trip?.manager?.userId){
+          document.getElementById('tripNameinput')?.setAttribute('readonly', 'readonly');
+        } 
+  }
+
+
+  
+
   ngOnInit(): void {
     //gets current user authorization token from session storage
-    this.token = sessionStorage.getItem('Authorization') || '';
+    this.token = sessionStorage.getItem('token') || '';
+    console.log(this.token);
+
+        
+    //this.isUserManager();
+
+    
+        
+
     this.tripService.getTripById(this.token, Number(sessionStorage.getItem('tripId'))).subscribe(
       response => {
         this.trip = response;
@@ -126,6 +152,19 @@ export class TripDashboardComponent implements OnInit {
         this.tripManagerFirst = this.trip.manager?.firstName || '';
         this.tripManagerLast = this.trip.manager?.lastName || '';
         this.tripManager = this.tripManagerFirst + " " + this.tripManagerLast;
+
+        this.passengers = this.trip.passengers || '';
+
+
+        let token = sessionStorage.getItem('token');
+        console.log("this is my token: "+ token);
+        let myArr = token?.split(":") || '';
+        let curUserId = parseInt(myArr[0]);
+        console.log("manager Id: "+this.trip?.manager?.userId + "| loged in user id: " + this.token?.split(":")[0])
+        if (curUserId != this.trip?.manager?.userId){
+          document.getElementById('tripNameinput')?.setAttribute('readonly', 'readonly');
+        } 
+
         this.tripService.getCoords(this.tripOrigin).subscribe(
           response => {
             this.lat = response.results[0].geometry.location.lat;
@@ -176,6 +215,11 @@ export class TripDashboardComponent implements OnInit {
         // setTimeout(this.getCoords, 2000);
         console.log(this.lat);
         console.log(this.latB);
+
+        
+        
+
+        
       });
 
 
