@@ -1,19 +1,19 @@
 <h2>Current Trips</h2>
-  <table class="center"  table cellpadding="10" table bordercolor="#ffffff" >
-    <thead>
-  <tr>
-  
-  <th>Trip Id</th>
-  <th>Trip Name</th>
-  <th>Trip Origin</th>
-  <th>Trip Destination</th>
-  <th>Trip Manager</th>
-  <th>Passengers</th>
-  <th>Start Time</th>
-  <th>End Time</th>
-</tr>
-</thead>
-<!-- populates table with datat from trips lists -->
+<table class="center" table cellpadding="10" table bordercolor="#ffffff">
+  <thead>
+    <tr>
+
+      <th>Trip Id</th>
+      <th>Trip Name</th>
+      <th>Trip Origin</th>
+      <th>Trip Destination</th>
+      <th>Trip Manager</th>
+      <th>Passengers</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+    </tr>
+  </thead>
+  <!-- populates table with datat from trips lists -->
   <tr *ngFor="let row of currentTrips" (click)="openTrip(row)" class="clickRow">
 
     <td>{{row.tripId}}</td>
@@ -21,25 +21,27 @@
     <td>{{row.origin}}</td>
     <td>{{row.destination}}</td>
     <td>{{row.manager?.firstName + " " + row.manager?.lastName}}</td>
-    <td>{{((row.passengers[0]?.firstName || '') + (row.passengers[0]?.lastName || '')) + ", " + ((row.passengers[1]?.firstName || '') + (row.passengers[1]?.lastName || '')) + ", " + ((row.passengers[2]?.firstName || '') + (row.passengers[2]?.lastName || ''))}}</td>
-    <td>{{row.startTime}}</td>
-    <td>{{row.endTime}}</td>
-    </tr>
-    </table>
+    <td>{{((row.passengers[0]?.firstName || '') + (row.passengers[0]?.lastName || '')) + ", " +
+      ((row.passengers[1]?.firstName || '') + (row.passengers[1]?.lastName || '')) + ", " +
+      ((row.passengers[2]?.firstName || '') + (row.passengers[2]?.lastName || ''))}}</td>
+    <td>{{row.startTime | date:'medium'}}</td>
+    <td>{{row.endTime | date:'medium'}}</td>
+  </tr>
+</table>
 
-  <h2>Future Trips</h2>
-  <table class="center"  table cellpadding="10" table bordercolor="#ffffff" >
-    <thead>
-  <tr>
-  
-  <th>Trip Id</th>
-  <th>Trip Name</th>
-  <th>Trip Origin</th>
-  <th>Trip Destination</th>
-  <th>Trip Manager</th>
-  <th>Passengers</th>
-</tr>
-</thead>
+<h2>Future Trips</h2>
+<table class="center" table cellpadding="10" table bordercolor="#ffffff">
+  <thead>
+    <tr>
+
+      <th>Trip Id</th>
+      <th>Trip Name</th>
+      <th>Trip Origin</th>
+      <th>Trip Destination</th>
+      <th>Trip Manager</th>
+      <th>Passengers</th>
+    </tr>
+  </thead>
   <tr *ngFor="let row of futureTrips" (click)="openTrip(row)" class="clickRow">
     <td>{{row.tripId}}</td>
     <td>{{row.tripName}}</td>
@@ -47,37 +49,38 @@
     <td>{{row.destination}}</td>
     <td>{{row.manager?.firstName + " " + row.manager?.lastName}}</td>
     <td>{{row.passengers}}</td>
+    <td>{{row.startTime | date:'medium'}}</td>
+    <td>{{row.endTime | date:'medium'}}</td>
 
-    </tr>
-    </table>
-
-    <h2>Past Trips</h2>
-    <table class="center"  table cellpadding="10" table bordercolor="#ffffff" >
-      <thead>
-    <tr>
-    
-    <th>Trip Id</th>
-    <th>Trip Name</th>
-    <th>Trip Origin</th>
-    <th>Stops</th>
-    <th>Trip Destination</th>
-    <th>Trip Manager</th>
-    <th>Passengers</th>
-    <th>Start Time</th>
-    <th>End Time</th>
   </tr>
+</table>
+
+<h2>Past Trips</h2>
+<table class="center" table cellpadding="10" table bordercolor="#ffffff">
+  <thead>
+    <tr>
+
+      <th>Trip Id</th>
+      <th>Trip Name</th>
+      <th>Trip Origin</th>
+      <th>Stops</th>
+      <th>Trip Destination</th>
+      <th>Trip Manager</th>
+      <th>Passengers</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+    </tr>
   </thead>
-    <tr *ngFor="let row of pastTrips" (click)="openTrip(row)" class="clickRow">
-      <td>{{row.tripId}}</td>
-      <td>{{row.tripName}}</td>
-      <td>{{row.origin}}</td>
-      <td>{{row.stops}}</td>
-      <td>{{row.destination}}</td>
-      <td>{{row.manager?.firstName + " " + row.manager?.lastName}}</td>
-      <td>{{row.passengers}}</td>
-      <td>{{row.startTime}}</td>
-      <td>{{row.endTime}}</td>
-  
-      </tr>
-    </table>
-    
+  <tr *ngFor="let row of pastTrips" (click)="openTrip(row)" class="clickRow">
+    <td>{{row.tripId}}</td>
+    <td>{{row.tripName}}</td>
+    <td>{{row.origin}}</td>
+    <td>{{row.stops}}</td>
+    <td>{{row.destination}}</td>
+    <td>{{row.manager?.firstName + " " + row.manager?.lastName}}</td>
+    <td>{{row.passengers}}</td>
+    <td>{{row.startTime | date:'medium'}}</td>
+    <td>{{row.endTime | date:'medium'}}</td>
+
+  </tr>
+</table>

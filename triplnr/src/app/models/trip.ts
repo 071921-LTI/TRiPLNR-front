@@ -11,7 +11,7 @@ export interface Trip {
     manager?: User;
     stops?: null;
     passengers?: any;
-    startTime?: String;
+    startTime?: string;
     endTime?: null;
-    startTimeString?:String;
+    startTimeString?:string;
 }
