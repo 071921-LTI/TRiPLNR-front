@@ -300,10 +300,7 @@ export class TripDashboardComponent implements OnInit {
 
 
         
-      });
-
-     
-   }
+      }
 
    calculateAndDisplayRoute(directionsService: { route: (arg0: { origin: any; destination: any; travelMode: any; }, arg1: (response: any, status: any) => void) => void; }, directionsDisplay: { setDirections: (arg0: any) => void; }, pointA: any, pointB: any) {
     directionsService.route({
