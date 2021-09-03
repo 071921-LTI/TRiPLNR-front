@@ -14,7 +14,7 @@ declare var google:any;
 })
 export class TripDashboardComponent implements OnInit {
   private map: any;
-  constructor(private tripService: TripServiceService) {
+  constructor(private tripService: TripServiceService) {}
 
   ngOnInit(): void {
     //gets current user authorization token from session storage
@@ -82,7 +82,7 @@ export class TripDashboardComponent implements OnInit {
 
 
    }
-
+/*
   ngOnInit(): void {
     
       (<any>window).googleMapsReady=this.initMap.bind(this);
@@ -91,7 +91,7 @@ export class TripDashboardComponent implements OnInit {
     document.getElementsByTagName("head")[0].appendChild(script);
     script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBF5PtKSivpcDm_7d-MBqAnkolq0MvKKxk&sensor=false&callback=googleMapsReady&libraries=geometry";
   }
-
+*/
   // getCoords(){
   //   this.tripService.getCoords("444 Ave X Brooklyn NY 11223").subscribe(
   //     response => {
