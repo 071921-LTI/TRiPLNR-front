@@ -26,18 +26,31 @@ export class TripServiceService {
   }
   
   //called in create-trip.component.ts
-  create(trip: Trip, token:string, startTimeString:string): Observable<String>{
+  create(trip: Trip, token:string, startTimeString:string, endTimeString:string): Observable<String>{
     
     //assign headers to pass to back end along with request body
     let headers = new HttpHeaders({
       Authorization: token,
       StartTime: startTimeString,
+      EndTime: endTimeString,
     });
 
     //post containing url trip object and created headers
     return this.http.post(environment.tripURL+"create", trip, {headers}).pipe(
       map(response => response as String));
   }
+
+  update(trip: Trip, token: string, startTimeString:string, endTimeString: string): Observable<String>{
+    
+    let headers = new HttpHeaders({
+    Authorization: token,
+    StartTime: startTimeString,
+    EndTime: endTimeString,
+    });
+
+    return this.http.put(environment.tripURL+"update", trip, {headers}).pipe(
+      map(response => response as String));
+  } 
   
   //gets all trips of a specific user
   getTrips(token: string): Observable<Trip[]>{
