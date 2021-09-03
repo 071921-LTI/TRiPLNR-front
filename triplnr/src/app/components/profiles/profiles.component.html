@@ -1,1 +1,14 @@
-<p>profiles works!</p>
+<div class="centerfield"><input type="text" placeholder="Filter Profiles" [(ngModel)]="filter" (change)="filterUsers()"></div>
+<table class="center"  table cellpadding="10" table bordercolor="#ffffff" id="table">
+    <thead>
+  <tr>
+  
+  <th>First Name</th>
+  <th>Last Name</th>
+</tr>
+</thead>
+<tr *ngFor="let row of profiles" (click)="openProfile(row)" class="clickRow">
+    <td>{{row.firstName}}</td>
+    <td>{{row.lastName}}</td>
+</tr>
+</table>

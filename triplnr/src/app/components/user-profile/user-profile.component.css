@@ -1,0 +1,32 @@
+h2 {
+    margin: 20px auto;
+      text-align: center;
+  }
+  .center {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+  }
+  .centerbutton {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  td {
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  
+  th {
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  
+  table {
+    border: 3px solid black;
+  }

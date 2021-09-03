@@ -29,6 +29,7 @@ export class UserPreferencesComponent implements OnInit {
   constructor(private userService : UserServiceService) { 
     this.userService.getCurrentUser(this.token).subscribe(
       response => {
+        //response object containing data of current user
         this.username = response.username;
         this.password = response.password;
         this.first = response.firstName;
@@ -60,10 +61,30 @@ export class UserPreferencesComponent implements OnInit {
     
   }
 
+  reset(){
+    this.userService.getCurrentUser(this.token).subscribe(
+      response => {
+        this.username = response.username;
+        this.password = response.password;
+        this.first = response.firstName;
+        this.last = response.lastName;
+        this.address = response.address;
+        var splitted = response.address?.split(",",3); 
+        var temp = splitted?.pop()?.split(" ");
+        this.zip = temp?.pop();
+        this.state = temp?.pop();
+        this.city = splitted?.pop();
+        this.streetAddress = splitted?.pop();
+        
+      }
+    )
+  }
+
 
 //these variables will be dynamically assigned using two way databinding which implements NgModel to get form inputs from html
 //sets the user info to the update values
   update(): void {
+    //user new user object to replace existing object 
     this.user = {
       username: this.username,
       password: this.password,
@@ -72,9 +93,8 @@ export class UserPreferencesComponent implements OnInit {
       address: this.address
     }
     
-    console.log(this.user);
 
-    //calls the update function in the user service and logs the response and any errors
+    //calls user service to update existing user
     this.userService.update(this.user,this.token).subscribe(
       response => {
         console.log(response);

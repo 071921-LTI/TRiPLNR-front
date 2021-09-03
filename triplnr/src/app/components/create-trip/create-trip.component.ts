@@ -13,33 +13,42 @@ import { timestamp, Timestamp } from 'rxjs/internal/operators/timestamp';
 export class CreateTripComponent implements OnInit {
 
   constructor(private tripService: TripServiceService, private router:Router) { }
-
+  //fields needed to pass into new trip model
   destination: String = '';
   tripName: String = '';
-
   passengers: Array<User> = [];
-  
+
   userId?: number;
-  
   error: String = '';
+
+  //string to pass as header in order to create TimeStamp data type in backend
   startTimeString?: string;
+  //used to represent item stored in session
   token?:string;
+  //represends User Model
   user?:User;
+  //representd Trip Model
   trip?:Trip;
 
+  //field recvied via trip-start-time input 
   startTime: string = '';
 
 
   addPassenger(): void{
+    //User object containt one field to be filled by user
     this.user = {
+      //userId of passenger to be added
       userId: this.userId
     }
     console.log(typeof this.userId)
+      //check to make sure entered data is a number datatype
       if(typeof this.userId === 'number'){
+        //add user object to a passenger array contating all passengers to be included in new trip object
         this.passengers.push(this.user)
-        console.log(this.passengers);
-       this.userId = undefined;
+        //clears input field after selection
+        this.userId = undefined;
       } else { 
+        //if anything other than a number is entered, clears input field
         this.userId = undefined;
       }
       
@@ -48,35 +57,32 @@ export class CreateTripComponent implements OnInit {
  
 
   createTrip(): void {
-
+    //item stored in session when loged in contains ([userID]:[username]) of current user
     this.token= sessionStorage.getItem("token") || '';
 
-    
-    console.log(this.startTime);
-
+    //takes data from user input and formats it into an acceptable string to pass into a Timestamp in backend
     this.startTime = this.startTime.replace('T', ' ') || '';
     this.startTime = this.startTime+":00";
 
     if(this.startTime != ":00"){
+      //sets startTimeString equal to formated startTime
       this.startTimeString = this.startTime;
     } else {
       this.startTimeString = '0000-00-00 00:00:00';
     }
     
-
-    console.log(this.startTimeString);
-    
+    //sets fields in trip object to data entered by user
     this.trip = {
       destination: this.destination,
       tripName: this.tripName,
       passengers: this.passengers,
-
     } 
-    console.log(this.trip);
+
+    //calls trip service create, passes in new trip object with user entered fields, Authorization token and the start time string
     this.tripService.create(this.trip, this.token, this.startTimeString).subscribe(
       response => {
         if(response != null){
-          this.router.navigate(['/trip-dashboard']);
+          this.router.navigate(['/dashboard']);
         } else {
         this.error = "Trip Creation Error";
       }

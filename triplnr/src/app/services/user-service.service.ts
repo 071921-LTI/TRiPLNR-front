@@ -32,6 +32,14 @@ export class UserServiceService {
   }
 
   //gets the friends list of the user that is logged in using a http get request
+  getUser(token: string, userId:number): Observable<User>{
+    let headers = new HttpHeaders({
+      Authorization: token
+    });
+    return this.http.get(environment.userURL + userId,  {headers}).pipe(
+      map(response => response as User));
+  }
+
   getFriends(token:string):Observable<User[]>{
     let headers = new HttpHeaders({
       Authorization: token

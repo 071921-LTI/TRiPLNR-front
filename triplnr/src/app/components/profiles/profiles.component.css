@@ -1,0 +1,39 @@
+h2 {
+    margin: 20px auto;
+      text-align: center;
+  }
+  .center {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+  }
+  td {
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  
+  th {
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  
+  table {
+    border: 3px solid black;
+  }
+
+  .clickRow:hover { 
+    background: rgb(201, 201, 201);
+    cursor: pointer
+  }
+
+  .centerfield {
+    width: 100vw;
+  position: relative;
+
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  margin-top: 2%;
+  }
