@@ -3,8 +3,10 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.1.
 
 ## Set-up
-clone repository from git hub using `git clone https://github.com/071921-LTI/TRiPLNR-front.git` in git bash
+clone repository from git hub using `git clone https://github.com/071921-LTI/TRiPLNR-front.git` in git bash, then
 run npm install in git bash terminal to install external libraries
+
+If there are errors a common fix is to navigate to the app.module.ts file and save it.
 
 
 ## Development server
