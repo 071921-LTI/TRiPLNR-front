@@ -23,6 +23,8 @@ export class CreateTripComponent implements OnInit {
 
   //string to pass as header in order to create TimeStamp data type in backend
   startTimeString?: string;
+
+  endTimeString?: string;
   //used to represent item stored in session
   token?:string;
   //represends User Model
@@ -32,6 +34,7 @@ export class CreateTripComponent implements OnInit {
 
   //field recvied via trip-start-time input 
   startTime: string = '';
+  endTime: string = '';
 
 
   addPassenger(): void{
@@ -64,6 +67,16 @@ export class CreateTripComponent implements OnInit {
     this.startTime = this.startTime.replace('T', ' ') || '';
     this.startTime = this.startTime+":00";
 
+    this.endTime = this.endTime.replace('T', ' ') || '';
+    this.endTime = this.endTime+":00";
+
+    if(this.endTime != ":00"){
+      //sets startTimeString equal to formated startTime
+      this.endTimeString = this.endTime;
+    } else {
+      this.endTimeString = '0000-00-00 00:00:00';
+    }
+
     if(this.startTime != ":00"){
       //sets startTimeString equal to formated startTime
       this.startTimeString = this.startTime;
@@ -79,7 +92,7 @@ export class CreateTripComponent implements OnInit {
     } 
 
     //calls trip service create, passes in new trip object with user entered fields, Authorization token and the start time string
-    this.tripService.create(this.trip, this.token, this.startTimeString).subscribe(
+    this.tripService.create(this.trip, this.token, this.startTimeString, this.endTimeString).subscribe(
       response => {
         if(response != null){
           this.router.navigate(['/dashboard']);
