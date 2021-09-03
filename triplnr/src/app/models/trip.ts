@@ -2,10 +2,8 @@ import { SystemJsNgModuleLoader } from "@angular/core";
 import { Timestamp } from "rxjs/internal/operators/timestamp";
 import { User } from "./user";
 
+//trip model that matches trip model in back end
 export interface Trip {
-
-    
-
     tripId?: number;
     destination?: String;
     origin?: String;
@@ -16,7 +14,4 @@ export interface Trip {
     startTime?: String;
     endTime?: null;
     startTimeString?:String;
-
-
-
 }

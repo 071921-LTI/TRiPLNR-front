@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(private authService : AuthServiceService, private router:Router, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    sessionStorage.clear();
   }
 
     username:String = '';
@@ -26,23 +27,27 @@ export class LoginComponent implements OnInit {
 
 
     login(): void{
+      //creates user object contating user entered login and password
       this.user = {
         username: this.username,
         password: this.password
       }
+      //calls authService method login
       this.authService.login(this.user).subscribe(
         (response) => {
           this.token = response.headers.get("Authorization") || '';
  if (this.token != null && this.token != ''){
+          this.error = "";
+          //saves Athorization token in session storage for later use
           sessionStorage.setItem("token", this.token.valueOf());
           this.isNotLoggedIn = true;
           this.router.navigate(['/dashboard']);
-          }else{
-            this.error = "Login error";
-            this.changeDetector.detectChanges();
           }
+        }, error => {
+          this.error = "Login failed";
         }
-      )
+      );
+      
     }
 
 

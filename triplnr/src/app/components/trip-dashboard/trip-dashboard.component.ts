@@ -16,6 +16,8 @@ export class TripDashboardComponent implements OnInit {
   private map: any;
   constructor(private tripService: TripServiceService) {
 
+  ngOnInit(): void {
+    //gets current user authorization token from session storage
     this.token = sessionStorage.getItem('Authorization') || '';
     this.tripService.getTripById(this.token, Number(sessionStorage.getItem('tripId'))).subscribe(
       response => {
@@ -101,6 +103,7 @@ export class TripDashboardComponent implements OnInit {
   // }
 
   
+
 
   // mapsurl:String = "https://maps.googleapis.com/maps/api/js?key="+environment.mapsKey +"&callback=initMap";
 
