@@ -130,7 +130,7 @@ export class TripDashboardComponent implements OnInit {
   }
 
 
-  
+  isManager:boolean = true;
 
   ngOnInit(): void {
     //gets current user authorization token from session storage
@@ -162,7 +162,11 @@ export class TripDashboardComponent implements OnInit {
         let curUserId = parseInt(myArr[0]);
         console.log("manager Id: "+this.trip?.manager?.userId + "| loged in user id: " + this.token?.split(":")[0])
         if (curUserId != this.trip?.manager?.userId){
+          this.isManager = false;
           document.getElementById('tripNameinput')?.setAttribute('readonly', 'readonly');
+          document.getElementById('tripOrigininput')?.setAttribute('readonly', 'readonly');
+          document.getElementById('tripDestinationInput')?.setAttribute('readonly', 'readonly');
+          //document.getElementById('updateBtn').style.display = "none";
         } 
 
         this.tripService.getCoords(this.tripOrigin).subscribe(
