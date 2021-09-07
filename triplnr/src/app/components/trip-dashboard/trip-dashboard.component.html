@@ -34,7 +34,8 @@
         <div class="form-floating">
             <input type="number" class="form-control" placeholder="Trip Name" [(ngModel)]="userId">
             <label for="floatingPassword">Passenger ID number</label>
-            <button class="w-100 btn btn-lg btn-dark" type="input" (click)='addPassenger()'>Add Passenger</button>
+            <button style = "background-color: blue;display:inline;" class = "w-80 btn btn-lg btn-dark" type="input" (click)='addPassenger()'>Add</button>
+            <button style = "background-color: red;display: inline;" class="w-80 btn btn-lg btn-dark" type="input" (click)='removePassenger()'>Remove</button>
           </div>
           <br>
         <div class="form-floating">
