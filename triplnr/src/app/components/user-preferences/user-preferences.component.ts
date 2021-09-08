@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
+import { Trip } from 'src/app/models/trip';
 import { User } from 'src/app/models/user';
 import { UserServiceService } from 'src/app/services/user-service.service';
 @Component({
@@ -24,6 +25,8 @@ export class UserPreferencesComponent implements OnInit {
   state ?: String ;
   zip ?: String ;
   address? : String;
+  trips?:Trip[];
+  friends?:User[];
 
   //initializes the current users information by getting the current user data from user service
   constructor(private userService : UserServiceService) { 
@@ -41,6 +44,8 @@ export class UserPreferencesComponent implements OnInit {
         this.state = temp?.pop();
         this.city = splitted?.pop();
         this.streetAddress = splitted?.pop();
+        this.friends = response.friends!;
+        this.trips = response.trips!;
         
       }
     )
@@ -90,7 +95,9 @@ export class UserPreferencesComponent implements OnInit {
       password: this.password,
       firstName: this.first,
       lastName: this.last,
-      address: this.address
+      address: this.address,
+      trips: this.trips,
+      friends: this.friends
     }
     
 
