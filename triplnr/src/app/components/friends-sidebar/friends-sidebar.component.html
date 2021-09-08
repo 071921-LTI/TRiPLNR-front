@@ -1,5 +1,5 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-<ng-container *ngIf="!isNotLoggedIn">
+<ng-container *ngIf="auth.isAuthenticated$">
 <div class="s-layout">
     <!-- Sidebar -->
     <div class="s-layout__sidebar">

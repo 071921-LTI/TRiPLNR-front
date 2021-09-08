@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,40 +10,16 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor(private router:Router) {
+  constructor(@Inject(DOCUMENT) public document: Document, private router:Router, public auth: AuthService) {
 
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-          this.checkLogin();
-      }
+    
 
-      if (event instanceof NavigationEnd) {
-        this.checkLogin();
-    }
-
-  });
-
-   }
+  }
 
   ngOnInit(): void {
-    this.isNotLoggedIn = true;
+    
   }
 
 
-
-  isNotLoggedIn:boolean = true;
-  token?:string;
-
-  clearStorage():void{
-    sessionStorage.clear();
-  }
-
-  checkLogin():void{
-    this.token = sessionStorage.getItem('token') || '';
-    if (this.token == '' || this.token ==null){
-      this.isNotLoggedIn = true;
-    }else{
-      this.isNotLoggedIn = false;
-    }
-  }
+  
 }
