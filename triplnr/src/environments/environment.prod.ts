@@ -5,6 +5,7 @@ export const environment = {
   userURL: "http://ec2-18-216-192-115.us-east-2.compute.amazonaws.com:8081/users/",
   tripURL: "http://ec2-18-216-192-115.us-east-2.compute.amazonaws.com:8081/trip/",
   requestURL: "http://ec2-18-216-192-115.us-east-2.compute.amazonaws.com:8081/friends/",
-  //api key for Google Maps api
-  mapsKey: "AIzaSyBdMa5mObr7e3k11wJ3AxhCRenQ9EnOeKw"
+  mapsKey: process.env.MAPS_KEY,
+  AUTH_DOMAIN: process.env.AUTH_DOMAIN,
+  AUTH_CLIENT_ID: process.env.AUTH_CLIENT_ID
 };
