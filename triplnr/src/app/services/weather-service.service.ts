@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,13 @@ export class WeatherServiceService {
   url="http://localhost:8080/weather/";
 
   getCurrentWeather(address:String):Observable<any>{
-    return this.http.get<any>(this.url+address);
+    let uri = this.url+address;
+    return this.http.get<any>(uri);
   }
 
-  getDestinationWeather(address:String, day:string):Observable<any>{
+  getDestinationWeather(address:String, day:number):Observable<any>{
     // return this.http.get<any>(this.url+start+"/"+day);
-    return this.http.get<any>(this.url+address+"/"+day);
+    let uri = this.url+address+'/'+day;
+    return this.http.get<any>(uri);
   }
 }

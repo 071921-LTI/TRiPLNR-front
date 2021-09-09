@@ -3,6 +3,7 @@ import { Trip } from 'src/app/models/trip';
 import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Router } from '@angular/router';
 import { WeatherServiceService } from 'src/app/services/weather-service.service';
+import { async } from 'rxjs';
 
 
 @Component({
@@ -19,7 +20,12 @@ export class DashboardComponent implements OnInit {
   currentTrips : Trip[] = [];
   futureTrips : Trip[] = [];
   pastTrips : Trip[] = [];
-  
+  currentWeather:any;
+  destinationWeather:any;
+  txt = "";
+  txt1 = "";
+  day:number = 1;
+  number:number = 0;
   constructor(private tripService: TripServiceService, private router:Router, private weather:WeatherServiceService) { }
 
   ngOnInit(): void {
@@ -28,16 +34,46 @@ export class DashboardComponent implements OnInit {
     this.token= sessionStorage.getItem("token") || '';
     //calls getTrips method in trip-sevice.sevice
     this.tripService.getTrips(this.token).subscribe(
-      response => {this.trips = response;
+      async response => {this.trips = response;
 
       //loops through all trips and sorts into futre current and past trips list by startTime
       for(let i = 0; i< this.trips.length; i++){
         let startTime = new Date(this.trips[i].startTime!).getTime();
         let endTime = new Date(this.trips[i].endTime!).getTime();
         let timeNow = Date.now();
-        let addressFrom = this.trips[i].origin;
-        let addressTo = this. trips[i].destination;
-        // let currWeaher = this.weather.getCurrentWeather(addressFrom)
+
+        // let addressFrom = this.trips[i].origin;
+        
+        // this.weather.getCurrentWeather(addressFrom!).subscribe(response => {
+        //   this.currentWeather = response;
+        //   console.log(this.currentWeather);
+        //   let txt = "";
+        //   txt +="<td>" + addressFrom +"</td>";
+        //   txt += "<td>" + this.currentWeather['datetime'] +"</td>";
+        //   txt +="<td>" + this.currentWeather['temp'] +"</td>";
+        //   txt += "<td>" + this.currentWeather['humidity'] +"</td>";
+        //   txt += "<td>" + this.currentWeather['conditions'] +"</td>";
+        //   txt += "</tr>"; 
+        //   const myElement = document.getElementById('table1')!;
+        //   myElement.innerHTML = txt;
+        // })
+
+        // let addressTo = this. trips[i].destination;
+        // this.weather.getDestinationWeather(addressTo!,1).subscribe(response => {
+        //   this.destinationWeather = response;
+        //   console.log(this.destinationWeather);
+        //   let txt = "";
+        //   txt +="<td>" + addressTo +"</td>";
+        //   txt += "<td>" + this.destinationWeather['datetime'] +"</td>";
+        //   txt +="<td>" + this.destinationWeather['temp'] +"</td>";
+        //   txt += "<td>" + this.destinationWeather['humidity'] +"</td>";
+        //   txt += "<td>" + this.destinationWeather['conditions'] +"</td>";
+        //   txt += "</tr>"; 
+        //   const myElement = document.getElementById('table2')!;
+        //   myElement.innerHTML = txt;
+        // })
+    
+
         if(startTime > timeNow) {
           
           this.futureTrips.push(this.trips[i]);
@@ -51,6 +87,7 @@ export class DashboardComponent implements OnInit {
 
           this.pastTrips.push(this.trips[i]);
         }
+
       
     }
    
@@ -64,6 +101,46 @@ openTrip(trip:Trip){
   this.router.navigate(['/trip-dashboard']);
 
 }
-    
+
+callCurrentWeather(){
+  for(let i = 0; i< this.trips.length; i++){
+        let addressFrom = this.trips[i].origin;
+        console.log(addressFrom);
+        this.weather.getCurrentWeather(addressFrom!).subscribe(response => {
+          this.currentWeather = response;
+          console.log(this.currentWeather);
+          this.txt +="<td>" + addressFrom +"</td>";
+          this.txt += "<td>" + this.currentWeather['datetime'] +"</td>";
+          this.txt +="<td>" + this.currentWeather['temp'] +"</td>";
+          this.txt += "<td>" + this.currentWeather['humidity'] +"</td>";
+          this.txt += "<td>" + this.currentWeather['conditions'] +"</td>";
+          this.txt += "</tr>"; 
+          const myElement = document.getElementById('table1')!;
+          myElement.innerHTML = this.txt;
+        })
+  }
+}
+
+callDestWeather(){
+  // console.log(this.trips.length);
+  // for(let i = 0; i< this.trips.length; i++){
+      let addressTo = this. trips[this.number].destination;
+      console.log(addressTo);
+      this.weather.getDestinationWeather(addressTo!,this.day).subscribe(response => {
+        this.destinationWeather = response;
+        console.log(this.destinationWeather);
+        this.txt1 +="<td>" + addressTo +"</td>";
+        this.txt1 += "<td>" + this.destinationWeather['datetime'] +"</td>";
+        this.txt1 +="<td>" + this.destinationWeather['temp'] +"</td>";
+        this.txt1 += "<td>" + this.destinationWeather['humidity'] +"</td>";
+        this.txt1 += "<td>" + this.destinationWeather['conditions'] +"</td>";
+        this.txt1 += "</tr>"; 
+        const myElement = document.getElementById('table2')!;
+        myElement.innerHTML = this.txt1;
+        this.number += 1;
+
+        })
+   }
+// }
 }
 

@@ -11,10 +11,9 @@
       <th>Passengers</th>
       <th>Start Time</th>
       <th>End Time</th>
-      <th>Orgin Weather</th>
-      <th>Destination Weather</th>
     </tr>
   </thead>
+  
   <!-- populates table with datat from trips lists -->
   <tr *ngFor="let row of currentTrips" (click)="openTrip(row)" class="clickRow">
 
@@ -30,7 +29,37 @@
     <td>{{row.endTime | date:'medium'}}</td>
   </tr>
 </table>
+<br><br>
+<button id="btn" (click)='callCurrentWeather()' class="btn1">Start</button> &nbsp;
+<button id="btn_1" (click)='callDestWeather()' class="btn2">Destination </button>
+<table class="center" table cellpadding="10" table bordercolor="#ffffff">
+  <thead>
+    <tr>
+      <th>Starting Location</th>
+      <th>Current Date</th>
+      <th>Current Temperature</th>
+      <th>Current Humidity</th>
+      <th>Current Condition</th>
 
+    </tr>
+  </thead>
+  <tbody id="table1">
+  </tbody>
+</table>
+<br><br>
+<table class="center" table cellpadding="10" table bordercolor="#ffffff">
+  <thead>
+    <tr>
+        <th>Ending Location</th>
+        <th>Destination Date</th>
+        <th>Destination Temperature</th>
+        <th>Destination Humidity</th>
+        <th>Destination Condition</th>
+      </tr>
+    </thead>
+    <tbody id="table2">
+    </tbody>
+  </table>
 <h2>Future Trips</h2>
 <table class="center" table cellpadding="10" table bordercolor="#ffffff">
   <thead>
