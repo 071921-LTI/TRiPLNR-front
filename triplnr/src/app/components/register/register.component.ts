@@ -3,6 +3,7 @@ import { User } from 'src/app/models/user';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { AddressFormComponent } from '../address-form/address-form.component';
 import { Router } from '@angular/router';
+import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 
 @Component({
   selector: 'app-register',
@@ -11,12 +12,13 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private authService : AuthServiceService, private router:Router) { }
+  constructor(private authService : AuthServiceService, private router:Router, private auth0: Auth0ServiceService) { }
 
   toEmit = false;
 
   username: String = '';
   password: String = '';
+  sub: String = '';
   first: String = '';
   last: String = '';
   address : String = '';
@@ -38,6 +40,7 @@ export class RegisterComponent implements OnInit {
     this.user = {
       username: this.username,
       password: this.password,
+      sub: this.sub,
       firstName: this.first,
       lastName: this.last,
       address: this.address
@@ -60,6 +63,10 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     sessionStorage.clear();
+    
+    this.auth0.getUser().subscribe(res => {
+      this.sub = res.sub;
+    })
   }
 
 }

@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment'
 })
 export class NavBarComponent implements OnInit {
 
-  constructor(@Inject(DOCUMENT) public document: Document, private router:Router, public auth: AuthService, public auth0Service: Auth0ServiceService) {
+  constructor(@Inject(DOCUMENT) public document: Document, private router:Router, public auth: AuthService, private auth0Service: Auth0ServiceService) {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -31,9 +31,6 @@ export class NavBarComponent implements OnInit {
 
     this.isNotLoggedIn = true;
 
-    this.auth0Service.getUser().subscribe(res => {
-      console.log(res)
-    })
   }
 
   isNotLoggedIn:boolean = true;

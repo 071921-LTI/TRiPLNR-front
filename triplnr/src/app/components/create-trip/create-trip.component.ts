@@ -4,6 +4,7 @@ import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Trip } from 'src/app/models/trip'
 import { User } from 'src/app/models/user';
 import { timestamp, Timestamp } from 'rxjs/internal/operators/timestamp';
+import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 
 @Component({
   selector: 'app-create-trip',
@@ -12,7 +13,7 @@ import { timestamp, Timestamp } from 'rxjs/internal/operators/timestamp';
 })
 export class CreateTripComponent implements OnInit {
 
-  constructor(private tripService: TripServiceService, private router:Router) { }
+  constructor(private tripService: TripServiceService, private router:Router, private auth0: Auth0ServiceService) { }
   //fields needed to pass into new trip model
   destination: String = '';
   tripName: String = '';
