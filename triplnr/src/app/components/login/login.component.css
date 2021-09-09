@@ -39,11 +39,9 @@
     border-top-right-radius: 0;
   }
 
- #myLogin {
-  height: 100%;
-}
 
 #myLogin {
+  height: 100%;
   display: flex;
   align-items: center;
   padding-top: 40px;

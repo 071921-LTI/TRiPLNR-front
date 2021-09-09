@@ -177,12 +177,6 @@ export class TripDashboardComponent implements AfterViewInit  {
     this.token = sessionStorage.getItem('token') || '';
     console.log(this.token);
 
-    
-        
-    //this.isUserManager();
-
-    
-        
 
     this.tripService.getTripById(this.token, Number(sessionStorage.getItem('tripId'))).subscribe(
       response => {
@@ -208,7 +202,6 @@ export class TripDashboardComponent implements AfterViewInit  {
           document.getElementById('tripNameinput')?.setAttribute('readonly', 'readonly');
           document.getElementById('tripOrigininput')?.setAttribute('readonly', 'readonly');
           document.getElementById('tripDestinationInput')?.setAttribute('readonly', 'readonly');
-          //document.getElementById('updateBtn').style.display = "none";
         } 
 
 
@@ -219,7 +212,6 @@ export class TripDashboardComponent implements AfterViewInit  {
         this.allAddr?.push(this.trip.destination!);
 
         console.log(this.allAddr);
-        //setTimeout(this.initMap, 3000);
         
 
         /*
