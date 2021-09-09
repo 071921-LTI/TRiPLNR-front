@@ -42,38 +42,6 @@ export class DashboardComponent implements OnInit {
         let endTime = new Date(this.trips[i].endTime!).getTime();
         let timeNow = Date.now();
 
-        // let addressFrom = this.trips[i].origin;
-        
-        // this.weather.getCurrentWeather(addressFrom!).subscribe(response => {
-        //   this.currentWeather = response;
-        //   console.log(this.currentWeather);
-        //   let txt = "";
-        //   txt +="<td>" + addressFrom +"</td>";
-        //   txt += "<td>" + this.currentWeather['datetime'] +"</td>";
-        //   txt +="<td>" + this.currentWeather['temp'] +"</td>";
-        //   txt += "<td>" + this.currentWeather['humidity'] +"</td>";
-        //   txt += "<td>" + this.currentWeather['conditions'] +"</td>";
-        //   txt += "</tr>"; 
-        //   const myElement = document.getElementById('table1')!;
-        //   myElement.innerHTML = txt;
-        // })
-
-        // let addressTo = this. trips[i].destination;
-        // this.weather.getDestinationWeather(addressTo!,1).subscribe(response => {
-        //   this.destinationWeather = response;
-        //   console.log(this.destinationWeather);
-        //   let txt = "";
-        //   txt +="<td>" + addressTo +"</td>";
-        //   txt += "<td>" + this.destinationWeather['datetime'] +"</td>";
-        //   txt +="<td>" + this.destinationWeather['temp'] +"</td>";
-        //   txt += "<td>" + this.destinationWeather['humidity'] +"</td>";
-        //   txt += "<td>" + this.destinationWeather['conditions'] +"</td>";
-        //   txt += "</tr>"; 
-        //   const myElement = document.getElementById('table2')!;
-        //   myElement.innerHTML = txt;
-        // })
-    
-
         if(startTime > timeNow) {
           
           this.futureTrips.push(this.trips[i]);
