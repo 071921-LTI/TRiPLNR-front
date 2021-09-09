@@ -20,6 +20,10 @@ import { PendingRequestComponent } from './components/pending-request/pending-re
 import { ProfilesComponent } from './components/profiles/profiles.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { environment } from 'src/environments/environment';
+//import {MatTableModule} from '@angular/material/table';
+
+import { AuthModule } from '@auth0/auth0-angular';
 
 @NgModule({
   declarations: [
@@ -46,6 +50,10 @@ import { FilterPipe } from './pipes/filter.pipe';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    AuthModule.forRoot({
+      domain: environment.AUTH_DOMAIN,
+      clientId: environment.AUTH_CLIENT_ID
+    })
     //MatTableModule
   ],
   providers: [],
