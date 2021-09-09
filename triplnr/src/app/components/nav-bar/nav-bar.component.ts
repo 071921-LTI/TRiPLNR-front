@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
+import { DOCUMENT } from '@angular/common';
+import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
+import { environment } from '../../../environments/environment'
 
 @Component({
   selector: 'app-nav-bar',
@@ -8,7 +12,7 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor(private router:Router) {
+  constructor(@Inject(DOCUMENT) public document: Document, private router:Router, public auth: AuthService, public auth0Service: Auth0ServiceService) {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -21,13 +25,16 @@ export class NavBarComponent implements OnInit {
 
   });
 
-   }
-
-  ngOnInit(): void {
-    this.isNotLoggedIn = true;
   }
 
+  ngOnInit(): void {
 
+    this.isNotLoggedIn = true;
+
+    this.auth0Service.getUser().subscribe(res => {
+      console.log(res)
+    })
+  }
 
   isNotLoggedIn:boolean = true;
   token?:string;
@@ -44,4 +51,5 @@ export class NavBarComponent implements OnInit {
       this.isNotLoggedIn = false;
     }
   }
+  
 }

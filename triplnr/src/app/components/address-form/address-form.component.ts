@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-address-form',
@@ -24,7 +24,7 @@ export class AddressFormComponent implements OnInit {
 
 
   emitAddress(){
-    this.fullAddress = this.streetAddress + ", " + this.city + ", " + this.state + " " + this.zip;
+    this.fullAddress = this.streetAddress + ", " + this.city + ", " + this.state + ", " + this.zip;
     this.newAddressEvent.emit(this.fullAddress);
   }
 

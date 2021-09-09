@@ -40,10 +40,7 @@
 }
 
 #myPreferences {
-height: 100%;
-}
-
-#myPreferences {
+  height: 100%;
 display: flex;
 align-items: center;
 padding-top: 40px;
