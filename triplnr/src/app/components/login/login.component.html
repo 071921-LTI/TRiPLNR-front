@@ -4,19 +4,34 @@
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
     <div id="error">
     </div>
-    <div class="form-floating">
-      <input type="username" class="form-control"placeholder="Username" [(ngModel)]="username">
-      <label for="floatingInput">Username</label>
-    </div>
-    <div class="form-floating">
-      <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password">
-      <label for="floatingPassword">Password</label>
-    </div>
+
+    <form #loginForm='ngForm'>
+
+      <div class="form-group">
+        <div class="form-floating">
+          <input type="text" required pattern="[a-zA-Z0-9]+$" #usernameControl="ngModel"
+            [class.is-invalid]="usernameControl.invalid && usernameControl.touched" 
+            class="form-control"  name="username"
+            placeholder="Username" [(ngModel)]="username">
+          <small class="text-danger" [class.d-none] = "usernameControl.valid || usernameControl.untouched">Username is required</small> 
+          <label for="floatingInput">Username</label>
+        </div>
+        <br>
+        <div class="form-floating">
+          <input type="password" required minlength="4" #passwordControl="ngModel"
+            [class.is-invalid]="passwordControl.invalid && passwordControl.touched" 
+            class="form-control" name="password" placeholder="Password" [(ngModel)]="password">
+          <small class="text-danger" [class.d-none] = "passwordControl.valid || passwordControl.untouched">Password is required</small> 
+          <label for="floatingPassword">Password</label>
+        </div>
+      </div>
+
+  </form>
 
     <div id="error">
       {{error}}
     </div>
-    <button class="w-100 btn btn-lg btn-primary" type="input" (click)='login()'>Sign in</button>
+    <button [disabled]="loginForm.form.invalid" class="w-100 btn btn-lg btn-primary" type="input" (click)='login()'>Sign in</button>
   </div>
 
 </div>

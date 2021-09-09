@@ -3,6 +3,7 @@ import { User } from 'src/app/models/user';
 import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { AddressFormComponent } from '../address-form/address-form.component';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators, FormBuilder, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,11 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private authService : AuthServiceService, private router:Router) { }
+  constructor(private authService : AuthServiceService, private router:Router) {}
+  
+  stateArr = ['CT', 'NY', 'VT', 'TX'];
+
+    //Create FormGroup
 
   toEmit = false;
 
@@ -19,21 +24,31 @@ export class RegisterComponent implements OnInit {
   password: String = '';
   first: String = '';
   last: String = '';
-  address : String = '';
-
+  
   error:String = '';
 
   user?:User;
 
   token: String = '';
 
+//added
+  streetAddress : String = '';
+  city : String = '';
+  state : String = '';
+  zip : String = '';
+
+  address:String = "";
+  
+  isValid:boolean = true;
+
+  
+    
   //
-  getAddress(fullAddress : String){
-    this.address = fullAddress;
-  }
+
 
 
   register(): void {
+    this.address=  this.streetAddress + ", " + this.city + ", " + this.state + ", " + this.zip;
     //new user object
     this.user = {
       username: this.username,
@@ -42,6 +57,8 @@ export class RegisterComponent implements OnInit {
       lastName: this.last,
       address: this.address
     }
+    console.log(this.user);
+
     //calls authService register method passes through new user object
     this.authService.register(this.user).subscribe(
       (response) => {
@@ -57,6 +74,14 @@ export class RegisterComponent implements OnInit {
       }
     )
   }
+
+
+  //added 
+  onSubmit(){
+
+  }
+
+
 
   ngOnInit(): void {
     sessionStorage.clear();

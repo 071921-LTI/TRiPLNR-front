@@ -13,45 +13,141 @@
     </ng-container>
         <div id="error">
         </div>
+        
+        
+      <form #tripUpdateForm="ngForm">
         <div class="form-floating">
-            <input type="text" class="form-control" id="tripNameinput" placeholder="Trip Name" [(ngModel)]="tripName">
+            <input type="text" required #tripNameControl = "ngModel" class="form-control" 
+              [class.is-invalid] = "tripNameControl.invalid && tripNameControl.touched"
+              id="tripNameinput" placeholder="Trip Name" name = "tripName"[(ngModel)]="tripName">
+              <small class="text-danger" [class.d-none]="tripNameControl.valid || tripNameControl.untouched">Enter a trip name</small>
             <label for="floatingInput">Trip Name</label>
         </div>
-        <div class="form-floating">
-            <input type="text" class="form-control" id="tripOrigininput" placeholder="Trip Origin" [(ngModel)]="tripOrigin">
-            <label for="floatingPassword">Trip Origin</label>
+        <h1 class="h5 mb-3 fw-normal">Origin</h1>
+        <div class="form-group">
+          <div class="col-50">
+            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+            <input type="text" id="adr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
+              #streetControl = "ngModel" [class.is-invalid]="streetControl.invalid && streetControl.touched"
+              name="address" placeholder="542 W. 15th Street" [(ngModel)]="originStreetAddress">
+            <small class="text-danger" [class.d-none] = "streetControl.valid || streetControl.untouched">Please enter Street Address</small>
+            
+            <label for="city"><i class="fa fa-institution"></i> City</label>
+            <input type="text" id="city" class="form-control" required pattern="[a-zA-Z ]+$" 
+              #cityControl="ngModel" [class.is-invalid]="cityControl.invalid && cityControl.touched"
+              name="city" placeholder="New York" [(ngModel)]="originCity">
+            <small class="text-danger" [class.d-none] = "cityControl.valid || cityControl.untouched">Please enter City or Town name</small>
+          
+          
+            <div class="row">
+              <div class="col-50">
+                <div class="form-group">
+                  <label for="state">State</label>
+                  <select class="custom-select" id="state" placeholder="State" required pattern="^\w{2}$" name = "state" placeholder="NY" [(ngModel)]="originState"
+                    #stateControl="ngModel" [class.is-invalid]="stateControl.invalid && stateControl.touched">
+                    <option value = "">State</option>
+                    <option *ngFor="let state of stateArr">{{ state }}</option>
+                  </select>
+                  <small class="text-danger" [class.d-none] = "stateControl.valid || stateControl.untouched">Please select a state</small>
+                </div>
+              </div>
+
+              <div class="col-50">
+                <div class="form-group">
+                  <label for="zip">Zip</label>
+                  <input type="text" id="zip" name="zip" required pattern="^\d{5}$" #zipControl="ngModel"
+                    [class.is-invalid]="zipControl.invalid && zipControl.touched"
+                    class="form-control" placeholder="00000" [(ngModel)]="originZip">
+                  <small class="text-danger" [class.d-none] = "zipControl.valid || zipControl.untouched">Please enter a valid zip code</small>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="form-floating">
-            <input type="text" class="form-control" id="tripDestinationInput" placeholder="Trip Destination" [(ngModel)]="tripDestination">
-            <label for="floatingInput">Trip Destination</label>
+
+        <h1 class="h5 mb-3 fw-normal">Destination</h1>
+        <div class="form-group">
+          <div class="col-50">
+            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+            <input type="text" id="dadr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
+              #desStreetControl = "ngModel" [class.is-invalid]="desStreetControl.invalid && desStreetControl.touched"
+              name="desAddress" placeholder="542 W. 15th Street" [(ngModel)]="desStreetAddress">
+            <small class="text-danger" [class.d-none] = "desStreetControl.valid || desStreetControl.untouched">Please enter Street Address</small>
+            
+            <label for="city"><i class="fa fa-institution"></i> City</label>
+            <input type="text" id="desCity" class="form-control" required pattern="[a-zA-Z ]+$" 
+              #desCityControl="ngModel" [class.is-invalid]="desCityControl.invalid && desCityControl.touched"
+              name="desCity" placeholder="New York" [(ngModel)]="desCity">
+            <small class="text-danger" [class.d-none] = "desCityControl.valid || desCityControl.untouched">Please enter City or Town name</small>
+          
+          
+            <div class="row">
+              <div class="col-50">
+                <div class="form-group">
+                  <label for="state">State</label>
+                  <select class="custom-select" id="desState" placeholder="State" required pattern="^\w{2}$" name = "desState" placeholder="NY" [(ngModel)]="desState"
+                    #desStateControl="ngModel" [class.is-invalid]="desStateControl.invalid && desStateControl.touched">
+                    <option value = "">State</option>
+                    <option *ngFor="let state of stateArr">{{ state }}</option>
+                  </select>
+                  <small class="text-danger" [class.d-none] = "desStateControl.valid || desStateControl.untouched">Please select a state</small>
+                </div>
+              </div>
+
+              <div class="col-50">
+                <div class="form-group">
+                  <label for="zip">Zip</label>
+                  <input type="text" id="desZip" name="desZip" required pattern="^\d{5}$" #desZipControl="ngModel"
+                    [class.is-invalid]="desZipControl.invalid && desZipControl.touched"
+                    class="form-control" placeholder="00000" [(ngModel)]="desZip">
+                  <small class="text-danger" [class.d-none] = "desZipControl.valid || desZipControl.untouched">Please enter a valid zip code</small>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
         <div class="form-floating">
-            <input type="text" class="form-control" placeholder="Trip Manager" [(ngModel)]="tripManager" readonly>
+            <input type="text" class="form-control" name="tripManager" placeholder="Trip Manager" [(ngModel)]="tripManager" readonly>
             <label for="floatingInput">Trip Manager</label>
         </div>
+
         <br>
+
         <ng-container *ngIf="isManager">
         <div class="form-floating">
-            <input type="number" class="form-control" placeholder="Trip Name" [(ngModel)]="userId">
+            <input type="number" class="form-control" name = "passenger"placeholder="Trip Name" [(ngModel)]="userId">
             <label for="floatingPassword">Passenger ID number</label>
             <button style = "background-color: blue;display:inline;" class = "w-80 btn btn-lg btn-dark" type="input" (click)='addPassenger()'>Add</button>
             <button style = "background-color: red;display: inline;" class="w-80 btn btn-lg btn-dark" type="input" (click)='removePassenger()'>Remove</button>
           </div>
+
           <br>
-        <div class="form-floating">
-            <input type="datetime-local" id="trip-start-time" name="trip-start-time" [(ngModel)]="startTime">
+
+          <div class="form-group">
+            <div class="form-floating">
+              <input required #startControl="ngModel" type="datetime-local" [min]="currDate" id="trip-start-time"
+                [class.is-invalid]="startControl.invalid && startControl.touched"
+                name="trip-start-time" [(ngModel)]="startTime">
+            </div>
+            <div>
+              <small class="text-danger" [class.d-none]="startControl.valid || startControl.untouched">enter a start date and time</small>
+              <label for="trip-start-time">Choose a start time for your trip:</label>
+            </div>
+    
+            <div class="form-floating">
+              <input required #endControl="ngModel" type="datetime-local" [min]="currDateEnd" id="trip-end-time" 
+                [class.is-invalid]="endControl.invalid && endControl.touched"
+                name="trip-end-time" [(ngModel)]="endTime">
+            </div>
+            <div>
+              <small class="text-danger" [class.d-none]="endControl.valid || endControl.untouched">enter an end date and time</small>
+              <label for="trip-end-time">Choose an end time for your trip:</label>
+            </div>
           </div>
-          <div>
-            <label for="trip-start-time">Choose a start time for your trip:</label>
-          </div>
-          <div class="form-floating">
-            <input type="datetime-local" id="trip-end-time" name="trip-end-time" [(ngModel)]="endTime">
-          </div>
-          <div>
-            <label for="trip-end-time">Choose an end time for your trip:</label>
-          </div>
-        <br>
+
     </ng-container>
+  </form>
 
         <h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Current Passengers</h2>
         <div id="MyTrip" class="text-center">
@@ -84,7 +180,7 @@
         <div class="checkbox mb-3">
         </div>
         <ng-container *ngIf="isManager">
-        <button class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
+        <button [disabled]="tripUpdateForm.form.invalid" class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
         </ng-container>
     </div>
 

@@ -55,3 +55,11 @@
   margin-bottom: 10px;
   color: red;
 }
+
+input.is-invalid{
+  border-color: red;
+}
+
+input.is-untouched{
+  border-color: #ced4da;
+}

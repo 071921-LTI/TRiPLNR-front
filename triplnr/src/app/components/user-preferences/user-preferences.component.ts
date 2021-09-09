@@ -8,6 +8,8 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 })
 export class UserPreferencesComponent implements OnInit {
 
+  stateArr = ['CT', 'NY', 'VT', 'TX'];
+
 
   user?:User;
   response?: String;

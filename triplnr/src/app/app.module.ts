@@ -20,6 +20,7 @@ import { PendingRequestComponent } from './components/pending-request/pending-re
 import { ProfilesComponent } from './components/profiles/profiles.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 //import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
@@ -47,6 +48,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     //MatTableModule
   ],
   providers: [],

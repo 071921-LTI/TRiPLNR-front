@@ -13,6 +13,9 @@ import { timestamp, Timestamp } from 'rxjs/internal/operators/timestamp';
 export class CreateTripComponent implements OnInit {
 
   constructor(private tripService: TripServiceService, private router:Router) { }
+
+  stateArr = ['CT', 'NY', 'VT', 'TX'];
+
   //fields needed to pass into new trip model
   destination: String = '';
   tripName: String = '';
@@ -37,6 +40,15 @@ export class CreateTripComponent implements OnInit {
   endTime: string = '';
 
 
+  streetAddress : String = '';
+  city : String = '';
+  state : String = '';
+  zip : String = '';
+  currDate:string = '';
+  currDateEnd:string = '';
+
+  
+
   addPassenger(): void{
     //User object containt one field to be filled by user
     this.user = {
@@ -60,6 +72,7 @@ export class CreateTripComponent implements OnInit {
  
 
   createTrip(): void {
+    this.destination=  this.streetAddress + ", " + this.city + ", " + this.state + ", " + this.zip;
     //item stored in session when loged in contains ([userID]:[username]) of current user
     this.token= sessionStorage.getItem("token") || '';
 
@@ -104,6 +117,37 @@ export class CreateTripComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  //let x = document.getElementById("trip-start-time").min = "2006-05-05T16:15:23";
+  let today = new Date();
+  let year=today.getFullYear().toString();
+  let month=(today.getMonth()+1).toString();
+  if(month.length<2){
+    month = "0"+month;
   }
+  let day = today.getDate().toString();
+  if(day.length<2){
+    day = "0"+day;
+  }
+  let date = year+"-"+month+"-"+day;
+  let hours = today.getHours().toString();
+  if(hours.length<2){
+    hours = "0"+hours;
+  }
+  let minutes = today.getMinutes().toString();
+  if(minutes.length<2){
+    minutes = "0"+ minutes;
+  }
+  let time = hours+":"+minutes;
+  this.currDate = date + "T" + time+":00";
+
+  let hourEnd= (today.getHours()+1).toString();
+  if(hourEnd.length<2){
+    hourEnd = "0"+hourEnd;
+  }
+  let timeEnd = hours+":"+minutes;
+  this.currDateEnd = date + "T" + time+":00";
+
+
+}
 
 }
