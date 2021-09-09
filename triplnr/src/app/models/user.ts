@@ -7,6 +7,6 @@ export interface User {
     firstName?: String;
     lastName?: String;
     address?: String;
-    trips?: null;
-    friends?: null;
+    trips?: any;
+    friends?: any;
 }
