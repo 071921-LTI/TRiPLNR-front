@@ -14,16 +14,42 @@ export class NavBarComponent implements OnInit {
 
   constructor(@Inject(DOCUMENT) public document: Document, private router:Router, public auth: AuthService, public auth0Service: Auth0ServiceService) {
 
-    
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+          this.checkLogin();
+      }
+
+      if (event instanceof NavigationEnd) {
+        this.checkLogin();
+    }
+
+  });
 
   }
 
   ngOnInit(): void {
-    this.auth0Service.getUser().subscribe(res => console.log(res))
 
-    console.log(environment)
+    this.isNotLoggedIn = true;
+
+    this.auth0Service.getUser().subscribe(res => {
+      console.log(res)
+    })
   }
 
+  isNotLoggedIn:boolean = true;
+  token?:string;
 
+  clearStorage():void{
+    sessionStorage.clear();
+  }
+
+  checkLogin():void{
+    this.token = sessionStorage.getItem('token') || '';
+    if (this.token == '' || this.token ==null){
+      this.isNotLoggedIn = true;
+    }else{
+      this.isNotLoggedIn = false;
+    }
+  }
   
 }
