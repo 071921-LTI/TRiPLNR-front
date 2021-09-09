@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Trip } from 'src/app/models/trip';
 import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Router } from '@angular/router';
+import { WeatherServiceService } from 'src/app/services/weather-service.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class DashboardComponent implements OnInit {
   futureTrips : Trip[] = [];
   pastTrips : Trip[] = [];
   
-  constructor(private tripService: TripServiceService, private router:Router) { }
+  constructor(private tripService: TripServiceService, private router:Router, private weather:WeatherServiceService) { }
 
   ngOnInit(): void {
     
@@ -34,6 +35,9 @@ export class DashboardComponent implements OnInit {
         let startTime = new Date(this.trips[i].startTime!).getTime();
         let endTime = new Date(this.trips[i].endTime!).getTime();
         let timeNow = Date.now();
+        let addressFrom = this.trips[i].origin;
+        let addressTo = this. trips[i].destination;
+        // let currWeaher = this.weather.getCurrentWeather(addressFrom)
         if(startTime > timeNow) {
           
           this.futureTrips.push(this.trips[i]);

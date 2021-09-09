@@ -11,6 +11,8 @@
       <th>Passengers</th>
       <th>Start Time</th>
       <th>End Time</th>
+      <th>Orgin Weather</th>
+      <th>Destination Weather</th>
     </tr>
   </thead>
   <!-- populates table with datat from trips lists -->
@@ -40,6 +42,8 @@
       <th>Trip Destination</th>
       <th>Trip Manager</th>
       <th>Passengers</th>
+      <th>Orgin Weather</th>
+      <th>Destination Weather</th>
     </tr>
   </thead>
   <tr *ngFor="let row of futureTrips" (click)="openTrip(row)" class="clickRow">
@@ -53,7 +57,6 @@
       ((row.passengers[2]?.firstName || '') + " " + (row.passengers[2]?.lastName || ''))}}</td>
     <td>{{row.startTime | date:'medium'}}</td>
     <td>{{row.endTime | date:'medium'}}</td>
-
   </tr>
 </table>
 
