@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Trip } from 'src/app/models/trip'
 import { User } from 'src/app/models/user';
-import { timestamp, Timestamp } from 'rxjs/internal/operators/timestamp';
 
 @Component({
   selector: 'app-create-trip',
