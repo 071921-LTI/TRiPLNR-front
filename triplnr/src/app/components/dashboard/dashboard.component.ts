@@ -90,8 +90,7 @@ callCurrentWeather(){
 }
 
 callDestWeather(){
-  // console.log(this.trips.length);
-  // for(let i = 0; i< this.trips.length; i++){
+
       let addressTo = this. trips[this.number].destination;
       console.log(addressTo);
       this.weather.getDestinationWeather(addressTo!,this.day).subscribe(response => {
