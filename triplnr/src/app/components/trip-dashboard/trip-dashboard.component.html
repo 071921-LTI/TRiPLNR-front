@@ -1,96 +1,92 @@
 <html>
-  <head>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+<head>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
 </head>
 <div id="myPreferences" class="text-center">
-    <div class="form-edit">
-        <ng-container *ngIf="isManager">
-        <h1 class="h3 mb-3 fw-normal">Update Trip</h1>
+  <div class="form-edit">
+    <ng-container *ngIf="isManager">
+      <h1 class="h3 mb-3 fw-normal">Update Trip</h1>
     </ng-container>
     <ng-container *ngIf="!isManager">
-        <h1 class="h3 mb-3 fw-normal">Trip Info</h1>
+      <h1 class="h3 mb-3 fw-normal">Trip Info</h1>
     </ng-container>
-        <div id="error">
-        </div>
-        <div class="form-floating">
-            <input type="text" class="form-control" id="tripNameinput" placeholder="Trip Name" [(ngModel)]="tripName">
-            <label for="floatingInput">Trip Name</label>
-        </div>
-        <div class="form-floating">
-            <input type="text" class="form-control" id="tripOrigininput" placeholder="Trip Origin" [(ngModel)]="tripOrigin">
-            <label for="floatingPassword">Trip Origin</label>
-        </div>
-        <div class="form-floating">
-            <input type="text" class="form-control" id="tripDestinationInput" placeholder="Trip Destination" [(ngModel)]="tripDestination">
-            <label for="floatingInput">Trip Destination</label>
-        </div>
-        <div class="form-floating">
-            <input type="text" class="form-control" placeholder="Trip Manager" [(ngModel)]="tripManager" readonly>
-            <label for="floatingInput">Trip Manager</label>
-        </div>
-        <br>
-        <ng-container *ngIf="isManager">
-        <div class="form-floating">
-            <input type="number" class="form-control" placeholder="Trip Name" [(ngModel)]="userId">
-            <label for="floatingPassword">Passenger ID number</label>
-            <button style = "background-color: blue;display:inline;" class = "w-80 btn btn-lg btn-dark" type="input" (click)='addPassenger()'>Add</button>
-            <button style = "background-color: red;display: inline;" class="w-80 btn btn-lg btn-dark" type="input" (click)='removePassenger()'>Remove</button>
-          </div>
-          <br>
-        <div class="form-floating">
-            <input type="datetime-local" id="trip-start-time" name="trip-start-time" [(ngModel)]="startTime">
-          </div>
-          <div>
-            <label for="trip-start-time">Choose a start time for your trip:</label>
-          </div>
-          <div class="form-floating">
-            <input type="datetime-local" id="trip-end-time" name="trip-end-time" [(ngModel)]="endTime">
-          </div>
-          <div>
-            <label for="trip-end-time">Choose an end time for your trip:</label>
-          </div>
-        <br>
+    <div id="error">
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" id="tripNameinput" placeholder="Trip Name" [(ngModel)]="tripName">
+      <label for="floatingInput">Trip Name</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" id="tripOrigininput" placeholder="Trip Origin" [(ngModel)]="tripOrigin">
+      <label for="floatingPassword">Trip Origin</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" id="tripDestinationInput" placeholder="Trip Destination"
+        [(ngModel)]="tripDestination">
+      <label for="floatingInput">Trip Destination</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" placeholder="Trip Manager" [(ngModel)]="tripManager" readonly>
+      <label for="floatingInput">Trip Manager</label>
+    </div>
+    <br>
+    <ng-container *ngIf="isManager">
+      <div class="form-floating">
+        <input type="number" class="form-control" placeholder="Trip Name" [(ngModel)]="userId">
+        <label for="floatingPassword">Passenger ID number</label>
+        <button style="background-color: blue;display:inline;" class="w-80 btn btn-lg btn-dark" type="input"
+          (click)='addPassenger()'>Add</button>
+        <button style="background-color: red;display: inline;" class="w-80 btn btn-lg btn-dark" type="input"
+          (click)='removePassenger()'>Remove</button>
+      </div>
+      <br>
+      <div class="form-floating">
+        <input type="datetime-local" id="trip-start-time" name="trip-start-time" [(ngModel)]="startTime">
+      </div>
+      <div>
+        <label for="trip-start-time">Choose a start time for your trip:</label>
+      </div>
+      <div class="form-floating">
+        <input type="datetime-local" id="trip-end-time" name="trip-end-time" [(ngModel)]="endTime">
+      </div>
+      <div>
+        <label for="trip-end-time">Choose an end time for your trip:</label>
+      </div>
+      <br>
     </ng-container>
 
-        <h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Current Passengers</h2>
-        <div id="MyTrip" class="text-center">
-          
-          <table>
-            
+    <h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Current Passengers</h2>
+    <div id="MyTrip" class="text-center">
 
-            <thead>
-              
-              <tr>
-                <th scope = 'col'>user Id</th>
-              </tr>
-            </thead>
-             <tbody>  
-               <!-- populates table with data from passengers -->
-              <tr *ngFor = "let row of passengers">
-                <td>{{row.userId}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div id="container">
-    <div id="map"></div>
-</div>
-
-        
-
-
-        <div class="checkbox mb-3">
-        </div>
-        <ng-container *ngIf="isManager">
-        <button class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
-        </ng-container>
+      <table>
+        <thead>
+          <tr>
+            <th scope='col'>user Id</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- populates table with data from passengers -->
+          <tr *ngFor="let row of passengers">
+            <td>{{row.userId}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-   
+    <div id="map" class="map"></div>
+    <!--Control that will hold the map-->
 
-
+    <div class="checkbox mb-3">
+    </div>
+    <ng-container *ngIf="isManager">
+      <button class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
+    </ng-container>
+  </div>
+</div>
+<div id='sidebar'>
+  
 </div>
 
 </html>

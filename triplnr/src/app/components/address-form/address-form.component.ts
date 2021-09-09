@@ -24,7 +24,7 @@ export class AddressFormComponent implements OnInit {
 
 
   emitAddress(){
-    this.fullAddress = this.streetAddress + ", " + this.city + ", " + this.state + " " + this.zip;
+    this.fullAddress = this.streetAddress + ", " + this.city + ", " + this.state + ", " + this.zip;
     this.newAddressEvent.emit(this.fullAddress);
   }
 

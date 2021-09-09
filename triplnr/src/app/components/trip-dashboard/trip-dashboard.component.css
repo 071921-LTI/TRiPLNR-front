@@ -26,7 +26,7 @@
   
   .form-edit {
     width: 100%;
-    max-width: 330px;
+    max-width: 360px;
     padding: 15px;
     margin: auto;
   }
@@ -51,6 +51,13 @@
     border-top-right-radius: 0;
   }
   
+  #map.map{
+    max-width: 800px;
+    width:100%;
+    height: 640px;
+    align-items: center;
+  }
+
   #myPreferences {
   height: 100%;
   }
@@ -128,7 +135,7 @@
       height: 300px;
       width: 300px;
   }
-  
+
   /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
   @media (max-width: 800px) {
     .row {
