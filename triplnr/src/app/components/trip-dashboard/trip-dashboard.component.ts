@@ -176,7 +176,7 @@ export class TripDashboardComponent implements AfterViewInit {
     this.token = sessionStorage.getItem('token') || '';
     console.log(this.token);
 
-    //this.isUserManager();
+   
 
     this.tripService.getTripById(this.token, Number(sessionStorage.getItem('tripId'))).subscribe(
       response => {
@@ -216,101 +216,7 @@ export class TripDashboardComponent implements AfterViewInit {
         //setTimeout(this.initMap, 3000);
 
 
-        /*
-        var map = new google.maps.Map(document.getElementById('map'),
-        directionsService = new google.maps.DirectionsService,
-        directionsDisplay = new google.maps.DirectionsRenderer({
-          map: map
-        })
-
-
-    directionsService
-      .route({
-        origin: this.allAddr[0],
-        destination: this.allAddr.pop(),
-        waypoints: this.allAddr.slice(1),
-        travelMode: google.maps.TravelMode.DRIVING,
-      }).then((response: any) => {
-        directionsRenderer.setDirections(response);
-        console.log(response);
-      });
-  */
-
-
-        /*
-        this.allAddr?.forEach((addr:String) => {
-          this.tripService.getCoords(addr).subscribe(
-            response => {
-              let lat = response.results[0].geometry.location.lat;
-              let lng = response.results[0].geometry.location.lng;
-              this.lat = lat;
-              this.lng = lng;
-
-              var point = new google.maps.LatLng(lat, lng);
-              
-              console.log(lat);
-              console.log(lng);
-
-
-            }
-          )
-        });
-       */
-
-
-
-        // this.tripService.getCoords(this.tripOrigin).subscribe(
-        //   response => {
-        //     this.lat = response.results[0].geometry.location.lat;
-        //     this.lng = response.results[0].geometry.location.lng;
-        //     this.tripService.getCoords(this.tripDestination).subscribe(
-        //       response => {
-        //         this.latB = response.results[0].geometry.location.lat;
-        //         this.lngB = response.results[0].geometry.location.lng;
-        //         // console.log(this.latB);
-        //         console.log(this.lat);
-        //         console.log(this.lng);
-        // console.log(this.latB);
-        // console.log(this.lngB);
-        // var pointA = new google.maps.LatLng(this.lat, this.lng),
-        // pointB = new google.maps.LatLng(this.latB, this.lngB),
-        // // var pointA = new google.maps.LatLng(39.022895, -94.00),
-        // // pointB = new google.maps.LatLng(40.748558, -122.08),
-        // myOptions = {
-        //   zoom: 7,
-        //   center: pointA
-        // },
-        // map = new google.maps.Map(document.getElementById('map'), myOptions),
-        // // Instantiate a directions service.
-        // directionsService = new google.maps.DirectionsService,
-        // directionsDisplay = new google.maps.DirectionsRenderer({
-        //   map: map
-        // }),
-        // markerA = new google.maps.Marker({
-        //   position: pointA,
-        //   title: "point A",
-        //   label: "A",
-        //   map: map
-        // }),
-        // markerB = new google.maps.Marker({
-        //   position: pointB,
-        //   title: "point B",
-        //   label: "B",
-        //   map: map
-        // });
-
-        // this.calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB);
-
-        //       }
-        //     );
-        //   }
-        // );
-
-        // // setTimeout(this.getCoords, 2000);
-        // console.log(this.lat);
-        // console.log(this.latB);
-
-        //this.initMap();
+       
       });
     this.addMapsScript();
   }
@@ -323,53 +229,7 @@ export class TripDashboardComponent implements AfterViewInit {
 
   }
 
-  /*initMap() {
-    this.tripService.getTripById(this.token!, Number(sessionStorage.getItem('tripId'))).subscribe(
-      response => {
-        this.trip = response;
-        this.tripName = this.trip.tripName || '';
-        this.tripOrigin = this.trip.origin || '';
-        this.tripDestination = this.trip.destination || '';
-        this.tripManagerFirst = this.trip.manager?.firstName || '';
-        this.tripManagerLast = this.trip.manager?.lastName || '';
-        this.tripManager = this.tripManagerFirst + " " + this.tripManagerLast;
-
-        var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 6,
-          center: {
-            lat: 41.85,
-            lng: -87.65
-          }
-        });
-        const waypts: google.maps.DirectionsWaypoint[] = [];
-        for (let i = 1; i < this.allAddr.length - 1; i++) {
-          waypts.push({
-            location: String(this.allAddr[i]),
-            stopover: true,
-          });
-        }
-        console.log(waypts);
-        directionsDisplay.setMap(map);
-        directionsService.route({
-          origin: this.allAddr[0],
-          destination: this.allAddr.pop(),
-          waypoints: waypts,
-          optimizeWaypoints: true,
-          travelMode: 'DRIVING'
-        }, (response: any, status: any) => {
-          if (status === 'OK') {
-            directionsDisplay.setDirections(response);
-            var route = response.routes[0];
-            // For each route, display summary information.
-
-          } else {
-            window.alert('Directions request failed due to ' + status);
-          }
-        });
-      });
-  }*/
+  
 
   //CWT Map
   /*************************************
