@@ -243,11 +243,7 @@ export class TripDashboardComponent implements AfterViewInit {
 
 
         let token = sessionStorage.getItem('token');
-        console.log("this is my token: " + token);
-        let myArr = token?.split(":") || '';
-        let curUserId = parseInt(myArr[0]);
-        console.log("manager Id: " + this.trip?.manager?.userId + "| loged in user id: " + this.token?.split(":")[0])
-        if (curUserId != this.trip?.manager?.userId) {
+        if (token != this.trip?.manager?.sub) {
           this.isManager = false;
           document.getElementById('tripNameinput')?.setAttribute('readonly', 'readonly');
           document.getElementById('tripOrigininput')?.setAttribute('readonly', 'readonly');
