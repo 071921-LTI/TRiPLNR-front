@@ -6,37 +6,101 @@
         <h1 class="h3 mb-3 fw-normal">Trip Creation</h1>
         <div id="error">
         </div>
-        <div class="form-floating">
-          <input type="text" class="form-control"  placeholder="Destination" [(ngModel)]="destination">
-          <label for="floatingInput">Destination</label>
-        </div>
-        <div class="form-floating">                 <!-- [(ngModel)] referes to variable in typeScript file -->
-          <input type="text" class="form-control" placeholder="Trip Name" [(ngModel)]="tripName">
-          <label for="floatingPassword">Trip Name</label>
-        </div>
-        <div class="form-floating">
-          <input type="number" class="form-control" placeholder="Trip Name" [(ngModel)]="userId">
-          <label for="floatingPassword">Passenger ID number</label>
-          <button class="w-100 btn btn-lg btn-dark" type="input" (click)='addPassenger()'>Add Passenger</button>
-        </div>
-        <br>
+        
+        
+        <form #creatTripForm="ngForm">
 
-        <div class="form-floating">
-          <input type="datetime-local" id="trip-start-time" name="trip-start-time" [(ngModel)]="startTime">
+          <div class="form-floating">                 <!-- [(ngModel)] referes to variable in typeScript file -->
+            <input type="text" required #nameControll="ngModel" 
+              [class.is-invalid]="nameControll.invalid && nameControll.touched"
+              class="form-control" name = "tripName" placeholder="Trip Name" [(ngModel)]="tripName">
+            <label for="floatingPassword">Trip Name</label>
+            <small class="text-danger" [class.d-none]="nameControll.valid || nameControll.untouched">Enter a trip name</small>
+          </div>
+  
+  
+  
+          <div class="form-group">
+            <div class="col-50">
+              <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+              <input type="text" id="adr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
+                #streetControl = "ngModel" [class.is-invalid]="streetControl.invalid && streetControl.touched"
+                name="address" placeholder="542 W. 15th Street" [(ngModel)]="streetAddress">
+              <small class="text-danger" [class.d-none] = "streetControl.valid || streetControl.untouched">Please enter Street Address</small>
+              
+              <label for="city"><i class="fa fa-institution"></i> City</label>
+              <input type="text" id="city" class="form-control" required pattern="[a-zA-Z ]+$" 
+                #cityControl="ngModel" [class.is-invalid]="cityControl.invalid && cityControl.touched"
+                name="city" placeholder="New York" [(ngModel)]="city">
+              <small class="text-danger" [class.d-none] = "cityControl.valid || cityControl.untouched">Please enter City or Town name</small>
+            
+            
+              <div class="row">
+                <div class="col-50">
+                  <div class="form-group">
+                    <label for="state">State</label>
+                    <select class="custom-select" id="state" placeholder="State" required pattern="^\w{2}$" name = "state" placeholder="NY" [(ngModel)]="state"
+                      #stateControl="ngModel" [class.is-invalid]="stateControl.invalid && stateControl.touched">
+                      <option value = "">State</option>
+                      <option *ngFor="let state of stateArr">{{ state }}</option>
+                    </select>
+                    <small class="text-danger" [class.d-none] = "stateControl.valid || stateControl.untouched">Please select a state</small>
+                  </div>
+                </div>
+  
+                <div class="col-50">
+                  <div class="form-group">
+                    <label for="zip">Zip</label>
+                    <input type="text" id="zip" name="zip" required pattern="^\d{5}$" #zipControl="ngModel"
+                      [class.is-invalid]="zipControl.invalid && zipControl.touched"
+                      class="form-control" placeholder="00000" [(ngModel)]="zip">
+                    <small class="text-danger" [class.d-none] = "zipControl.valid || zipControl.untouched">Please enter a valid zip code</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+  
+  
+  
+  
+  
+          <div class="form-floating">
+            <input type="number" class="form-control" placeholder="Trip Name" name="passenger" [(ngModel)]="userId">
+            <label for="floatingPassword">Passenger ID number</label>
+            <button class="w-100 btn btn-lg btn-dark" type="input" (click)='addPassenger()'>Add Passenger</button>
+          </div>
+          
+          <br>
+          
+          <div class="form-group">
+          <div class="form-floating">
+            <input required #startControl="ngModel" type="datetime-local" [min]="currDate" id="trip-start-time"
+              [class.is-invalid]="startControl.invalid && startControl.touched"
+              name="trip-start-time" [(ngModel)]="startTime">
+          </div>
+          <div>
+            <small class="text-danger" [class.d-none]="startControl.valid || startControl.untouched">enter a start date and time</small>
+            <label for="trip-start-time">Choose a start time for your trip:</label>
+          </div>
+  
+          <div class="form-floating">
+            <input required #endControl="ngModel" type="datetime-local" [min]="currDateEnd" id="trip-end-time" 
+              [class.is-invalid]="endControl.invalid && endControl.touched"
+              name="trip-end-time" [(ngModel)]="endTime">
+          </div>
+          <div>
+            <small class="text-danger" [class.d-none]="endControl.valid || endControl.untouched">enter an end date and time</small>
+            <label for="trip-end-time">Choose an end time for your trip:</label>
+          </div>
         </div>
-        <div>
-          <label for="trip-start-time">Choose a start time for your trip:</label>
-        </div>
-        <div class="form-floating">
-          <input type="datetime-local" id="trip-end-time" name="trip-end-time" [(ngModel)]="endTime">
-        </div>
-        <div>
-          <label for="trip-end-time">Choose an end time for your trip:</label>
-        </div>
+  
+        </form>
 
         <br>
         <br>
-        <button class="w-100 btn btn-lg btn-primary" type="input" (click)='createTrip()'>Create Trip</button>
+        <button [disabled]="creatTripForm.form.invalid" class="w-100 btn btn-lg btn-primary" type="input" (click)='createTrip()'>Create Trip</button>
         
       </div>
         
