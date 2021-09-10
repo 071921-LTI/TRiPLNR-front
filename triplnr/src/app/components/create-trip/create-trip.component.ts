@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { NgModule, Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Trip } from 'src/app/models/trip'
@@ -46,6 +46,12 @@ export class CreateTripComponent implements OnInit {
   currDate:string = '';
   currDateEnd:string = '';
 
+  //modal target id
+  modalTarget = '#12345678';
+
+  giveModal(): string {
+    return this.modalTarget;
+  }
 
   addPassenger(): void{
     //User object containt one field to be filled by user
