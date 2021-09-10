@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
-import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TripDashboardComponent } from './components/trip-dashboard/trip-dashboard.component';
@@ -30,7 +29,6 @@ import { AuthModule } from '@auth0/auth0-angular';
   declarations: [
     AppComponent,
     HomepageComponent,
-    LoginComponent,
     RegisterComponent,
     DashboardComponent,
     TripDashboardComponent,

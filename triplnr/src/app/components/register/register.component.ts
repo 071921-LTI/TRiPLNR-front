@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
-import { AuthServiceService } from 'src/app/services/auth-service.service';
 import { AddressFormComponent } from '../address-form/address-form.component';
 import { Router } from '@angular/router';
 import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
