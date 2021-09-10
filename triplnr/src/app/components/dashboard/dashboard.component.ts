@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { WeatherServiceService } from 'src/app/services/weather-service.service';
 import { async } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-// import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
 
 
 @Component({
