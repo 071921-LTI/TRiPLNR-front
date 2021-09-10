@@ -2,8 +2,6 @@
 //user model that matches user model in back end
 export interface User {
     userId?: number;
-    username?: String;
-    password?: String;
     sub?: String;
     firstName?: String;
     lastName?: String;

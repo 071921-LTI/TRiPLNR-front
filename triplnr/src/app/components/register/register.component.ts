@@ -15,12 +15,10 @@ export class RegisterComponent implements OnInit {
   constructor(private authService : AuthServiceService, private router:Router, private auth0: Auth0ServiceService) { }
 
   
-  stateArr = ['CT', 'NY', 'VT', 'TX'];
+  stateArr = ['CT', 'GA', 'NY', 'TX', 'VT'];
 
   toEmit = false;
 
-  username: String = '';
-  password: String = '';
   sub: String = '';
   first: String = '';
   last: String = '';
@@ -47,8 +45,6 @@ export class RegisterComponent implements OnInit {
     this.address=  this.streetAddress + ", " + this.city + ", " + this.state + ", " + this.zip;
     //new user object
     this.user = {
-      username: this.username,
-      password: this.password,
       sub: this.sub,
       firstName: this.first,
       lastName: this.last,
