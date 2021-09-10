@@ -163,7 +163,7 @@
 </form>
 </div>
 
-<div class="col">
+<div class="col-5">
 <form #playlistForm = "ngForm">
 <div class="form-group">
   <div class="form-floating">
@@ -257,14 +257,18 @@
 
 </div><!--1st row tag  -->
   <!-- new col -->
-  <div class="row">
+  <div class="row justify-content-md-center">
+
 
     <div id="map" class="map"></div>
     <!--Control that will hold the map-->
-  </div>
+
+</div>
     <div class="checkbox mb-3">
     </div>
     <ng-container *ngIf="isManager">
+      <button [disabled]="tripUpdateForm.form.pristine" class="w-100 btn btn-lg btn-primary" type="input" (click)="tripUpdateForm.form.markAsPristine()" (click)='reset()'>Reset</button>
+      <br><br>
       <button [disabled]="tripUpdateForm.form.invalid" class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
     </ng-container>
    
