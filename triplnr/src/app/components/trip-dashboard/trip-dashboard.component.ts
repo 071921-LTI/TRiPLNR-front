@@ -25,7 +25,8 @@ export class TripDashboardComponent implements AfterViewInit {
     */
   }
 
-  stateArr = ['CT', 'NY', 'VT', 'TX'];
+  stateArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
+  roleArr = ['Music', 'Navigator', 'Snacks']
 
   userId?: number;
   error: String = '';
@@ -55,6 +56,15 @@ export class TripDashboardComponent implements AfterViewInit {
   passengers: Array<User> = [];
   isManager: boolean = true;
 
+  // need to add functionalit to check if playlist exists and if user roles exists and change value to true
+  isPlaylist: boolean = false;
+  isRoles: boolean = false;
+  addRoles:boolean = false;
+  role:string = '';
+  playlists: Array<string> = [];
+  playlist: string = '';
+
+
 
   originStreetAddress : String = '';
   originCity : String = '';
@@ -83,6 +93,17 @@ export class TripDashboardComponent implements AfterViewInit {
   timeElapsed: any;
   //WayPointsMap: Map<number, String> = new Map<number, String>();
   //May need to uncomment if we're doing additional stops...
+
+  addRolesbtn(): void{
+    this.addRoles = true;
+  }
+
+
+  addPlaylist(): void {
+    this.playlists.push(this.playlist);
+    this.playlist = '';
+    console.log(this.playlists);
+  }
 
 
   addPassenger(): void {
@@ -243,11 +264,7 @@ export class TripDashboardComponent implements AfterViewInit {
 
 
         let token = sessionStorage.getItem('token');
-        console.log("this is my token: " + token);
-        let myArr = token?.split(":") || '';
-        let curUserId = parseInt(myArr[0]);
-        console.log("manager Id: " + this.trip?.manager?.userId + "| loged in user id: " + this.token?.split(":")[0])
-        if (curUserId != this.trip?.manager?.userId) {
+        if (token != this.trip?.manager?.sub) {
           this.isManager = false;
           document.getElementById('tripNameinput')?.setAttribute('readonly', 'readonly');
           document.getElementById('tripOrigininput')?.setAttribute('readonly', 'readonly');
@@ -390,4 +407,3 @@ export class TripDashboardComponent implements AfterViewInit {
   }
 
 }
-

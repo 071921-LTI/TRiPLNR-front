@@ -54,7 +54,7 @@ a {
 }
 
 .s-sidebar__nav {
-   position: absolute;
+   position: fixed;
    top:134px;
    right: -15em;
    overflow: hidden;
