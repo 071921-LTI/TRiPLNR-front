@@ -20,6 +20,7 @@ import { PendingRequestComponent } from './components/pending-request/pending-re
 import { ProfilesComponent } from './components/profiles/profiles.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { PassengerPendingRequestsComponent } from './components/passenger-pending-requests/passenger-pending-requests.component';
 //import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
@@ -40,7 +41,8 @@ import { FilterPipe } from './pipes/filter.pipe';
     PendingRequestComponent,
     ProfilesComponent,
     UserProfileComponent,
-    FilterPipe
+    FilterPipe,
+    PassengerPendingRequestsComponent
   ],
   imports: [
     BrowserModule,
