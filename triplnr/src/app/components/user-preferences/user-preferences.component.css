@@ -40,10 +40,7 @@
 }
 
 #myPreferences {
-height: 100%;
-}
-
-#myPreferences {
+  height: 100%;
 display: flex;
 align-items: center;
 padding-top: 40px;
@@ -121,3 +118,23 @@ span.price {
     margin-bottom: 20px;
   }
 }
+
+input.is-invalid{
+  border-color: red;
+}
+
+input.is-untouched{
+  border-color: #ced4da;
+}
+
+select.is-invalid{
+  border-color: red;
+}
+
+select {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+} 
