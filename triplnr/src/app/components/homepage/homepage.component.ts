@@ -17,7 +17,8 @@ export class HomepageComponent implements OnInit {
       if (res) {
         this.userService.checkIfRegistered(res.sub).subscribe(result => {
           if (result) {
-            this.router.navigate(['/create-trip'])
+            this.router.navigate(['/dashboard'])
+            sessionStorage.setItem('token', result.sub?.valueOf()!);
           } else {
             this.router.navigate(['/register'])
           }

@@ -7,32 +7,6 @@
 
     <form #registerForm='ngForm'>
 
-      <div class="form-group">
-        <div class="form-floating">
-        <input type="text" required pattern="[a-zA-Z0-9]+$" #usernameControl="ngModel"
-          [class.is-invalid]="usernameControl.invalid && usernameControl.touched" 
-          class="form-control"  name="username"
-          placeholder="Username" [(ngModel)]="username">
-        <small class="text-danger" [class.d-none] = "usernameControl.valid || usernameControl.untouched">Username is required</small> 
-        <label for="floatingInput">Username</label>
-      </div>
-    </div> 
-
-    <br>
-    
-    <div class="form-group">
-      <div class="form-floating">
-        <input type="password"  required minlength="4" #passwordControl="ngModel"
-          [class.is-invalid]="passwordControl.invalid && passwordControl.touched"
-          class="form-control" name="password" 
-          placeholder="Password" [(ngModel)]="password">
-        <small class="text-danger" [class.d-none] = "passwordControl.valid || passwordControl.untouched">Password is required to be at least 4 characters</small>
-        <label for="floatingPassword">Password</label>
-      </div>
-    </div>
-
-    <br>
-
     <div class="form-group">
       <div class="form-floating">
           <input type="text" class="form-control" required pattern="^[a-zA-Z]+$" #firsNameControl="ngModel"

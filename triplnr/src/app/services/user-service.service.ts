@@ -58,9 +58,15 @@ export class UserServiceService {
     );
   }
 
-  checkIfRegistered(sub: string): Observable<boolean> {
+  checkIfRegistered(sub: string): Observable<User> {
     return this.http.get(environment.userURL + 'sub', { headers: { 'Authorization': sub } }).pipe(
-      map(response => response as boolean)
+      map(response => response as User)
+    )
+  }
+
+  createUser(user: User): Observable<any> {
+    return this.http.post(environment.userURL + 'create', user ).pipe(
+      map(response => response)
     )
   }
 }
