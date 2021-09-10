@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
@@ -10,23 +11,24 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 })
 export class ProfilesComponent implements OnInit {
 
-  constructor(private userService:UserServiceService, private router:Router) { }
+  constructor(private userService:UserServiceService, private router:Router, private Auth0Service: Auth0ServiceService) { }
 
   ngOnInit(): void {
     this.token = sessionStorage.getItem("token") || '';
-    if (this.token != ''){
-      this.userService.getProfiles(this.token).subscribe(
-        response => {
-          this.profiles = response;
-        }
-      )
-    }
+    this.Auth0Service.getUser().subscribe(res => {
+      if (this.token != ''){
+        this.userService.getProfiles(this.token).subscribe(
+          response => {
+            this.profiles = response;
+          }
+        )
+      }
+    })
   }
 
   token:string = '';
   profiles?:User[];
-  filter:String = '';
-
+  searchText:string = '';
   filterUsers(){
    
   }

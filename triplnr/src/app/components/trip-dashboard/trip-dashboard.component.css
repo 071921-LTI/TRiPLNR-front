@@ -11,6 +11,7 @@
     width: 100%;
     display: flex;
   }
+
   #map {
     flex-basis: 0;
     flex-grow: 4;
@@ -26,7 +27,7 @@
   
   .form-edit {
     width: 100%;
-    max-width: 330px;
+    max-width: 360px;
     padding: 15px;
     margin: auto;
   }
@@ -51,11 +52,15 @@
     border-top-right-radius: 0;
   }
   
+  #map.map{
+    max-width: 800px;
+    width:100%;
+    height: 640px;
+    align-items: center;
+  }
+
   #myPreferences {
   height: 100%;
-  }
-  
-  #myPreferences {
   display: flex;
   align-items: center;
   padding-top: 40px;
@@ -123,11 +128,6 @@
     float: right;
     color: grey;
   }
-
-  #map{
-      height: 300px;
-      width: 300px;
-  }
   
   /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
   @media (max-width: 800px) {
@@ -149,7 +149,6 @@
     margin-left: auto;
     margin-right: auto;
     justify-content: center;
-    align-items: center;
     text-align: center;
   
   }
@@ -172,3 +171,39 @@ th{
 }
 
 tr:nth-child(even) {background-color: darkgray;}
+
+elect {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+} 
+
+input {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+} 
+
+select {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+} 
+
+input.is-invalid{
+  border-color: red;
+}
+
+input.is-untouched{
+  border-color: #ced4da;
+}
+
+select.is-invalid{
+  border-color: red;
+}

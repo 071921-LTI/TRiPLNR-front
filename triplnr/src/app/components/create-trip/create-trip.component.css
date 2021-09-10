@@ -33,11 +33,8 @@
     border-bottom-left-radius: 0;
   }
 
- #MyTrip {
-  height: 100%;
-}
-
 #MyTrip {
+  height: 100%;
   display: flex;
   align-items: center;
   padding-top: 0px;
@@ -55,7 +52,6 @@
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
-  align-items: center;
   text-align: center;
 
 }
@@ -91,4 +87,32 @@ label {
 input,
 label {
   margin: .4rem 0;
+}
+
+select {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+} 
+
+input {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+} 
+
+input.is-invalid{
+  border-color: red;
+}
+
+input.is-untouched{
+  border-color: #ced4da;
+}
+
+select.is-invalid{
+  border-color: red;
 }
