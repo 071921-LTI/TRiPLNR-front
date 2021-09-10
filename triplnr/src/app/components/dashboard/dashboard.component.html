@@ -1,18 +1,21 @@
 <h2>Current Trips</h2>
-<table class="center" table cellpadding="10" table bordercolor="#ffffff">
+<div class="table-responsive">
+<table class="center table" table cellpadding="10" table bordercolor="#ffffff">
   <thead>
     <tr>
 
-      <th>Trip Id</th>
-      <th>Trip Name</th>
-      <th>Trip Origin</th>
-      <th>Trip Destination</th>
-      <th>Trip Manager</th>
-      <th>Passengers</th>
-      <th>Start Time</th>
-      <th>End Time</th>
-      <th>Orgin Weather</th>
-      <th>Destination Weather</th>
+
+      <th scope="col">Trip Id</th>
+      <th scope="col">Trip Name</th>
+      <th scope="col">Trip Origin</th>
+      <th scope="col">Trip Destination</th>
+      <th scope="col">Trip Manager</th>
+      <th scope="col">Passengers</th>
+      <th scope="col">Start Time</th>
+      <th scope="col">End Time</th>
+      <th scope="col">Orgin Weather</th>
+      <th scope="col">Destination Weather</th>
+
 
     </tr>
   </thead>
@@ -34,10 +37,13 @@
     <td><button class="btn btn-lg btn-outline-primary" (click)="open2(content,row.destination)">Weather</button></td>
   </tr>
 </table>
+</div>
 <br><br>
 
 <h2>Future Trips</h2>
-<table class="center" table cellpadding="10" table bordercolor="#ffffff">
+
+<div class="table-responsive">
+<table class="center table" table cellpadding="10" table bordercolor="#ffffff">
   <thead>
     <tr>
       <th>Trip Id</th>
@@ -67,8 +73,10 @@
     <td><button class="btn btn-lg btn-outline-primary" (click)="open2(content,row.destination)">Weather</button></td>
   </tr>
 </table>
+</div>
 
 <h2>Past Trips</h2>
+<div class="table-responsive">
 <table class="center" table cellpadding="10" table bordercolor="#ffffff">
   <thead>
     <tr>
@@ -101,6 +109,7 @@
   </tr>
 </table>
 
+
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="center" id="modal-basic-title">Weather</h4>
@@ -130,3 +139,4 @@
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">close</button>
   </div>
 </ng-template>
+
