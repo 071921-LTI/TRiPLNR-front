@@ -106,20 +106,6 @@ export class TripDashboardComponent implements AfterViewInit {
   }
 
 
-
-
-  addRolesbtn(): void{
-    this.addRoles = true;
-  }
-
-
-  addPlaylist(): void {
-    this.playlists.push(this.playlist);
-    this.playlist = '';
-    console.log(this.playlists);
-  }
-
-
   addPassenger(): void {
     //User object containt one field to be filled by user
     this.user = {
