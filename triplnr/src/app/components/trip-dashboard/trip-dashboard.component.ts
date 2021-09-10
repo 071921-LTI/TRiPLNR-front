@@ -94,6 +94,17 @@ export class TripDashboardComponent implements AfterViewInit {
   //WayPointsMap: Map<number, String> = new Map<number, String>();
   //May need to uncomment if we're doing additional stops...
 
+  addRolesbtn(): void{
+    this.addRoles = true;
+  }
+
+
+  addPlaylist(): void {
+    this.playlists.push(this.playlist);
+    this.playlist = '';
+    console.log(this.playlists);
+  }
+
 
 
 
@@ -464,4 +475,3 @@ export class TripDashboardComponent implements AfterViewInit {
   }
 
 }
-
