@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { Trip } from 'src/app/models/trip';
 import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Router } from '@angular/router';
 import { WeatherServiceService } from 'src/app/services/weather-service.service';
 import { async } from 'rxjs';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+// import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material/dialog';
 
 
 @Component({
@@ -13,7 +15,6 @@ import { async } from 'rxjs';
 })
 
 export class DashboardComponent implements OnInit {
-  
   trips : Trip[]= [];
   token?:string;
   //list of trips sorted by time
@@ -23,10 +24,8 @@ export class DashboardComponent implements OnInit {
   currentWeather:any;
   destinationWeather:any;
   txt = "";
-  txt1 = "";
   day:number = 1;
-  number:number = 0;
-  constructor(private tripService: TripServiceService, private router:Router, private weather:WeatherServiceService) { }
+  constructor(private tripService: TripServiceService, private router:Router, private weather:WeatherServiceService,private modalService: NgbModal) { }
 
   ngOnInit(): void {
     
@@ -70,44 +69,49 @@ openTrip(trip:Trip){
 
 }
 
-callCurrentWeather(){
-  for(let i = 0; i< this.trips.length; i++){
-        let addressFrom = this.trips[i].origin;
-        console.log(addressFrom);
-        this.weather.getCurrentWeather(addressFrom!).subscribe(response => {
-          this.currentWeather = response;
-          console.log(this.currentWeather);
-          this.txt +="<td>" + addressFrom +"</td>";
-          this.txt += "<td>" + this.currentWeather['datetime'] +"</td>";
-          this.txt +="<td>" + this.currentWeather['temp'] +"</td>";
-          this.txt += "<td>" + this.currentWeather['humidity'] +"</td>";
-          this.txt += "<td>" + this.currentWeather['conditions'] +"</td>";
-          this.txt += "</tr>"; 
-          const myElement = document.getElementById('table1')!;
-          myElement.innerHTML = this.txt;
-        })
-  }
+callCurrentWeather(address:any){
+
+    this.weather.getCurrentWeather(address).subscribe(response => {
+      this.currentWeather = response;
+      this.txt = "";
+      this.txt +="<td>" + address +"</td>";
+      this.txt += "<td>" + this.currentWeather['datetime'] +"</td>";
+      this.txt +="<td>" + this.currentWeather['temp'] +"</td>";
+      this.txt += "<td>" + this.currentWeather['humidity'] +"</td>";
+      this.txt += "<td>" + this.currentWeather['conditions'] +"</td>";
+      this.txt += "</tr>"; 
+      const myElement = document.getElementById('table1')!;
+      myElement.innerHTML = this.txt;
+
+    })
 }
 
-callDestWeather(){
+callDestWeather(address:any){
 
-      let addressTo = this. trips[this.number].destination;
-      console.log(addressTo);
-      this.weather.getDestinationWeather(addressTo!,this.day).subscribe(response => {
+      this.weather.getDestinationWeather(address,this.day).subscribe(response => {
         this.destinationWeather = response;
-        console.log(this.destinationWeather);
-        this.txt1 +="<td>" + addressTo +"</td>";
-        this.txt1 += "<td>" + this.destinationWeather['datetime'] +"</td>";
-        this.txt1 +="<td>" + this.destinationWeather['temp'] +"</td>";
-        this.txt1 += "<td>" + this.destinationWeather['humidity'] +"</td>";
-        this.txt1 += "<td>" + this.destinationWeather['conditions'] +"</td>";
-        this.txt1 += "</tr>"; 
-        const myElement = document.getElementById('table2')!;
-        myElement.innerHTML = this.txt1;
-        this.number += 1;
+        this.txt = "";
+        this.txt +="<td>" + address +"</td>";
+        this.txt += "<td>" + this.destinationWeather['datetime'] +"</td>";
+        this.txt +="<td>" + this.destinationWeather['temp'] +"</td>";
+        this.txt += "<td>" + this.destinationWeather['humidity'] +"</td>";
+        this.txt += "<td>" + this.destinationWeather['conditions'] +"</td>";
+        this.txt += "</tr>"; 
+        const myElement = document.getElementById('table1')!;
+        myElement.innerHTML = this.txt;
 
         })
-   }
-// }
+ }
+
+ open(content: any,address:any) {
+  this.modalService.open(content,  {size:'xl',centered: true, ariaLabelledBy: 'modal-basic-title'});
+  this.callCurrentWeather(address);
 }
+
+open2(content: any,address:any) {
+  this.modalService.open(content,  {size:'xl',centered: true, ariaLabelledBy: 'modal-basic-title'});
+  this.callDestWeather(address);
+}
+}
+
 

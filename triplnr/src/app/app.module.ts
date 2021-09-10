@@ -20,7 +20,7 @@ import { PendingRequestComponent } from './components/pending-request/pending-re
 import { ProfilesComponent } from './components/profiles/profiles.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FilterPipe } from './pipes/filter.pipe';
-//import {MatTableModule} from '@angular/material/table';
+import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -40,16 +40,17 @@ import { FilterPipe } from './pipes/filter.pipe';
     PendingRequestComponent,
     ProfilesComponent,
     UserProfileComponent,
-    FilterPipe
+    FilterPipe,
+    
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    //MatTableModule
+    [NgbPaginationModule, NgbAlertModule]
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
