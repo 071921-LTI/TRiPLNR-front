@@ -4,6 +4,7 @@ import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Trip } from 'src/app/models/trip'
 import { User } from 'src/app/models/user';
 import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
+import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
   selector: 'app-create-trip',
@@ -12,13 +13,16 @@ import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 })
 export class CreateTripComponent implements OnInit {
 
-  constructor(private tripService: TripServiceService, private router:Router) { }
+  constructor(private userService: UserServiceService, private router:Router, private tripService: TripServiceService, ) { }
 
   stateArr = ['CT', 'NY', 'VT', 'TX'];
 
   //fields needed to pass into new trip model
   destination: String = '';
   tripName: String = '';
+
+  friends: User[]= [];
+  passengerDeck: Array<User> = [];
   passengers: Array<User> = [];
 
   userId?: number;
@@ -46,32 +50,25 @@ export class CreateTripComponent implements OnInit {
   currDate:string = '';
   currDateEnd:string = '';
 
-  //modal target id
-  modalTarget = '#12345678';
-
-  giveModal(): string {
-    return this.modalTarget;
+  addPassengerToDeck (pass:User): void {
+    this.passengerDeck.push(pass)
+    console.log('Added ', pass)
+    console.log(this.passengerDeck)
+    const index: number = this.friends.indexOf(pass);
+    this.friends.splice(index, 1); 
+  }
+  removePassengerFromDeck (pass:User): void {
+    this.friends.push(pass)
+    console.log('Added ', pass)
+    console.log(this.friends)
+    const index: number = this.passengerDeck.indexOf(pass);
+    this.passengerDeck.splice(index, 1);
+    console.log('Removed ', pass)
   }
 
-  addPassenger(): void{
-    //User object containt one field to be filled by user
-    this.user = {
-      //userId of passenger to be added
-      userId: this.userId
-    }
-    console.log(typeof this.userId)
-      //check to make sure entered data is a number datatype
-      if(typeof this.userId === 'number'){
-        //add user object to a passenger array contating all passengers to be included in new trip object
-        this.passengers.push(this.user)
-        //clears input field after selection
-        this.userId = undefined;
-      } else { 
-        //if anything other than a number is entered, clears input field
-        this.userId = undefined;
-      }
-      
-    
+  addPassengers(): void{
+    this.passengers = [];
+    this.passengers.push.apply(this.passengers, this.passengerDeck);
   }
  
 
@@ -122,33 +119,35 @@ export class CreateTripComponent implements OnInit {
 
   ngOnInit(): void {
     let today = new Date();
-  let year=today.getFullYear().toString();
-  let month=(today.getMonth()+1).toString();
-  if(month.length<2){
-    month = "0"+month;
-  }
-  let day = today.getDate().toString();
-  if(day.length<2){
-    day = "0"+day;
-  }
-  let date = year+"-"+month+"-"+day;
-  let hours = today.getHours().toString();
-  if(hours.length<2){
-    hours = "0"+hours;
-  }
-  let minutes = today.getMinutes().toString();
-  if(minutes.length<2){
-    minutes = "0"+ minutes;
-  }
-  let time = hours+":"+minutes;
-  this.currDate = date + "T" + time+":00";
+    let year=today.getFullYear().toString();
+    let month=(today.getMonth()+1).toString();
+    if(month.length<2){
+      month = "0"+month;
+    }
+    let day = today.getDate().toString();
+    if(day.length<2){
+      day = "0"+day;
+    }
+    let date = year+"-"+month+"-"+day;
+    let hours = today.getHours().toString();
+    if(hours.length<2){
+      hours = "0"+hours;
+    }
+    let minutes = today.getMinutes().toString();
+    if(minutes.length<2){
+      minutes = "0"+ minutes;
+    }
+    let time = hours+":"+minutes;
+    this.currDate = date + "T" + time+":00";
 
-  let hourEnd= (today.getHours()+1).toString();
-  if(hourEnd.length<2){
-    hourEnd = "0"+hourEnd;
-  }
-  let timeEnd = hours+":"+minutes;
-  this.currDateEnd = date + "T" + time+":00";
-  }
+    let hourEnd= (today.getHours()+1).toString();
+    if(hourEnd.length<2){
+      hourEnd = "0"+hourEnd;
+    }
+    let timeEnd = hours+":"+minutes;
+    this.currDateEnd = date + "T" + time+":00";
 
+    this.userService.getFriends("1:user1").subscribe(
+      async response => {this.friends = response;})
+  }
 }
