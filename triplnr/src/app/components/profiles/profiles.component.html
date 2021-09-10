@@ -1,4 +1,4 @@
-<div class="centerfield"><input type="text" placeholder="Filter Profiles" [(ngModel)]="filter" (change)="filterUsers()"></div>
+<div class="centerfield"><input type="text" placeholder="Filter Profiles" [(ngModel)]="searchText"></div>
 <table class="center"  table cellpadding="10" table bordercolor="#ffffff" id="table">
     <thead>
   <tr>
@@ -7,8 +7,12 @@
   <th>Last Name</th>
 </tr>
 </thead>
-<tr *ngFor="let row of profiles" (click)="openProfile(row)" class="clickRow">
+<!-- <tr *ngFor="let row of profiles" (click)="openProfile(row)" class="clickRow">
     <td>{{row.firstName}}</td>
     <td>{{row.lastName}}</td>
-</tr>
+</tr> -->
+<tr *ngFor="let row of profiles | filter: searchText" (click)="openProfile(row)" class="clickRow">
+  <td>{{row.firstName}}</td>
+  <td>{{row.lastName}}</td>
+ </tr>
 </table>

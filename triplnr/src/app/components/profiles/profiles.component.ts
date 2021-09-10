@@ -28,8 +28,7 @@ export class ProfilesComponent implements OnInit {
 
   token:string = '';
   profiles?:User[];
-  filter:String = '';
-
+  searchText:string = '';
   filterUsers(){
    
   }
