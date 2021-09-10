@@ -26,6 +26,7 @@ export class TripDashboardComponent implements AfterViewInit {
   }
 
   stateArr = ['CT', 'NY', 'VT', 'TX'];
+  roleArr = ['Music', 'Navigator', 'Snacks']
 
   userId?: number;
   error: String = '';
@@ -55,6 +56,15 @@ export class TripDashboardComponent implements AfterViewInit {
   passengers: Array<User> = [];
   isManager: boolean = true;
 
+  // need to add functionalit to check if playlist exists and if user roles exists and change value to true
+  isPlaylist: boolean = false;
+  isRoles: boolean = false;
+  addRoles:boolean = false;
+  role:string = '';
+  playlists: Array<string> = [];
+  playlist: string = '';
+
+
 
   originStreetAddress : String = '';
   originCity : String = '';
@@ -83,6 +93,17 @@ export class TripDashboardComponent implements AfterViewInit {
   timeElapsed: any;
   //WayPointsMap: Map<number, String> = new Map<number, String>();
   //May need to uncomment if we're doing additional stops...
+
+  addRolesbtn(): void{
+    this.addRoles = true;
+  }
+
+
+  addPlaylist(): void {
+    this.playlists.push(this.playlist);
+    this.playlist = '';
+    console.log(this.playlists);
+  }
 
 
   addPassenger(): void {
@@ -390,4 +411,3 @@ export class TripDashboardComponent implements AfterViewInit {
   }
 
 }
-

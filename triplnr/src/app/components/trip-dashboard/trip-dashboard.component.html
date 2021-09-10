@@ -4,6 +4,9 @@
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
 </head>
+<div class="container">
+<div class="row">
+  <div class="col">
 <div id="myPreferences" class="text-center">
   <div class="form-edit">
     <ng-container *ngIf="isManager">
@@ -149,35 +152,122 @@
         </div>
 
   </ng-container>
+<br> <hr>
+<!-- playlist -->
+
+
+
+
+
+
+</form>
+</div>
+
+<div class="col">
+<form #playlistForm = "ngForm">
+<div class="form-group">
+  <div class="form-floating">
+    <input type="text" #playlistControl = "ngModel" class="form-control" 
+          id="playlistinput" placeholder="submit a playlist" name = "playlist"[(ngModel)]="playlist">
+        <label for="floatingInput">Enter a Playlist</label>
+  </div>
+</div>
 </form>
 
+
+<button class="w-50 btn btn-lg btn-dark" id="playlistBtn" type="input" (click)="addPlaylist()">add Playlist</button>
+<ng-container *ngIf="!addRoles">
     <h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Current Passengers</h2>
     <div id="MyTrip" class="text-center">
 
       <table>
         <thead>
           <tr>
-            <th scope='col'>user Id</th>
+            <th scope='col'>Name</th>
+            <ng-container *ngIf="isRoles">
+              <th scope='col'>Role</th>
+            </ng-container>
           </tr>
         </thead>
         <tbody>
           <!-- populates table with data from passengers -->
           <tr *ngFor="let row of passengers">
-            <td>{{row.userId}}</td>
+            <td>{{row.firstName}} {{row.lastName}}</td>
+            <ng-container *ngIf="isRoles">
+               
+                <td>data to be added later</td> 
+                 <!--something like {{ row.userRole }}, user role does not currently exist in modles or db  -->
+              
+            </ng-container>
           </tr>
         </tbody>
       </table>
     </div>
+  </ng-container>
+    <br>
+    <button class="w-100 btn btn-lg btn-secondary" id="rolesBtn" type="input" (click)="addRolesbtn()">add/updae Roles</button>
+    
+    <br>
+    <br>
+    <!-- add in passenger roles info-->
+    <ng-container *ngIf="addRoles">
+
+      <form #passengerRoleForm="ngForm"> 
+        <div id="MyTrip" class="text-center">
+          
+          <table>
+            <thead>
+              <tr>
+                <th scope='col'>user Id</th>
+                <th scope='col'>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- populates table with data from passengers -->
+              <tr *ngFor="let row of passengers">
+                <td>{{row.userId}}</td>
+                
+                    <!--something like {{ row.userRole }}, user role does not currently exist in modles or db  -->
+                  <td>
+                   <select class="custom-select" id="role" placeholder="Role" name = "role" placeholder="Role" [(ngModel)]="role"
+                   #roleControl="ngModel">
+                   <option value = "">Role</option>
+                   <option *ngFor="let role of roleArr">{{ role }}</option>
+                 </select>
+                </td>
+                
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+      </form>
+  </ng-container> 
+  <hr>
+
+  <!-- put weather here !!!!!!!!-->
+
+
+
+  </div>
+  
+</div>
+</div>
+
+</div><!--1st row tag  -->
+  <!-- new col -->
+  <div class="row">
 
     <div id="map" class="map"></div>
     <!--Control that will hold the map-->
-
+  </div>
     <div class="checkbox mb-3">
     </div>
     <ng-container *ngIf="isManager">
       <button [disabled]="tripUpdateForm.form.invalid" class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
     </ng-container>
-  </div>
+   
 </div>
 <div id='sidebar'>
   
