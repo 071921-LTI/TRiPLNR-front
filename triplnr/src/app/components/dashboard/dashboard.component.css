@@ -10,12 +10,15 @@ td {
   text-align: center;
   border: 1px solid black;
   border-collapse: collapse;
+  background-color:rgb(35, 68, 167);
 }
 
 th {
   text-align: center;
   border: 1px solid black;
   border-collapse: collapse;
+  background-color:rgb(35, 68, 167);
+  color: white;
 }
 
 table {

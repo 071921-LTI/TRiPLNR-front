@@ -1,16 +1,17 @@
 <h2>Current Trips</h2>
+<div class="table-responsive">
 <table class="center" table cellpadding="10" table bordercolor="#ffffff">
   <thead>
     <tr>
 
-      <th>Trip Id</th>
-      <th>Trip Name</th>
-      <th>Trip Origin</th>
-      <th>Trip Destination</th>
-      <th>Trip Manager</th>
-      <th>Passengers</th>
-      <th>Start Time</th>
-      <th>End Time</th>
+      <th scope="col">Trip Id</th>
+      <th scope="col">Trip Name</th>
+      <th scope="col">Trip Origin</th>
+      <th scope="col">Trip Destination</th>
+      <th scope="col">Trip Manager</th>
+      <th scope="col">Passengers</th>
+      <th scope="col">Start Time</th>
+      <th scope="col">End Time</th>
     </tr>
   </thead>
   
@@ -29,9 +30,12 @@
     <td>{{row.endTime | date:'medium'}}</td>
   </tr>
 </table>
+</div>
 <br><br>
 <button id="btn" (click)='callCurrentWeather()' class="btn1">Start</button> &nbsp;
 <button id="btn_1" (click)='callDestWeather()' class="btn2">Destination </button>
+
+<div class="table-responsive">
 <table class="center" table cellpadding="10" table bordercolor="#ffffff">
   <thead>
     <tr>
@@ -46,7 +50,10 @@
   <tbody id="table1">
   </tbody>
 </table>
+</div>
 <br><br>
+
+<div class="table-responsive">
 <table class="center" table cellpadding="10" table bordercolor="#ffffff">
   <thead>
     <tr>
@@ -60,7 +67,11 @@
     <tbody id="table2">
     </tbody>
   </table>
+  </div>
+
 <h2>Future Trips</h2>
+
+<div class="table-responsive">
 <table class="center" table cellpadding="10" table bordercolor="#ffffff">
   <thead>
     <tr>
@@ -88,8 +99,10 @@
     <td>{{row.endTime | date:'medium'}}</td>
   </tr>
 </table>
+</div>
 
 <h2>Past Trips</h2>
+<div class="table-responsive">
 <table class="center" table cellpadding="10" table bordercolor="#ffffff">
   <thead>
     <tr>
@@ -118,3 +131,4 @@
 
   </tr>
 </table>
+</div>
