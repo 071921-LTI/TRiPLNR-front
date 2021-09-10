@@ -12,7 +12,7 @@ import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 })
 export class CreateTripComponent implements OnInit {
 
-  constructor(private tripService: TripServiceService, private router:Router, private auth0: Auth0ServiceService) { }
+  constructor(private tripService: TripServiceService, private router:Router) { }
   //fields needed to pass into new trip model
   destination: String = '';
   tripName: String = '';
