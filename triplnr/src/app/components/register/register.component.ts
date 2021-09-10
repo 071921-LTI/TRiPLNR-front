@@ -14,6 +14,9 @@ export class RegisterComponent implements OnInit {
 
   constructor(private authService : AuthServiceService, private router:Router, private auth0: Auth0ServiceService) { }
 
+  
+  stateArr = ['CT', 'NY', 'VT', 'TX'];
+
   toEmit = false;
 
   username: String = '';
@@ -29,6 +32,11 @@ export class RegisterComponent implements OnInit {
 
   token: String = '';
 
+  streetAddress : String = '';
+  city : String = '';
+  state : String = '';
+  zip : String = '';
+
   //
   getAddress(fullAddress : String){
     this.address = fullAddress;
@@ -36,6 +44,7 @@ export class RegisterComponent implements OnInit {
 
 
   register(): void {
+    this.address=  this.streetAddress + ", " + this.city + ", " + this.state + ", " + this.zip;
     //new user object
     this.user = {
       username: this.username,
