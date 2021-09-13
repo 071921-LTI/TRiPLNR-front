@@ -95,16 +95,15 @@ export class TripDashboardComponent implements AfterViewInit {
   //WayPointsMap: Map<number, String> = new Map<number, String>();
   //May need to uncomment if we're doing additional stops...
 
-  addRolesbtn(): void{
-    this.addRoles = true;
-  }
-
   addPlaylist(): void {
     this.playlists.push(this.playlist);
     this.playlist = '';
     console.log(this.playlists);
   }
 
+  addRolesbtn(): void{
+    this.addRoles = true;
+  }
 
   addPassenger(): void {
     //User object containt one field to be filled by user
@@ -123,8 +122,6 @@ export class TripDashboardComponent implements AfterViewInit {
       //if anything other than a number is entered, clears input field
       this.userId = undefined;
     }
-
-
   }
 
   removePassenger(): void {
@@ -207,15 +204,15 @@ export class TripDashboardComponent implements AfterViewInit {
         this.trip = response;
         this.tripName = this.trip.tripName || '';
         this.tripOrigin = this.trip.origin || '';
-        var splitted = response.origin?.split(",",3)
-        var temp = splitted?.pop()?.split(" ");
+        let splitted = response.origin?.split(",",3)
+        let temp = splitted?.pop()?.split(" ");
         this.originZip = temp?.pop();
         this.originState = temp?.pop();
         this.originCity = splitted?.pop();
         this.originStreetAddress = splitted?.pop();
         this.tripDestination = this.trip.destination || '';
-        var splitted = response.destination?.split(",",3)
-        var temp = splitted?.pop()?.split(" ");
+        splitted = response.destination?.split(",",3)
+        temp = splitted?.pop()?.split(" ");
         this.desZip = temp?.pop();
         this.desState = temp?.pop();
         this.desCity = splitted?.pop();
@@ -383,8 +380,8 @@ export class TripDashboardComponent implements AfterViewInit {
 
         this.tripOrigin = this.trip.origin || '';
 
-        var splitted = response.origin?.split(",",3)
-        var temp = splitted?.pop()?.split(" ");
+        let splitted = response.origin?.split(",",3)
+        let temp = splitted?.pop()?.split(" ");
         this.originZip = temp?.pop();
         this.originState = temp?.pop();
         this.originCity = splitted?.pop();
@@ -394,8 +391,8 @@ export class TripDashboardComponent implements AfterViewInit {
 
         this.tripDestination = this.trip.destination || '';
 
-        var splitted = response.destination?.split(",",3)
-        var temp = splitted?.pop()?.split(" ");
+        splitted = response.destination?.split(",",3)
+        temp = splitted?.pop()?.split(" ");
         this.desZip = temp?.pop();
         this.desState = temp?.pop();
         this.desCity = splitted?.pop();
