@@ -323,18 +323,12 @@ export class TripDashboardComponent implements AfterViewInit {
 
       
       //need to check if weather is two weeks or more out for API 2 week limit
-      // console.log("Origin address: "+this.tripOrigin)
-      console.log("start: "+ this.tripStartTime);
-      console.log("end: "+this.tripEndTime);
-
       let startTime = new Date(this.tripStartTime);
       let endTime = new Date(this.tripEndTime);
       let currTime = Date.now();
 
       let currDayDiff = Math.round((startTime.valueOf() - currTime.valueOf())/86400000);
       let destDayDiff = Math.round((endTime.valueOf() - currTime.valueOf())/86400000);
-      console.log(currDayDiff);
-      console.log(destDayDiff);
 
       // //need to check if weather is two weeks or more out for API 2 week limit
       if(currDayDiff >  15){
@@ -505,10 +499,7 @@ export class TripDashboardComponent implements AfterViewInit {
           this.imageOrigin = "assets/Weather_Icon/" + iconName;
           if(day2<=15){
             this.callDestWeather(dest,day2);
-            console.log(this.imageOrigin);
           }
-          
-          console.log(response);
         })   
   }
 
@@ -519,7 +510,6 @@ export class TripDashboardComponent implements AfterViewInit {
        this.destWeather = response;
        let iconName = response['icon']+".png";
        this.imageDest = "assets/Weather_Icon/" + iconName;
-       console.log(response);
      })   
 
 
