@@ -63,6 +63,7 @@ export class TripDashboardComponent implements AfterViewInit {
   role:string = '';
   playlists: Array<string> = [];
   playlist: string = '';
+  spotify: string = '';
 
 
 
@@ -93,20 +94,6 @@ export class TripDashboardComponent implements AfterViewInit {
   timeElapsed: any;
   //WayPointsMap: Map<number, String> = new Map<number, String>();
   //May need to uncomment if we're doing additional stops...
-
-  addRolesbtn(): void{
-    this.addRoles = true;
-  }
-
-
-  addPlaylist(): void {
-    this.playlists.push(this.playlist);
-    this.playlist = '';
-    console.log(this.playlists);
-  }
-
-
-
 
   addRolesbtn(): void{
     this.addRoles = true;
@@ -298,6 +285,8 @@ export class TripDashboardComponent implements AfterViewInit {
         this.tripManagerFirst = this.trip.manager?.firstName || '';
         this.tripManagerLast = this.trip.manager?.lastName || '';
         this.tripManager = this.tripManagerFirst + " " + this.tripManagerLast;
+        this.spotify = this.trip.spotify || '';
+
 
 
         this.passengers = this.trip.passengers || '';

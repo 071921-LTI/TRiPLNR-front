@@ -95,6 +95,16 @@
             <label for="trip-end-time">Choose an end time for your trip:</label>
           </div>
         </div>
+        <div class="form-group">
+          <div class="floating-form">
+            <input #spotifyControl="ngModel" pattern="^.*open.spotify.com/.*" type="text" id="playlist" [class.is-invalid]="spotifyControl.invalid"
+              name="playlist" [(ngModel)]="spotify">
+              <small class="text-danger" [class.d-none]="spotifyControl.valid">not a propper spotify playlist link</small>
+              <label for="playlist">Enter a spotify playlist link (optional):</label>
+              
+          </div>
+          {{ spotifyControl.valid }}
+        </div>
   
         </form>
 
