@@ -1,6 +1,7 @@
+<body>
 <h2>Current Trips</h2>
 <div class="table-responsive">
-<table class="center table" table cellpadding="10" table bordercolor="#ffffff">
+<table class="center table" >
   <thead>
     <tr>
 
@@ -19,7 +20,7 @@
 
     </tr>
   </thead>
-  
+  <tbody>
   <!-- populates table with datat from trips lists -->
   <tr *ngFor="let row of currentTrips"  class="clickRow">
 
@@ -36,6 +37,7 @@
     <td><button class="btn btn-lg btn-outline-primary" (click)="open(content,row.origin)">Weather</button></td>
     <td><button class="btn btn-lg btn-outline-primary" (click)="open2(content,row.destination)">Weather</button></td>
   </tr>
+</tbody>
 </table>
 </div>
 <br><br>
@@ -43,7 +45,7 @@
 <h2>Future Trips</h2>
 
 <div class="table-responsive">
-<table class="center table" table cellpadding="10" table bordercolor="#ffffff">
+<table class="center table" table cellpadding="10">
   <thead>
     <tr>
       <th>Trip Id</th>
@@ -58,6 +60,8 @@
       <th>Destination Weather</th>
     </tr>
   </thead>
+
+  <tbody>
   <tr *ngFor="let row of futureTrips"  class="clickRow">
     <td (click)="openTrip(row)">{{row.tripId}}</td>
     <td (click)="openTrip(row)">{{row.tripName}}</td>
@@ -72,12 +76,13 @@
     <td><button class="btn btn-lg btn-outline-primary" (click)="open(content,row.origin)">Weather</button></td>
     <td><button class="btn btn-lg btn-outline-primary" (click)="open2(content,row.destination)">Weather</button></td>
   </tr>
+</tbody>
 </table>
 </div>
-
+<br><br>
 <h2>Past Trips</h2>
 <div class="table-responsive">
-<table class="center" table cellpadding="10" table bordercolor="#ffffff">
+<table class="center table" table cellpadding="10">
   <thead>
     <tr>
 
@@ -93,6 +98,7 @@
       <th>Destination Weather</th>
     </tr>
   </thead>
+  <tbody>
   <tr *ngFor="let row of pastTrips" class="clickRow">
     <td (click)="openTrip(row)">{{row.tripId}}</td>
     <td (click)="openTrip(row)">{{row.tripName}}</td>
@@ -107,6 +113,7 @@
     <td><button class="btn btn-lg btn-outline-primary" (click)="open(content,row.origin)">Weather</button></td>
     <td><button class="btn btn-lg btn-outline-primary" (click)="open2(content,row.destination)">Weather</button></td>
   </tr>
+  </tbody>
 </table>
 
 
@@ -139,4 +146,5 @@
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">close</button>
   </div>
 </ng-template>
+
 
