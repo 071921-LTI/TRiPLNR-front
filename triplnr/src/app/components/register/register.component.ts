@@ -79,6 +79,7 @@ export class RegisterComponent implements OnInit {
     
     this.auth0.getUser().subscribe(res => {
       this.sub = res.sub;
+      this.imageFileUrl = res.picture;
     })
   }
 
