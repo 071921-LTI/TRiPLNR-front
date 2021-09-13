@@ -66,15 +66,15 @@ export class TripDashboardComponent implements AfterViewInit {
 
 
 
-  originStreetAddress : String = '';
-  originCity : String = '';
-  originState : String = '';
-  originZip : String = '';
+  originStreetAddress? : string;
+  originCity? : string;
+  originState? : string;
+  originZip?: string;
 
-  desStreetAddress : String = '';
-  desCity : String = '';
-  desState : String = '';
-  desZip : String = '';
+  desStreetAddress? : string;
+  desCity? : string;
+  desState? : string;
+  desZip?: string;
   
   currDate : string = '';
   currDateEnd: string = '';
@@ -93,6 +93,20 @@ export class TripDashboardComponent implements AfterViewInit {
   timeElapsed: any;
   //WayPointsMap: Map<number, String> = new Map<number, String>();
   //May need to uncomment if we're doing additional stops...
+
+  addRolesbtn(): void{
+    this.addRoles = true;
+  }
+
+
+  addPlaylist(): void {
+    this.playlists.push(this.playlist);
+    this.playlist = '';
+    console.log(this.playlists);
+  }
+
+
+
 
   addRolesbtn(): void{
     this.addRoles = true;
@@ -197,6 +211,32 @@ export class TripDashboardComponent implements AfterViewInit {
         } else {
           this.error = "Trip Creation Error";
         }
+      }
+    )
+  }
+
+  reset():void{
+    this.tripService.getTripById(this.token!, Number(sessionStorage.getItem('tripId'))).subscribe(
+      response => {
+        this.trip = response;
+        this.tripName = this.trip.tripName || '';
+        this.tripOrigin = this.trip.origin || '';
+        var splitted = response.origin?.split(",",3)
+        var temp = splitted?.pop()?.split(" ");
+        this.originZip = temp?.pop();
+        this.originState = temp?.pop();
+        this.originCity = splitted?.pop();
+        this.originStreetAddress = splitted?.pop();
+        this.tripDestination = this.trip.destination || '';
+        var splitted = response.destination?.split(",",3)
+        var temp = splitted?.pop()?.split(" ");
+        this.desZip = temp?.pop();
+        this.desState = temp?.pop();
+        this.desCity = splitted?.pop();
+        this.desStreetAddress = splitted?.pop();
+        this.tripManagerFirst = this.trip.manager?.firstName || '';
+        this.tripManagerLast = this.trip.manager?.lastName || '';
+        this.tripManager = this.tripManagerFirst + " " + this.tripManagerLast;
       }
     )
   }
@@ -353,11 +393,35 @@ export class TripDashboardComponent implements AfterViewInit {
       response => {
         this.trip = response;
         this.tripName = this.trip.tripName || '';
+
+
         this.tripOrigin = this.trip.origin || '';
+
+        var splitted = response.origin?.split(",",3)
+        var temp = splitted?.pop()?.split(" ");
+        this.originZip = temp?.pop();
+        this.originState = temp?.pop();
+        this.originCity = splitted?.pop();
+        this.originStreetAddress = splitted?.pop();
+
+
+
         this.tripDestination = this.trip.destination || '';
+
+        var splitted = response.destination?.split(",",3)
+        var temp = splitted?.pop()?.split(" ");
+        this.desZip = temp?.pop();
+        this.desState = temp?.pop();
+        this.desCity = splitted?.pop();
+        this.desStreetAddress = splitted?.pop();
+
+
+
         this.tripManagerFirst = this.trip.manager?.firstName || '';
         this.tripManagerLast = this.trip.manager?.lastName || '';
         this.tripManager = this.tripManagerFirst + " " + this.tripManagerLast;
+
+
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const directionsService = new google.maps.DirectionsService();
     //Grab the map
