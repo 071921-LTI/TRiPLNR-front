@@ -5,14 +5,14 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse">
+      <div class="collapse navbar-collapse" *ngIf="!onRegister">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <ng-container *ngIf='(auth.isAuthenticated$ | async) === false'>
           <li class="nav-item">
             <a  routerLinkActive #rlalogin="routerLinkActive" [ngClass]="rlalogin.isActive ? 'nav-link active' : 'nav-link'"  aria-current="page" (click)='auth.loginWithRedirect()'>Login</a>
           </li>
           <li class="nav-item">
-            <a  routerLinkActive #rlareg="routerLinkActive" [ngClass]="rlareg.isActive ? 'nav-link active' : 'nav-link'"  aria-current="page" (click)='auth.loginWithRedirect()'>Register</a>
+            <a  routerLinkActive #rlareg="routerLinkActive" [ngClass]="rlareg.isActive ? 'nav-link active' : 'nav-link'"  aria-current="page" (click)='auth.loginWithRedirect({redirect_uri: "", appState: { target: "", queryParams: "" }, screen_hint: "signup"})'>Register</a>
           </li>
         </ng-container>
         <ng-container *ngIf="auth.isAuthenticated$ | async">
