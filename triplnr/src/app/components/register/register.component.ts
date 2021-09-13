@@ -11,6 +11,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  [x: string]: any;
 
   constructor(private userService:UserServiceService, private router:Router, private auth0: Auth0ServiceService) { }
 
@@ -22,7 +23,9 @@ export class RegisterComponent implements OnInit {
   sub: String = '';
   first: String = '';
   last: String = '';
-  address : String = '';
+  profilePic: String = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png';
+  bio: String = '';
+  address: String = '';
 
   error:String = '';
 
@@ -34,6 +37,9 @@ export class RegisterComponent implements OnInit {
   city : String = '';
   state : String = '';
   zip : String = '';
+
+  imageFile?: File;
+  imageFileUrl: any = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png';
 
   //
   getAddress(fullAddress : String){
@@ -48,6 +54,8 @@ export class RegisterComponent implements OnInit {
       sub: this.sub,
       firstName: this.first,
       lastName: this.last,
+      profilePic: this.profilePic,
+      bio: this.bio,
       address: this.address
     }
     //calls authService register method passes through new user object
@@ -72,6 +80,18 @@ export class RegisterComponent implements OnInit {
     this.auth0.getUser().subscribe(res => {
       this.sub = res.sub;
     })
+  }
+
+  selectImage(event: any) {
+    const file = event.target.files[0];
+    this.imageFile = file;
+    const fileReader = new FileReader();
+
+    fileReader.onload = () => {
+      return this.imageFileUrl = fileReader.result;
+    }
+
+    fileReader.readAsDataURL(file);
   }
 
 }

@@ -31,6 +31,25 @@
         <br>
         <!-- added -->
 
+        <div class="form-group">
+          <img [src]='imageFileUrl' width=200 height=200>
+            <label for="file-upload" class="custom-file-upload">
+              <i class="fa fa-cloud-upload"></i> Upload Image
+            </label>
+            <input id="file-upload" type="file" (change)='selectImage($event)' name="profilePic"/>
+        </div>
+        <br>
+
+        <div class="form-group">
+          <div class="form-floating">
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Bio</label>
+              <textarea type='text' ([ngModel])='bio' placeholder='Bio' class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+        <br>
+
         
         <div class="form-group">
           <div class="col-50">
