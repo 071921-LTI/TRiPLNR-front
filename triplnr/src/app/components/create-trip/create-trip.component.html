@@ -176,7 +176,6 @@
       
       <tr>
         <th scope = 'col'>user Id</th>
-        <th scope = 'col'>username</th>
         <th scope = 'col'>name</th>
       </tr>
     </thead>
@@ -184,6 +183,7 @@
        <!-- populates table with data from passengers -->
       <tr *ngFor = "let row of passengers">
         <td>{{row.userId}}</td>
+        <td>{{row.firstName}} {{row.lastName}}</td>
       </tr>
     </tbody>
   </table>
