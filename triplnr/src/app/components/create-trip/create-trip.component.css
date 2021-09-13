@@ -82,6 +82,7 @@ tr:nth-child(even) {background-color: darkgray;}
 label {
   display: block;
   font: 1rem 'Fira Sans', sans-serif;
+  color: grey
 }
 
 input,
@@ -116,3 +117,4 @@ input.is-untouched{
 select.is-invalid{
   border-color: red;
 }
+

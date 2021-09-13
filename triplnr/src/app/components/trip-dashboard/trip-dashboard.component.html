@@ -31,14 +31,14 @@
       <h1 class="h5 mb-3 fw-normal">Origin</h1>
       <div class="form-group">
         <div class="col-50">
-          <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-          <input type="text" id="adr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
+          <label for="originAdr"><i class="fa fa-address-card-o"></i> Address</label>
+          <input type="text" id="originAdr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
             #streetControl = "ngModel" [class.is-invalid]="streetControl.invalid && streetControl.touched"
             name="address" placeholder="542 W. 15th Street" [(ngModel)]="originStreetAddress">
           <small class="text-danger" [class.d-none] = "streetControl.valid || streetControl.untouched">Please enter Street Address</small>
           
           <label for="city"><i class="fa fa-institution"></i> City</label>
-          <input type="text" id="city" class="form-control" required pattern="[a-zA-Z ]+$" 
+          <input type="text" id="originCity" class="form-control" required pattern="[a-zA-Z ]+$" 
             #cityControl="ngModel" [class.is-invalid]="cityControl.invalid && cityControl.touched"
             name="city" placeholder="New York" [(ngModel)]="originCity">
           <small class="text-danger" [class.d-none] = "cityControl.valid || cityControl.untouched">Please enter City or Town name</small>
@@ -48,7 +48,7 @@
             <div class="col-50">
               <div class="form-group">
                 <label for="state">State</label>
-                <select class="custom-select" id="state" placeholder="State" required pattern="^\w{2}$" name = "state" placeholder="NY" [(ngModel)]="originState"
+                <select class="custom-select" id="originState" placeholder="State" required pattern="^\w{2}$" name = "state" placeholder="NY" [(ngModel)]="originState"
                   #stateControl="ngModel" [class.is-invalid]="stateControl.invalid && stateControl.touched">
                   <option value = "">State</option>
                   <option *ngFor="let state of stateArr">{{ state }}</option>
@@ -60,7 +60,7 @@
             <div class="col-50">
               <div class="form-group">
                 <label for="zip">Zip</label>
-                <input type="text" id="zip" name="zip" required pattern="^\d{5}$" #zipControl="ngModel"
+                <input type="text" id="originZip" name="zip" required pattern="^\d{5}$" #zipControl="ngModel"
                   [class.is-invalid]="zipControl.invalid && zipControl.touched"
                   class="form-control" placeholder="00000" [(ngModel)]="originZip">
                 <small class="text-danger" [class.d-none] = "zipControl.valid || zipControl.untouched">Please enter a valid zip code</small>
@@ -74,7 +74,7 @@
       <div class="form-group">
         <div class="col-50">
           <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-          <input type="text" id="dadr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
+          <input type="text" id="desAdr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
             #desStreetControl = "ngModel" [class.is-invalid]="desStreetControl.invalid && desStreetControl.touched"
             name="desAddress" placeholder="542 W. 15th Street" [(ngModel)]="desStreetAddress">
           <small class="text-danger" [class.d-none] = "desStreetControl.valid || desStreetControl.untouched">Please enter Street Address</small>
@@ -165,19 +165,26 @@
 
 
 <div class="col-5">
+  
+  <ng-container *ngIf="isPlaylist">
+    <p>your current spotify playlist: <a href="{{curSpotify}}" target="_blank"> playlist </a></p> 
+  </ng-container>
 
-<form #playlistForm = "ngForm">
+
+  <form #playlistForm = "ngForm">
+  <ng-container *ngIf="isManager">
 <div class="form-group">
   <div class="form-floating">
-    <input type="text" #playlistControl = "ngModel" class="form-control" 
-          id="playlistinput" placeholder="submit a playlist" name = "playlist"[(ngModel)]="playlist">
-        <label for="floatingInput">Enter a Playlist</label>
+    <input type="text" pattern="^.*open.spotify.com/.*" #newSpotifyControl = "ngModel"  class="form-control" 
+          id="newSpotifyInput" placeholder="submit a playlist" name = "newSpotify" [(ngModel)]="newSpotify">
+        <small class="text-danger" [class.d-none]="newSpotifyControl.valid">not a propper spotify playlist link</small>
+        <label for="floatingInput">Enter New Playlist</label>
   </div>
 </div>
+  </ng-container> 
 </form>
 
 
-<button class="w-50 btn btn-lg btn-dark" id="playlistBtn" type="input" (click)="addPlaylist()">add Playlist</button>
 <ng-container *ngIf="!addRoles">
     <h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Current Passengers</h2>
     <div id="MyTrip" class="text-center">
@@ -207,8 +214,10 @@
     </div>
   </ng-container>
     <br>
+
+    <ng-container *ngIf="isManager">
     <button class="w-100 btn btn-lg btn-secondary" id="rolesBtn" type="input" (click)="addRolesbtn()">add/updae Roles</button>
-    
+  </ng-container>
     <br>
     <br>
     <!-- add in passenger roles info-->
