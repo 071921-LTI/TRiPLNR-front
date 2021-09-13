@@ -24,6 +24,7 @@ export class CreateTripComponent implements OnInit {
   friends: User[]= [];
   passengerDeck: Array<User> = [];
   passengers: Array<User> = [];
+  spotify:string='';
 
   userId?: number;
   error: String = '';
@@ -103,6 +104,7 @@ export class CreateTripComponent implements OnInit {
       destination: this.destination,
       tripName: this.tripName,
       passengers: this.passengers,
+      spotify: this.spotify,
     } 
 
     //calls trip service create, passes in new trip object with user entered fields, Authorization token and the start time string

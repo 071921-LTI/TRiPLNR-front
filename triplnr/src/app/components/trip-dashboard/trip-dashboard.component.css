@@ -224,3 +224,19 @@ select.is-invalid{
   flex-grow: 1;
   margin: 0px
 }
+
+.originWeatherTable {
+  float: left
+}
+
+.originWeatherTable2 {
+  float: right;
+}
+
+.weatherIcon1{
+  margin-right: auto;
+}
+
+.weatherIcon2{
+  margin-left: 100px;
+}
