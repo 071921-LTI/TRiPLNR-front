@@ -9,6 +9,8 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 })
 export class UserPreferencesComponent implements OnInit {
 
+  stateArr = ['CT', 'NY', 'VT', 'TX'];
+
 
   user?:User;
   response?: String;
@@ -16,8 +18,6 @@ export class UserPreferencesComponent implements OnInit {
   //token is set to the authorization token that is stored by the current session
   token = sessionStorage.getItem("token") || '';
   
-  username?: String;
-  password?: String;
   first?: String;
   last?: String;
   streetAddress ?: String ;
@@ -33,8 +33,6 @@ export class UserPreferencesComponent implements OnInit {
     this.userService.getCurrentUser(this.token).subscribe(
       response => {
         //response object containing data of current user
-        this.username = response.username;
-        this.password = response.password;
         this.first = response.firstName;
         this.last = response.lastName;
         this.address = response.address;
@@ -69,8 +67,6 @@ export class UserPreferencesComponent implements OnInit {
   reset(){
     this.userService.getCurrentUser(this.token).subscribe(
       response => {
-        this.username = response.username;
-        this.password = response.password;
         this.first = response.firstName;
         this.last = response.lastName;
         this.address = response.address;
@@ -91,8 +87,6 @@ export class UserPreferencesComponent implements OnInit {
   update(): void {
     //user new user object to replace existing object 
     this.user = {
-      username: this.username,
-      password: this.password,
       firstName: this.first,
       lastName: this.last,
       address: this.address,

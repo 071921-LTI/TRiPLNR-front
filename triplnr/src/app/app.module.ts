@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
-import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TripDashboardComponent } from './components/trip-dashboard/trip-dashboard.component';
@@ -20,16 +19,16 @@ import { PendingRequestComponent } from './components/pending-request/pending-re
 import { ProfilesComponent } from './components/profiles/profiles.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
+import { PassengerPendingRequestsComponent } from './components/passenger-pending-requests/passenger-pending-requests.component';
 import { environment } from 'src/environments/environment';
 //import {MatTableModule} from '@angular/material/table';
-
 import { AuthModule } from '@auth0/auth0-angular';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
-    LoginComponent,
     RegisterComponent,
     DashboardComponent,
     TripDashboardComponent,
@@ -43,13 +42,18 @@ import { AuthModule } from '@auth0/auth0-angular';
     PendingRequestComponent,
     ProfilesComponent,
     UserProfileComponent,
-    FilterPipe
+    FilterPipe,
+
+    PassengerPendingRequestsComponent
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+
+    [NgbPaginationModule, NgbAlertModule],
     AuthModule.forRoot({
       domain: environment.AUTH_DOMAIN,
       clientId: environment.AUTH_CLIENT_ID
@@ -57,6 +61,6 @@ import { AuthModule } from '@auth0/auth0-angular';
     //MatTableModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

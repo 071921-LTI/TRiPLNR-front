@@ -25,6 +25,9 @@ export class TripDashboardComponent implements AfterViewInit {
     */
   }
 
+  stateArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
+  roleArr = ['Music', 'Navigator', 'Snacks']
+
   userId?: number;
   error: String = '';
 
@@ -53,6 +56,30 @@ export class TripDashboardComponent implements AfterViewInit {
   passengers: Array<User> = [];
   isManager: boolean = true;
 
+  // need to add functionalit to check if playlist exists and if user roles exists and change value to true
+  isPlaylist: boolean = false;
+  isRoles: boolean = false;
+  addRoles:boolean = false;
+  role:string = '';
+  playlists: Array<string> = [];
+  playlist: string = '';
+
+
+
+  originStreetAddress? : string;
+  originCity? : string;
+  originState? : string;
+  originZip?: string;
+
+  desStreetAddress? : string;
+  desCity? : string;
+  desState? : string;
+  desZip?: string;
+  
+  currDate : string = '';
+  currDateEnd: string = '';
+
+
   allAddr: Array<String> = [];
   singleMap: any;
   lat?: number;
@@ -66,6 +93,31 @@ export class TripDashboardComponent implements AfterViewInit {
   timeElapsed: any;
   //WayPointsMap: Map<number, String> = new Map<number, String>();
   //May need to uncomment if we're doing additional stops...
+
+  addRolesbtn(): void{
+    this.addRoles = true;
+  }
+
+
+  addPlaylist(): void {
+    this.playlists.push(this.playlist);
+    this.playlist = '';
+    console.log(this.playlists);
+  }
+
+
+
+
+  addRolesbtn(): void{
+    this.addRoles = true;
+  }
+
+
+  addPlaylist(): void {
+    this.playlists.push(this.playlist);
+    this.playlist = '';
+    console.log(this.playlists);
+  }
 
 
   addPassenger(): void {
@@ -116,6 +168,9 @@ export class TripDashboardComponent implements AfterViewInit {
   }
 
   updateTrip(): void {
+    this.tripOrigin=  this.originStreetAddress + ", " + this.originCity + ", " + this.originState + ", " + this.originZip;
+    this.tripDestination=  this.desStreetAddress + ", " + this.desCity + ", " + this.desState + ", " + this.desZip;
+
     this.token = sessionStorage.getItem("token") || '';
 
     this.startTime = this.startTime.replace('T', ' ') || '';
@@ -160,6 +215,32 @@ export class TripDashboardComponent implements AfterViewInit {
     )
   }
 
+  reset():void{
+    this.tripService.getTripById(this.token!, Number(sessionStorage.getItem('tripId'))).subscribe(
+      response => {
+        this.trip = response;
+        this.tripName = this.trip.tripName || '';
+        this.tripOrigin = this.trip.origin || '';
+        var splitted = response.origin?.split(",",3)
+        var temp = splitted?.pop()?.split(" ");
+        this.originZip = temp?.pop();
+        this.originState = temp?.pop();
+        this.originCity = splitted?.pop();
+        this.originStreetAddress = splitted?.pop();
+        this.tripDestination = this.trip.destination || '';
+        var splitted = response.destination?.split(",",3)
+        var temp = splitted?.pop()?.split(" ");
+        this.desZip = temp?.pop();
+        this.desState = temp?.pop();
+        this.desCity = splitted?.pop();
+        this.desStreetAddress = splitted?.pop();
+        this.tripManagerFirst = this.trip.manager?.firstName || '';
+        this.tripManagerLast = this.trip.manager?.lastName || '';
+        this.tripManager = this.tripManagerFirst + " " + this.tripManagerLast;
+      }
+    )
+  }
+
   isUserManager(): void {
     let token = sessionStorage.getItem('Authorization');
     console.log("this is my token: " + token);
@@ -172,6 +253,37 @@ export class TripDashboardComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    let today = new Date();
+    let year=today.getFullYear().toString();
+    let month=(today.getMonth()+1).toString();
+    if(month.length<2){
+      month = "0"+month;
+    }
+    let day = today.getDate().toString();
+    if(day.length<2){
+      day = "0"+day;
+    }
+    let date = year+"-"+month+"-"+day;
+    let hours = today.getHours().toString();
+    if(hours.length<2){
+      hours = "0"+hours;
+    }
+    let minutes = today.getMinutes().toString();
+    if(minutes.length<2){
+      minutes = "0"+ minutes;
+    }
+    let time = hours+":"+minutes;
+    
+    this.currDate = date + "T" + time+":00";
+  
+    let hourEnd= (today.getHours()+1).toString();
+    if(hourEnd.length<2){
+      hourEnd = "0"+hourEnd;
+    }
+    let timeEnd = hourEnd+":"+minutes;
+    this.currDateEnd = date + "T" + timeEnd+":00";
+
+
     //gets current user authorization token from session storage
     this.token = sessionStorage.getItem('token') || '';
     console.log(this.token);
@@ -192,11 +304,7 @@ export class TripDashboardComponent implements AfterViewInit {
 
 
         let token = sessionStorage.getItem('token');
-        console.log("this is my token: " + token);
-        let myArr = token?.split(":") || '';
-        let curUserId = parseInt(myArr[0]);
-        console.log("manager Id: " + this.trip?.manager?.userId + "| loged in user id: " + this.token?.split(":")[0])
-        if (curUserId != this.trip?.manager?.userId) {
+        if (token != this.trip?.manager?.sub) {
           this.isManager = false;
           document.getElementById('tripNameinput')?.setAttribute('readonly', 'readonly');
           document.getElementById('tripOrigininput')?.setAttribute('readonly', 'readonly');
@@ -285,11 +393,35 @@ export class TripDashboardComponent implements AfterViewInit {
       response => {
         this.trip = response;
         this.tripName = this.trip.tripName || '';
+
+
         this.tripOrigin = this.trip.origin || '';
+
+        var splitted = response.origin?.split(",",3)
+        var temp = splitted?.pop()?.split(" ");
+        this.originZip = temp?.pop();
+        this.originState = temp?.pop();
+        this.originCity = splitted?.pop();
+        this.originStreetAddress = splitted?.pop();
+
+
+
         this.tripDestination = this.trip.destination || '';
+
+        var splitted = response.destination?.split(",",3)
+        var temp = splitted?.pop()?.split(" ");
+        this.desZip = temp?.pop();
+        this.desState = temp?.pop();
+        this.desCity = splitted?.pop();
+        this.desStreetAddress = splitted?.pop();
+
+
+
         this.tripManagerFirst = this.trip.manager?.firstName || '';
         this.tripManagerLast = this.trip.manager?.lastName || '';
         this.tripManager = this.tripManagerFirst + " " + this.tripManagerLast;
+
+
     const directionsRenderer = new google.maps.DirectionsRenderer();
     const directionsService = new google.maps.DirectionsService();
     //Grab the map
@@ -339,4 +471,3 @@ export class TripDashboardComponent implements AfterViewInit {
   }
 
 }
-

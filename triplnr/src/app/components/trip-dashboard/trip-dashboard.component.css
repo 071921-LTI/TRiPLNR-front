@@ -13,8 +13,6 @@
   }
 
   #map {
-    height: 300px;
-    width: 300px;
     flex-basis: 0;
     flex-grow: 4;
     height: 100%;
@@ -173,3 +171,39 @@ th{
 }
 
 tr:nth-child(even) {background-color: darkgray;}
+
+elect {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+} 
+
+input {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+} 
+
+select {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+} 
+
+input.is-invalid{
+  border-color: red;
+}
+
+input.is-untouched{
+  border-color: #ced4da;
+}
+
+select.is-invalid{
+  border-color: red;
+}

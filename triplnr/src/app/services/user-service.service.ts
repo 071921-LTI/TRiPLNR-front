@@ -57,4 +57,16 @@ export class UserServiceService {
       map(response => response as User[])
     );
   }
+
+  checkIfRegistered(sub: string): Observable<User> {
+    return this.http.get(environment.userURL + 'sub', { headers: { 'Authorization': sub } }).pipe(
+      map(response => response as User)
+    )
+  }
+
+  createUser(user: User): Observable<any> {
+    return this.http.post(environment.userURL + 'create', user ).pipe(
+      map(response => response)
+    )
+  }
 }

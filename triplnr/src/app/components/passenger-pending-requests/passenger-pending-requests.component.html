@@ -1,0 +1,7 @@
+<table>
+    <tr *ngFor="let row of requests">
+        <td id="name"><b>Trip Invite:</b> {{row.trip?.tripName}} | <b>From:</b> {{row.trip?.manager?.firstName + " " + row.trip?.manager?.lastName}} </td>
+        <td><input type="button" value="Accept" (click)="acceptRequest(row)" id="accept"></td>
+        <td><input type="button" value="Deny" (click)="denyRequest(row)" id="deny"></td>
+    </tr>
+</table>
