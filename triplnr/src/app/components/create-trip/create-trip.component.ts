@@ -5,7 +5,6 @@ import { Trip } from 'src/app/models/trip'
 import { User } from 'src/app/models/user';
 import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
-import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
   selector: 'app-create-trip',
@@ -147,7 +146,6 @@ export class CreateTripComponent implements OnInit {
     }
     let timeEnd = hours+":"+minutes;
     this.currDateEnd = date + "T" + time+":00";
-
 
     this.userService.getFriends(sessionStorage.getItem("token")!).subscribe(
       async response => {this.friends = response;})

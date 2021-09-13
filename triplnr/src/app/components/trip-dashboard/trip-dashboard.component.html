@@ -121,7 +121,7 @@
 
       <ng-container *ngIf="isManager">
       <div class="form-floating">
-          <button style = "background-color: blue;display:inline;" class = "w-80 btn btn-lg btn-dark" type="input" (click)='addPassenger()'>Manage Passengers</button>
+        <button class="w-100 btn btn-lg btn-dark" data-toggle="modal" [attr.data-target]="'#passengerModal'">Manage Passengers</button>
         </div>
 
         <br>
@@ -204,7 +204,7 @@
     </div>
   </ng-container>
     <br>
-    <button class="w-100 btn btn-lg btn-secondary" id="rolesBtn" type="input" (click)="addRolesbtn()">add/updae Roles</button>
+    <button class="w-100 btn btn-lg btn-secondary" id="rolesBtn" type="input" (click)="addRolesbtn()">Add/Update Roles</button>
     
     <br>
     <br>
@@ -278,4 +278,45 @@
   
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="passengerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Manage Passengers</h5>
+      <button type="button" class="btn btn-primary" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+        </div>
+            <div class="modal-body">
+              <div class = "tableFriends" style="float: left">
+                <h3>Friends</h3>
+                <table class="table table-borderless" table cellpadding="10">
+                  <!-- populates table with datat from from friends lists -->
+                  <tr *ngFor="let row of passengerDeckPhase1" (click)="addPassengerToDeck(row)" class="clickRow">
+                    <td>{{row.firstName}} {{row.lastName}}</td>
+                  </tr>
+                </table>
+              </div>
+
+              <div id='center'>
+                <mat-divider [vertical]="true" style="height:100%"></mat-divider>
+              </div>
+            
+              <div class = "tablePassengers" style="float: right">
+                <h3>Passengers</h3>
+                <table class="table table-borderless" table cellpadding="10">
+                  <!-- populates table with datat from passengerDeck lists -->
+                  <tr *ngFor="let row of passengerDeckPhase2" (click)="removePassengerFromDeck(row)" class="clickRow">
+                    <td>{{row.firstName}} {{row.lastName}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="addPassengers()" data-dismiss="modal">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </html>
