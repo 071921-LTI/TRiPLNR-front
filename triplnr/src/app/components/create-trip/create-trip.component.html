@@ -12,9 +12,9 @@
 
           <div class="form-floating">                 <!-- [(ngModel)] referes to variable in typeScript file -->
             <input type="text" required #nameControll="ngModel" 
-              [class.is-invalid]="nameControll.invalid && nameControll.touched" id = "tripName"
+              [class.is-invalid]="nameControll.invalid && nameControll.touched"
               class="form-control" name = "tripName" placeholder="Trip Name" [(ngModel)]="tripName">
-            <label for="tripName">Trip Name</label>
+            <label for="floatingPassword">Trip Name</label>
             <small class="text-danger" [class.d-none]="nameControll.valid || nameControll.untouched">Enter a trip name</small>
           </div>
   
@@ -95,62 +95,9 @@
             <label for="trip-end-time">Choose an end time for your trip:</label>
           </div>
         </div>
-        
-        <h1 class="h3 mb-3 fw-normal">Stops</h1>
-        <div id="error">
-        </div>
+  
         </form>
-        
-        <form #stopTripForm="ngForm">
 
-          <div class="form-floating">                 <!-- [(ngModel)] referes to variable in typeScript file -->
-            <div class="form-group">
-              <div class="col-50">
-                <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-                <input type="text" id="adr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
-                  #streetControl = "ngModel" [class.is-invalid]="streetControl.invalid && streetControl.touched"
-                  name="address" placeholder="542 W. 15th Street" [(ngModel)]="stopStreetAddress">
-                <small class="text-danger" [class.d-none] = "streetControl.valid || streetControl.untouched">Please enter Street Address</small>
-                
-                <label for="city"><i class="fa fa-institution"></i> City</label>
-                <input type="text" id="city" class="form-control" required pattern="[a-zA-Z ]+$" 
-                  #cityControl="ngModel" [class.is-invalid]="cityControl.invalid && cityControl.touched"
-                  name="city" placeholder="New York" [(ngModel)]="stopCity">
-                <small class="text-danger" [class.d-none] = "cityControl.valid || cityControl.untouched">Please enter City or Town name</small>
-              
-              
-                <div class="row">
-                  <div class="col-50">
-                    <div class="form-group">
-                      <label for="state">State</label>
-                      <select class="custom-select" id="state" placeholder="State" required pattern="^\w{2}$" name = "state" placeholder="NY" [(ngModel)]="stopState"
-                        #stateControl="ngModel" [class.is-invalid]="stateControl.invalid && stateControl.touched">
-                        <option value = "">State</option>
-                        <option *ngFor="let state of stateArr">{{ state }}</option>
-                      </select>
-                      <small class="text-danger" [class.d-none] = "stateControl.valid || stateControl.untouched">Please select a state</small>
-                    </div>
-                  </div>
-    
-                  <div class="col-50">
-                    <div class="form-group">
-                      <label for="zip">Zip</label>
-                      <input type="text" id="zip" name="zip" required pattern="^\d{5}$" #zipControl="ngModel"
-                        [class.is-invalid]="zipControl.invalid && zipControl.touched"
-                        class="form-control" placeholder="00000" [(ngModel)]="stopZip">
-                      <small class="text-danger" [class.d-none] = "zipControl.valid || zipControl.untouched">Please enter a valid zip code</small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br>
-          <button class="w-100 btn btn-lg btn-dark" type="input" (click)='addStops()'>Add Stops</button>
-          <br>
-          <br>
-          <!--<button class="w-100 btn btn-lg btn-dark" type="input" (click)='removeStops()'>Remove Stops</button>-->
-            </form>
         <br>
         <br>
         <button [disabled]="creatTripForm.form.invalid" class="w-100 btn btn-lg btn-primary" type="input" (click)='createTrip()'>Create Trip</button>
@@ -162,7 +109,6 @@
         
         <br>
         
-          
 </div>
 
 
@@ -189,28 +135,7 @@
     </tbody>
   </table>
 </div>
-<br>
-<h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Stops</h2>
-<div id="MyTrip" class="text-center">
-  
-  <table>
-    
-    <thead>
-      
-      <tr>
-        <th scope = 'col'>Stops</th>
-        
-      </tr>
-    </thead>
-     <tbody>  
-       <!-- populates table with data from passengers -->
-      <tr *ngFor = "let row of stops" (click) ='RemoveThisStop(row)'>
-        <td>{{row}}</td>
-        <!-- <td><button id="btn_RemoveAt"  style="color: red;">X</button></td> -->
-      </tr>
-    </tbody>
-  </table>
-</div>
+
 </body>
 
      
