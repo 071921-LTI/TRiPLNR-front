@@ -257,7 +257,50 @@
   </ng-container> 
   <hr>
 
+<img src="{{imageOrigin}}" class="weatherIcon1"> 
+  <img src="{{imageDest}}" class="weatherIcon2">
+
+  <div>
   <!-- put weather here !!!!!!!!-->
+    
+    
+  <table class="originWeatherTable">
+    
+    <thead>
+        <tr>
+            <th scope="col" class="a">Detail</th>
+            <th scope="col" class="a">Origin Weather</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let item of currWeather | keyvalue">
+            <td>{{item.key}}</td>
+            <td>{{item.value}}</td>
+        </tr>
+        
+      </tbody>
+</table>
+
+  <table class="originWeatherTable2">
+  
+    <thead>
+        <tr>
+            <th scope="col" class="a">Destination Weather</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let item of destWeather | keyvalue">
+            <td>{{item.value}}</td>
+        </tr>
+        
+      </tbody>
+</table>
+
+    
+  </div>
+
 
 
 

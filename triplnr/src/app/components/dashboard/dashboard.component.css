@@ -101,3 +101,9 @@ tbody:last-child tr:last-child td:last-child{
   cursor: pointer;
   font-style:italic ;
 }
+
+.img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
