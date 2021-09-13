@@ -207,3 +207,19 @@ input.is-untouched{
 select.is-invalid{
   border-color: red;
 }
+
+.originWeatherTable {
+  float: left
+}
+
+.originWeatherTable2 {
+  float: right;
+}
+
+.weatherIcon1{
+  margin-right: auto;
+}
+
+.weatherIcon2{
+  margin-left: 100px;
+}

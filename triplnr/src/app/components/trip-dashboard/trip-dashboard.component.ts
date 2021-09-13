@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
 import { environment } from 'src/environments/environment';
 import { } from 'google__maps';
+import { WeatherServiceService } from 'src/app/services/weather-service.service';
+import { weather } from 'src/app/models/weather';
 
 declare var google: any;
 const locationButton = document.createElement("button");
@@ -17,7 +19,7 @@ const locationButton = document.createElement("button");
 export class TripDashboardComponent implements AfterViewInit {
   private map: any;
 
-  constructor(private tripService: TripServiceService, private router: Router) {
+  constructor(private tripService: TripServiceService, private router: Router, private weather:WeatherServiceService) {
     /*var script = document.createElement("script");
     script.type = "text/javascript";
     document.head.appendChild(script);
@@ -94,20 +96,15 @@ export class TripDashboardComponent implements AfterViewInit {
   //WayPointsMap: Map<number, String> = new Map<number, String>();
   //May need to uncomment if we're doing additional stops...
 
-  addRolesbtn(): void{
-    this.addRoles = true;
-  }
+  //Weather vvariables
+  currWeather:weather[]=[];
+  destWeather:weather[]=[];
+  tripStartTime:any;
+  tripEndTime:any;
+  imageOrigin:String = "";
+  imageDest:String = "";
 
-
-  addPlaylist(): void {
-    this.playlists.push(this.playlist);
-    this.playlist = '';
-    console.log(this.playlists);
-  }
-
-
-
-
+  
   addRolesbtn(): void{
     this.addRoles = true;
   }
@@ -298,7 +295,9 @@ export class TripDashboardComponent implements AfterViewInit {
         this.tripManagerFirst = this.trip.manager?.firstName || '';
         this.tripManagerLast = this.trip.manager?.lastName || '';
         this.tripManager = this.tripManagerFirst + " " + this.tripManagerLast;
-
+        //set start and end time for weather API
+        this.tripStartTime = this.trip.startTime || '';
+        this.tripEndTime = this.trip.endTime || '';
 
         this.passengers = this.trip.passengers || '';
 
@@ -319,11 +318,39 @@ export class TripDashboardComponent implements AfterViewInit {
         this.allAddr?.push(this.trip.destination!);
 
         console.log(this.allAddr);
-        
 
 
+
+      
+      //need to check if weather is two weeks or more out for API 2 week limit
+      // console.log("Origin address: "+this.tripOrigin)
+      console.log("start: "+ this.tripStartTime);
+      console.log("end: "+this.tripEndTime);
+
+      let startTime = new Date(this.tripStartTime);
+      let endTime = new Date(this.tripEndTime);
+      let currTime = Date.now();
+
+      let currDayDiff = Math.round((startTime.valueOf() - currTime.valueOf())/86400000);
+      let destDayDiff = Math.round((endTime.valueOf() - currTime.valueOf())/86400000);
+      console.log(currDayDiff);
+      console.log(destDayDiff);
+
+      // //need to check if weather is two weeks or more out for API 2 week limit
+      if(currDayDiff >  15){
+        //cannot show weather
+      }else{
+        this.callOriginWeather(this.tripOrigin, this.tripDestination ,currDayDiff, destDayDiff);
+      }     
        
       });
+
+      console.log("Origin "+this.tripOrigin)
+      // console.log("Dest "+this.tripDestination)      
+
+
+
+
     this.addMapsScript();
   }
 
@@ -469,5 +496,33 @@ export class TripDashboardComponent implements AfterViewInit {
       return this.single_Map;
     }
   }
+  //gets called only if the weather day is within two days of current day
+  callOriginWeather(origin:String, dest:String ,day:number , day2:number){
+         //get the weather from origin and the destination
+         this.weather.getDestinationWeather(origin,day).subscribe((response) =>{
+          this.currWeather = response;
+          let iconName = response['icon']+".png";
+          this.imageOrigin = "assets/Weather_Icon/" + iconName;
+          if(day2<=15){
+            this.callDestWeather(dest,day2);
+            console.log(this.imageOrigin);
+          }
+          
+          console.log(response);
+        })   
+  }
+
+    //gets called only if the weather day is within two days of current day
+    callDestWeather(origin:String,day:number){
+      //get the weather from origin and the destination
+      this.weather.getDestinationWeather(origin,day).subscribe((response) =>{
+       this.destWeather = response;
+       let iconName = response['icon']+".png";
+       this.imageDest = "assets/Weather_Icon/" + iconName;
+       console.log(response);
+     })   
+
+
+}
 
 }
