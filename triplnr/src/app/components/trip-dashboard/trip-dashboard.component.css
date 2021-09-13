@@ -172,14 +172,6 @@ th{
 
 tr:nth-child(even) {background-color: darkgray;}
 
-elect {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-} 
-
 input {
   width: 100%;
   margin-bottom: 20px;
