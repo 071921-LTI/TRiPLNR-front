@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 import { environment } from '../../../environments/environment';
 
@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment';
 })
 export class NavBarComponent implements OnInit {
 
-  constructor(@Inject(DOCUMENT) public document: Document, private router:Router, public auth: AuthService, private auth0Service: Auth0ServiceService) {
+  constructor(@Inject(DOCUMENT) public document: Document, private router:Router, public auth: AuthService, private auth0Service: Auth0ServiceService, location: Location) {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -21,11 +21,19 @@ export class NavBarComponent implements OnInit {
 
       if (event instanceof NavigationEnd) {
         this.checkLogin();
-    }
+      }
+
+      if (location.path() === '/register') {
+        this.onRegister = true;
+      } else {
+        this.onRegister = false;
+      }
 
   });
 
   }
+
+  onRegister: boolean = false;
 
   ngOnInit(): void {
 
