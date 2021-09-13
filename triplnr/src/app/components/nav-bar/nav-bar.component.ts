@@ -25,6 +25,8 @@ export class NavBarComponent implements OnInit {
 
       if (location.path() === '/register') {
         this.onRegister = true;
+      } else {
+        this.onRegister = false;
       }
 
   });
