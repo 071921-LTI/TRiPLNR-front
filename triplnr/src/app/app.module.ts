@@ -24,6 +24,7 @@ import { PassengerPendingRequestsComponent } from './components/passenger-pendin
 import { environment } from 'src/environments/environment';
 //import {MatTableModule} from '@angular/material/table';
 import { AuthModule } from '@auth0/auth0-angular';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,6 @@ import { AuthModule } from '@auth0/auth0-angular';
     ProfilesComponent,
     UserProfileComponent,
     FilterPipe,
-
     PassengerPendingRequestsComponent
 
   ],
@@ -52,6 +52,7 @@ import { AuthModule } from '@auth0/auth0-angular';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    MatDividerModule,
 
     [NgbPaginationModule, NgbAlertModule],
     AuthModule.forRoot({

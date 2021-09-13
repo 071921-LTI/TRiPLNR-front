@@ -70,53 +70,36 @@
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Add Passengers</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <h5 class="modal-title" id="exampleModalLabel">Manage Passengers</h5>
+                <button type="button" class="btn btn-primary" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                 </button>
                   </div>
-                    <div class="modal-body">
+                      <div class="modal-body">
+                        <div class = "tableFriends" style="float: left">
+                          <h3>Friends</h3>
+                          <table class="table table-borderless" table cellpadding="10">
+                            <!-- populates table with datat from from friends lists -->
+                            <tr *ngFor="let row of friends" (click)="addPassengerToDeck(row)" class="clickRow">
+                              <td>{{row.firstName}} {{row.lastName}}</td>
+                            </tr>
+                          </table>
+                        </div>
 
-                      <!-- (click)="openTrip(row)" -->
-                      <h3>Addable Passengers</h3>
-                      <table class="center" table cellpadding="10" table bordercolor="#ffffff">
-                        <thead>
-                          <tr>
-                            <th>Id</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Address</th>
-                          </tr>
-                        </thead>
-                        <!-- populates table with datat from trips lists -->
-                        <tr *ngFor="let row of friends" (click)="addPassengerToDeck(row)" class="clickRow">
-                          <td>{{row.userId}}</td>
-                          <td>{{row.firstName}}</td>
-                          <td>{{row.lastName}}</td>
-                          <td>{{row.address}}</td>
-                        </tr>
-                      </table>
-
-                      <h3>Current Passengers</h3>
-                      <table class="center" table cellpadding="10" table bordercolor="#ffffff">
-                        <thead>
-                          <tr>
-                            <th>Id</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Address</th>
-                          </tr>
-                        </thead>
-                        <!-- populates table with datat from trips lists -->
-                        <tr *ngFor="let row of passengerDeck" (click)="removePassengerFromDeck(row)" class="clickRow">
-                          <td>{{row.userId}}</td>
-                          <td>{{row.firstName}}</td>
-                          <td>{{row.lastName}}</td>
-                          <td>{{row.address}}</td>
-                        </tr>
-                      </table>
-
-                    </div>
+                        <div id='center'>
+                          <mat-divider [vertical]="true" style="height:100%"></mat-divider>
+                        </div>
+                      
+                        <div class = "tablePassengers" style="float: right">
+                          <h3>Passengers</h3>
+                          <table class="table table-borderless" table cellpadding="10">
+                            <!-- populates table with datat from passengerDeck lists -->
+                            <tr *ngFor="let row of passengerDeck" (click)="removePassengerFromDeck(row)" class="clickRow">
+                              <td>{{row.firstName}} {{row.lastName}}</td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-primary" (click)="addPassengers()">Save changes</button>
                     </div>
@@ -170,25 +153,20 @@
 <h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Passengers</h2>
 <div id="MyTrip" class="text-center">
   
-  <table>
-    
-    <thead>
-      
+  <table class="table">
+    <thead class="table-dark">
       <tr>
-        <th scope = 'col'>user Id</th>
-        <th scope = 'col'>name</th>
+        <th scope = 'col'>Name</th>
       </tr>
     </thead>
      <tbody>  
        <!-- populates table with data from passengers -->
       <tr *ngFor = "let row of passengers">
-        <td>{{row.userId}}</td>
         <td>{{row.firstName}} {{row.lastName}}</td>
       </tr>
     </tbody>
   </table>
 </div>
-
 </body>
 
      

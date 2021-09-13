@@ -54,6 +54,7 @@ export class TripDashboardComponent implements AfterViewInit {
 
   tripName: String = '';
   passengers: Array<User> = [];
+  passengerDeck: Array<User> = [];
   isManager: boolean = true;
 
   // need to add functionalit to check if playlist exists and if user roles exists and change value to true
@@ -97,21 +98,6 @@ export class TripDashboardComponent implements AfterViewInit {
   addRolesbtn(): void{
     this.addRoles = true;
   }
-
-
-  addPlaylist(): void {
-    this.playlists.push(this.playlist);
-    this.playlist = '';
-    console.log(this.playlists);
-  }
-
-
-
-
-  addRolesbtn(): void{
-    this.addRoles = true;
-  }
-
 
   addPlaylist(): void {
     this.playlists.push(this.playlist);
