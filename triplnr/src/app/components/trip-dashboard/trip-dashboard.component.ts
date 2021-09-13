@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
 import { environment } from 'src/environments/environment';
 import { } from 'google__maps';
+import { empty } from 'rxjs';
+import { ThrowStmt } from '@angular/compiler';
 
 declare var google: any;
 const locationButton = document.createElement("button");
@@ -57,12 +59,12 @@ export class TripDashboardComponent implements AfterViewInit {
   isManager: boolean = true;
 
   // need to add functionalit to check if playlist exists and if user roles exists and change value to true
-  isPlaylist: boolean = false;
+  isPlaylist: boolean = true;
   isRoles: boolean = false;
   addRoles:boolean = false;
   role:string = '';
-  playlists: Array<string> = [];
-  playlist: string = '';
+  newSpotify: string = '';
+  curSpotify: string = this.trip?.spotify ||"";
 
 
 
@@ -94,11 +96,6 @@ export class TripDashboardComponent implements AfterViewInit {
   //WayPointsMap: Map<number, String> = new Map<number, String>();
   //May need to uncomment if we're doing additional stops...
 
-  addPlaylist(): void {
-    this.playlists.push(this.playlist);
-    this.playlist = '';
-    console.log(this.playlists);
-  }
 
   addRolesbtn(): void{
     this.addRoles = true;
@@ -175,6 +172,11 @@ export class TripDashboardComponent implements AfterViewInit {
       this.startTimeString = this.trip?.startTime;
     }
 
+
+    if (this.newSpotify == ''){
+      this.newSpotify==this.curSpotify;
+    }
+
     //sets fields in trip object to data entered by user
     this.trip = {
       tripId: this.trip?.tripId,
@@ -182,7 +184,9 @@ export class TripDashboardComponent implements AfterViewInit {
       tripName: this.tripName,
       passengers: this.passengers,
       origin: this.tripOrigin,
+      spotify: this.newSpotify,
     }
+
 
 
 
@@ -224,15 +228,13 @@ export class TripDashboardComponent implements AfterViewInit {
   }
 
   isUserManager(): void {
-    let token = sessionStorage.getItem('Authorization');
-    console.log("this is my token: " + token);
-    let myArr = token?.split(":") || '';
-    let curUserId = parseInt(myArr[0]);
-    console.log("manager Id: " + this.trip?.manager?.userId + "| loged in user id: " + curUserId)
-    if (curUserId != this.trip?.manager?.userId) {
+    let token = sessionStorage.getItem('token');
+    if (token != this.trip?.manager?.sub)  {
       document.getElementById('tripNameinput')?.setAttribute('readonly', 'readonly');
     }
   }
+
+  
 
   ngAfterViewInit(): void {
     let today = new Date();
@@ -280,20 +282,33 @@ export class TripDashboardComponent implements AfterViewInit {
         this.tripManagerFirst = this.trip.manager?.firstName || '';
         this.tripManagerLast = this.trip.manager?.lastName || '';
         this.tripManager = this.tripManagerFirst + " " + this.tripManagerLast;
+        this.curSpotify = this.trip.spotify ||"";
+
 
 
         this.passengers = this.trip.passengers || '';
 
 
         let token = sessionStorage.getItem('token');
+
+        if (this.curSpotify == '' || this.curSpotify == null){
+          this.isPlaylist = false;
+        }
+
         if (token != this.trip?.manager?.sub) {
           this.isManager = false;
           document.getElementById('tripNameinput')?.setAttribute('readonly', 'readonly');
-          document.getElementById('tripOrigininput')?.setAttribute('readonly', 'readonly');
-          document.getElementById('tripDestinationInput')?.setAttribute('readonly', 'readonly');
+          document.getElementById('originAdr')?.setAttribute('readonly', 'readonly');
+          document.getElementById('originCity')?.setAttribute('readonly', 'readonly');
+          document.getElementById('originState')?.setAttribute('readonly', 'readonly');
+          document.getElementById('originZip')?.setAttribute('readonly', 'readonly');
+          document.getElementById('desAdr')?.setAttribute('readonly', 'readonly');
+          document.getElementById('desCity')?.setAttribute('readonly', 'readonly');
+          document.getElementById('desState')?.setAttribute('readonly', 'readonly');
+          document.getElementById('desZip')?.setAttribute('readonly', 'readonly');
         } 
 
-
+        
         this.allAddr?.push(this.tripOrigin!);
         this.trip.passengers.forEach((pass: User) => {
           this.allAddr?.push(pass.address!);
