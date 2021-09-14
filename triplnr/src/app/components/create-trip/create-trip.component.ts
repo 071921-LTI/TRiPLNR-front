@@ -178,4 +178,15 @@ export class CreateTripComponent implements OnInit {
     this.userService.getFriends(sessionStorage.getItem("token")!).subscribe(
       async response => {this.friends = response;})
   }
+
+  evt_StopChange(row: any, e: any) {
+    let origNDX :number = this.stops.indexOf(row);
+    let NDX_To :number = e.target.value -1;
+    let temp :String = this.stops[NDX_To];
+    console.log(origNDX);
+    console.log(temp);
+    console.log(NDX_To);
+    this.stops[NDX_To] = this.stops[origNDX];
+    this.stops[origNDX] = temp;
+  }
 }
