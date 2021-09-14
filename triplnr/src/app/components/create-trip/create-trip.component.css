@@ -96,7 +96,6 @@ select.is-invalid{
   border-color: red;
 }
 
-<<<<<<< HEAD
 .clickRow:hover { 
   background: rgb(201, 201, 201);
   cursor: pointer
@@ -122,5 +121,3 @@ select.is-invalid{
   margin: 0px
 }
 
-=======
->>>>>>> 7391e771b2256ab026620933b5d18be5cec1fca2
