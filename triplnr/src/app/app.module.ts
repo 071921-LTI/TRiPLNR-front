@@ -23,6 +23,7 @@ import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { PassengerPendingRequestsComponent } from './components/passenger-pending-requests/passenger-pending-requests.component';
 import { environment } from 'src/environments/environment';
 import { AuthModule } from '@auth0/auth0-angular';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,6 @@ import { AuthModule } from '@auth0/auth0-angular';
     ProfilesComponent,
     UserProfileComponent,
     FilterPipe,
-
     PassengerPendingRequestsComponent
 
   ],
@@ -51,6 +51,7 @@ import { AuthModule } from '@auth0/auth0-angular';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    MatDividerModule,
 
     [NgbPaginationModule, NgbAlertModule],
     AuthModule.forRoot({
