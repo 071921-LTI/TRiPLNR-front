@@ -172,14 +172,6 @@ th{
 
 tr:nth-child(even) {background-color: darkgray;}
 
-elect {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-} 
-
 input {
   width: 100%;
   margin-bottom: 20px;
@@ -207,14 +199,19 @@ input.is-untouched{
 select.is-invalid{
   border-color: red;
 }
-/* #stopsButton{
-  width: 30%;
-  align-content: center;
+
+.originWeatherTable {
+  float: left
 }
-#stopss{
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-} */
+
+.originWeatherTable2 {
+  float: right;
+}
+
+.weatherIcon1{
+  margin-right: auto;
+}
+
+.weatherIcon2{
+  margin-left: 100px;
+}
