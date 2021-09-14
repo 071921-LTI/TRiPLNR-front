@@ -179,8 +179,8 @@ export class CreateTripComponent implements OnInit {
       async response => {this.friends = response;})
   }
 
-  evt_StopChange(row: any, e: any) {
-    let origNDX :number = this.stops.indexOf(row);
+  evt_StopChange(i: number, e: any) {
+    let origNDX :number = i;
     let NDX_To :number = e.target.value -1;
     let temp :String = this.stops[NDX_To];
     console.log(origNDX);
