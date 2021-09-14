@@ -1,0 +1,17 @@
+<head>
+    
+</head>
+<body>
+<div class="container">
+  <input ngx-google-places-autocomplete (onAddressChange)="handleAddressChange($event)" />
+
+  <p>Address: {{ userAddress }}</p>
+  <p>Latitude: {{ userLatitude }}</p>
+  <p>Longitude: {{ userLongitude }}</p>
+
+  <p>Address: {{ streetAddress }}</p>
+  <p>City: {{ city }}</p>
+  <p>State: {{ state }}</p>
+  <p>Zip: {{ zip }}</p>
+</div>
+</body>

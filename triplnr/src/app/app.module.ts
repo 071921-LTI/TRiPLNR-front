@@ -24,6 +24,8 @@ import { PassengerPendingRequestsComponent } from './components/passenger-pendin
 import { environment } from 'src/environments/environment';
 import { AuthModule } from '@auth0/auth0-angular';
 import {MatDividerModule} from '@angular/material/divider';
+import { AddressCompleteComponent } from './components/address-complete/address-complete.component';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import {MatDividerModule} from '@angular/material/divider';
     ProfilesComponent,
     UserProfileComponent,
     FilterPipe,
-    PassengerPendingRequestsComponent
+    PassengerPendingRequestsComponent,
+    AddressCompleteComponent
 
   ],
   imports: [
@@ -52,6 +55,7 @@ import {MatDividerModule} from '@angular/material/divider';
     AppRoutingModule,
     HttpClientModule,
     MatDividerModule,
+    GooglePlaceModule,
 
     [NgbPaginationModule, NgbAlertModule],
     AuthModule.forRoot({
