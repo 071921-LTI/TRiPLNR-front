@@ -200,18 +200,64 @@ select.is-invalid{
   border-color: red;
 }
 
+.clickRow:hover { 
+  background: rgb(201, 201, 201);
+  cursor: pointer
+}
+
 .originWeatherTable {
-  float: left
+  float: left;
+  width: 340px;
+  
 }
 
 .originWeatherTable2 {
-  float: right;
+  float: left;
+
+  width: 170px;
 }
 
 .weatherIcon1{
-  margin-right: auto;
+  padding-left: 120px;
 }
 
 .weatherIcon2{
-  margin-left: 100px;
+  padding-left: 120px;
+}
+
+/*Modal styling*/
+.tableFriends
+{
+  margin-left: auto;
+  margin-right: auto;
+}
+.tablePassengers
+{
+  margin-left: auto;
+  margin-right: auto;
+}
+.modal-body {
+  display: flex;
+}
+.center {
+  flex-grow: 1;
+  margin: 0px
+}
+#tableNone{
+  border: none;
+  width:100%
+}
+#rowNone{
+  border: none;
+}
+#tdNone {
+  border: none;
+  background-color: white;
+}
+#thNone{
+  border: none;
+}
+#tdNone:hover { 
+  background: rgb(201, 201, 201);
+  cursor: pointer
 }

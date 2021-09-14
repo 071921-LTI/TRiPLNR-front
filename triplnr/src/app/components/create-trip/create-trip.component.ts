@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { NgModule, Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Trip } from 'src/app/models/trip'
 import { User } from 'src/app/models/user';
 import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
+import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
   selector: 'app-create-trip',
@@ -12,14 +13,21 @@ import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 })
 export class CreateTripComponent implements OnInit {
 
-  constructor(private tripService: TripServiceService, private router:Router) { }
+  constructor(private userService: UserServiceService, private router:Router, private tripService: TripServiceService, ) { }
 
   stateArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
 
   //fields needed to pass into new trip model
   destination: String = '';
   tripName: String = '';
+
+  //Used for the tables in the new passenger management system
+  friends: User[]= [];
+  passengerDeck: Array<User> = [];
   passengers: Array<User> = [];
+  
+  stops: Array<String> = [];
+  row: String = "";
   spotify:string='';
 
   userId?: number;
@@ -47,28 +55,48 @@ export class CreateTripComponent implements OnInit {
   currDate:string = '';
   currDateEnd:string = '';
 
+  stopStreetAddress : String = '';
+  stopCity : String = '';
+  stopState : String = '';
+  stopZip : String = '';
 
-  addPassenger(): void{
-    //User object containt one field to be filled by user
-    this.user = {
-      //userId of passenger to be added
-      userId: this.userId
+    //Adds passenger to 'Current Passengers' table of the passanger management system  and removes them from the 'Friends' table
+    addPassengerToDeck (pass:User): void {
+      this.passengerDeck.push(pass)
+      console.log('Added ', pass)
+      console.log(this.passengerDeck)
+      const index: number = this.friends.indexOf(pass);
+      this.friends.splice(index, 1); 
     }
-    console.log(typeof this.userId)
-      //check to make sure entered data is a number datatype
-      if(typeof this.userId === 'number'){
-        //add user object to a passenger array contating all passengers to be included in new trip object
-        this.passengers.push(this.user)
-        //clears input field after selection
-        this.userId = undefined;
-      } else { 
-        //if anything other than a number is entered, clears input field
-        this.userId = undefined;
-      }
-      
-    
+
+  //Adds passenger to 'Friends' table of the passanger management system and removes them from the 'Current Passanger' table
+  removePassengerFromDeck (pass:User): void {
+    this.friends.push(pass)
+    console.log('Added ', pass)
+    console.log(this.friends)
+    const index: number = this.passengerDeck.indexOf(pass);
+    this.passengerDeck.splice(index, 1);
+    console.log('Removed ', pass)
+  }
+
+  //Adds passengers from the 'Current Passengers' table of the passanger management system to the passenger list of the trip
+  addPassengers(): void{
+    this.passengers = [];
+    this.passengers.push.apply(this.passengers, this.passengerDeck);
   }
  
+  addStops(): void {
+    this.stops.push(this.stopStreetAddress + ", " + this.stopCity + ", " + this.stopState + ", " + this.stopZip);
+    console.log(this.stops);
+    this.stopStreetAddress = '';
+    this.stopCity = '';
+    this.stopState = '';
+    this.stopZip = '';
+  }
+
+  RemoveThisStop(row: any) : void {
+    this.stops.splice(this.stops.indexOf(row),1);
+  }
 
   createTrip(): void {
     this.destination=  this.streetAddress + ", " + this.city + ", " + this.state + ", " + this.zip;
@@ -101,6 +129,7 @@ export class CreateTripComponent implements OnInit {
       destination: this.destination,
       tripName: this.tripName,
       passengers: this.passengers,
+      stops: this.stops,
       spotify: this.spotify,
     } 
 
@@ -118,33 +147,35 @@ export class CreateTripComponent implements OnInit {
 
   ngOnInit(): void {
     let today = new Date();
-  let year=today.getFullYear().toString();
-  let month=(today.getMonth()+1).toString();
-  if(month.length<2){
-    month = "0"+month;
-  }
-  let day = today.getDate().toString();
-  if(day.length<2){
-    day = "0"+day;
-  }
-  let date = year+"-"+month+"-"+day;
-  let hours = today.getHours().toString();
-  if(hours.length<2){
-    hours = "0"+hours;
-  }
-  let minutes = today.getMinutes().toString();
-  if(minutes.length<2){
-    minutes = "0"+ minutes;
-  }
-  let time = hours+":"+minutes;
-  this.currDate = date + "T" + time+":00";
+    let year=today.getFullYear().toString();
+    let month=(today.getMonth()+1).toString();
+    if(month.length<2){
+      month = "0"+month;
+    }
+    let day = today.getDate().toString();
+    if(day.length<2){
+      day = "0"+day;
+    }
+    let date = year+"-"+month+"-"+day;
+    let hours = today.getHours().toString();
+    if(hours.length<2){
+      hours = "0"+hours;
+    }
+    let minutes = today.getMinutes().toString();
+    if(minutes.length<2){
+      minutes = "0"+ minutes;
+    }
+    let time = hours+":"+minutes;
+    this.currDate = date + "T" + time+":00";
 
-  let hourEnd= (today.getHours()+1).toString();
-  if(hourEnd.length<2){
-    hourEnd = "0"+hourEnd;
-  }
-  let timeEnd = hours+":"+minutes;
-  this.currDateEnd = date + "T" + time+":00";
-  }
+    let hourEnd= (today.getHours()+1).toString();
+    if(hourEnd.length<2){
+      hourEnd = "0"+hourEnd;
+    }
+    let timeEnd = hours+":"+minutes;
+    this.currDateEnd = date + "T" + time+":00";
 
+    this.userService.getFriends(sessionStorage.getItem("token")!).subscribe(
+      async response => {this.friends = response;})
+  }
 }

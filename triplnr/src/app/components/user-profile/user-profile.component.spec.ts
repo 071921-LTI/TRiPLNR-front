@@ -12,6 +12,7 @@ describe('UserProfileComponent', () => {
     })
     .compileComponents();
   });
+  
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UserProfileComponent);
