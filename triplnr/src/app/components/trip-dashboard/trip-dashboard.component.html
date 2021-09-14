@@ -232,19 +232,35 @@
               </tr>
             </thead>
             <tbody>
-              <!-- populates table with data from passengers -->
-              <tr *ngFor="let row of passengers">
-                <td>{{row.userId}}</td>
-                
-                    <!--something like {{ row.userRole }}, user role does not currently exist in modles or db  -->
-                  <td>
-                   <select class="custom-select" id="role" placeholder="Role" name = "role" placeholder="Role" [(ngModel)]="role"
-                   #roleControl="ngModel">
-                   <option value = "">Role</option>
-                   <option *ngFor="let role of roleArr">{{ role }}</option>
-                 </select>
+              <tr>
+                <td>Navigator</td>
+                <td>
+                  <select class="custom-select" id="navIndex" placeholder="Passenger" name = "navIndex" [(ngModel)]="navIndex"
+                  #navIndexControl="ngModel">
+                  <option value = "">Passenger</option>
+                  <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName }} {{ passenger.lastName }}</option>
+                </select>
                 </td>
-                
+              </tr>
+              <tr>
+                <td>Music</td>
+                <td>
+                  <select class="custom-select" id="musicIndex" placeholder="Passenger" name = "musicIndex" [(ngModel)]="musicIndex"
+                  #musicIndexControl="ngModel">
+                  <option value = "">Passenger</option>
+                  <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName }} {{ passenger.lastName }}</option>
+                </select>
+                </td>
+              </tr>
+              <tr>
+                <td>Snacks</td>
+                <td>
+                  <select class="custom-select" id="snackIndex" placeholder="Passenger" name = "snackIndex" [(ngModel)]="snackIndex"
+                  #snackIndexControl="ngModel">
+                  <option value = "">Passenger</option>
+                  <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName }} {{ passenger.lastName }}</option>
+                </select>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -272,9 +288,9 @@
         </tr>
     </thead>
 
-    <tbody>
+    <tbody id="currentWTable">
       <ng-container *ngFor="let item of currWeather | keyvalue ; let i = index">
-        <tr *ngIf="!(i==8)">
+        <tr *ngIf="!((i==8) || (i==3))">
         <ng-container [ngSwitch]="i">
           <td *ngSwitchCase="4">{{item.key | titlecase}}(°F)</td>
           <td *ngSwitchCase="5">{{item.key | titlecase}}(°F)</td>
@@ -307,7 +323,7 @@
 
     <tbody>
       <ng-container *ngFor="let item of destWeather | keyvalue; let i = index">
-        <tr *ngIf="!(i==8)">
+        <tr *ngIf="!((i==8) || (i==3))">
             <td>{{item.value}}</td>
         </tr>
 
@@ -382,19 +398,27 @@
       <h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Stops</h2>
   <div id="MyTrip" class="text-center">
     
-    <table>
+    <table style="width:fit-content">
       
       <thead>
-        
         <tr>
-          <th scope = 'col'>Stops</th>
-          
+          <th scope="col">Stop Number</th>
+          <th scope="col">Stop Location</th>
+          <th scope="col">Remove Stop?</th>
         </tr>
       </thead>
        <tbody>  
-         <!-- populates table with data from passengers -->
-        <tr *ngFor = "let row of stops" (click) ='RemoveThisStop(row)'>
-          <td>{{row}}</td>
+         <!-- populates table with data from TRIP_STOPS -->
+        <tr *ngFor = "let row of stops; index as i; count as max;">
+          <td>
+            <input type="number" id="txt_num_StopNum" min=1 max={{max}}  value={{i+1}} (change)="evt_StopChange(row, $event)">
+          </td>
+          <td style="width:85%; height: 16px;">
+            {{row}}
+          </td>
+          <td style="Width:5%">
+            <button (click) ='RemoveThisStop(row)' id="btn_removeThisStop" style="color:red;background:none;border:none;height:5px">X</button>
+          </td>
         </tr>
       </tbody>
     </table>

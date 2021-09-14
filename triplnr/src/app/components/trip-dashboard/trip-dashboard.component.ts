@@ -9,7 +9,7 @@ import { } from 'google__maps';
 import { WeatherServiceService } from 'src/app/services/weather-service.service';
 import { weather } from 'src/app/models/weather';
 import { empty } from 'rxjs';
-import { ThrowStmt } from '@angular/compiler';
+import { identifierModuleUrl, ThrowStmt } from '@angular/compiler';
 import { UserServiceService } from 'src/app/services/user-service.service';
 
 declare var google: any;
@@ -85,10 +85,17 @@ export class TripDashboardComponent implements AfterViewInit {
   currDate : string = '';
   currDateEnd: string = '';
 
+
+  navIndex: number = NaN;
+  musicIndex: number = NaN;
+  snackIndex: number = NaN;
+
+
   stopStreetAddress : String = '';
   stopCity : String = '';
   stopState : String = '';
   stopZip : String = '';
+
 
   allAddr: Array<String> = [];
   singleMap: any;
@@ -149,6 +156,7 @@ export class TripDashboardComponent implements AfterViewInit {
     this.passengers.push.apply(this.passengers, this.passengerDeckPhase2);
   }
 
+
   addStops(): void {
     this.stops.push(this.stopStreetAddress + ", " + this.stopCity + ", " + this.stopState + ", " + this.stopZip);
     console.log(this.stops);
@@ -193,6 +201,7 @@ export class TripDashboardComponent implements AfterViewInit {
     if (this.newSpotify == ''){
       this.newSpotify==this.curSpotify;
     }
+    
 
     //sets fields in trip object to data entered by user
     this.trip = {
@@ -206,10 +215,16 @@ export class TripDashboardComponent implements AfterViewInit {
 
       spotify: this.newSpotify,
 
+      navigator: this.passengers[this.navIndex],
+      music: this.passengers[this.musicIndex],
+      snacks: this.passengers[this.snackIndex],
+
+
     }
 
     console.log(this.startTimeString);
     console.log(this.endTimeString);
+
 
 
     this.tripService.update(this.trip, this.token, this.startTimeString!, this.endTimeString).subscribe(
@@ -363,8 +378,12 @@ export class TripDashboardComponent implements AfterViewInit {
       let destDayDiff = Math.round((endTime.valueOf() - currTime.valueOf())/86400000);
 
       // //need to check if weather is two weeks or more out for API 2 week limit
-      if(currDayDiff >  15){
-        //cannot show weather
+      if(currDayDiff >=  15 || currDayDiff <  0){
+         //dont show either weather
+          // if(destDayDiff >=0 && destDayDiff <15){
+          //   this.callDestWeather(this.tripDestination,destDayDiff);
+          // }
+       
       }else{
         this.callOriginWeather(this.tripOrigin, this.tripDestination ,currDayDiff, destDayDiff);
       }     
@@ -398,6 +417,17 @@ export class TripDashboardComponent implements AfterViewInit {
     })
   }
 
+evt_StopChange(row: any, e: any) {
+    
+    let origNDX :number = this.stops.indexOf(row);
+    let NDX_To :number = e.target.value -1;
+    let temp :String = this.stops[NDX_To];
+    console.log(origNDX);
+    console.log(temp);
+    console.log(NDX_To);
+    this.stops[NDX_To] = this.stops[origNDX];
+    this.stops[origNDX] = temp;
+  }
   ngAfterContentInit() {
 
   }
@@ -547,7 +577,7 @@ export class TripDashboardComponent implements AfterViewInit {
           this.currWeather = response;
           let iconName = response['icon']+".png";
           this.imageOrigin = "assets/Weather_Icon/" + iconName;
-          if(day2<=15){
+          if(day2<15 ){
             this.callDestWeather(dest,day2);
           }
         })   
