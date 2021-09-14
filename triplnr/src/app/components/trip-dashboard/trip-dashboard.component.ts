@@ -9,7 +9,7 @@ import { } from 'google__maps';
 import { WeatherServiceService } from 'src/app/services/weather-service.service';
 import { weather } from 'src/app/models/weather';
 import { empty } from 'rxjs';
-import { ThrowStmt } from '@angular/compiler';
+import { identifierModuleUrl, ThrowStmt } from '@angular/compiler';
 import { UserServiceService } from 'src/app/services/user-service.service';
 
 declare var google: any;
@@ -363,8 +363,12 @@ export class TripDashboardComponent implements AfterViewInit {
       let destDayDiff = Math.round((endTime.valueOf() - currTime.valueOf())/86400000);
 
       // //need to check if weather is two weeks or more out for API 2 week limit
-      if(currDayDiff >  15){
-        //cannot show weather
+      if(currDayDiff >=  15 || currDayDiff <  0){
+         //dont show either weather
+          // if(destDayDiff >=0 && destDayDiff <15){
+          //   this.callDestWeather(this.tripDestination,destDayDiff);
+          // }
+       
       }else{
         this.callOriginWeather(this.tripOrigin, this.tripDestination ,currDayDiff, destDayDiff);
       }     
@@ -547,7 +551,7 @@ export class TripDashboardComponent implements AfterViewInit {
           this.currWeather = response;
           let iconName = response['icon']+".png";
           this.imageOrigin = "assets/Weather_Icon/" + iconName;
-          if(day2<=15){
+          if(day2<15 ){
             this.callDestWeather(dest,day2);
           }
         })   
