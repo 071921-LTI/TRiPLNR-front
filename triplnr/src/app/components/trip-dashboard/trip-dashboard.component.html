@@ -445,9 +445,9 @@
     <div class="checkbox mb-3">
     </div>
     <ng-container *ngIf="isManager">
-      <button [disabled]="tripUpdateForm.form.pristine" class="w-100 btn btn-lg btn-primary" type="input" (click)="tripUpdateForm.form.markAsPristine()" (click)='reset()'>Reset</button>
+      <button [disabled]="tripUpdateForm.form.pristine && !stopsChanged && !addRoles" class="w-100 btn btn-lg btn-primary" type="input" (click)="tripUpdateForm.form.markAsPristine()" (click)='reset()'>Reset</button>
       <br><br>
-      <button [disabled]="tripUpdateForm.form.invalid" class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
+      <button [disabled]="tripUpdateForm.form.invalid || tripUpdateForm.form.pristine && !stopsChanged" class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
     </ng-container>
    
 </div>
