@@ -382,19 +382,27 @@
       <h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Stops</h2>
   <div id="MyTrip" class="text-center">
     
-    <table>
+    <table style="width:fit-content">
       
       <thead>
-        
         <tr>
-          <th scope = 'col'>Stops</th>
-          
+          <th scope="col">Stop Number</th>
+          <th scope="col">Stop Location</th>
+          <th scope="col">Remove Stop?</th>
         </tr>
       </thead>
        <tbody>  
-         <!-- populates table with data from passengers -->
-        <tr *ngFor = "let row of stops" (click) ='RemoveThisStop(row)'>
-          <td>{{row}}</td>
+         <!-- populates table with data from TRIP_STOPS -->
+        <tr *ngFor = "let row of stops; index as i; count as max;">
+          <td>
+            <input type="number" id="txt_num_StopNum" min=1 max={{max}}  value={{i+1}} (change)="evt_StopChange(row, $event)">
+          </td>
+          <td style="width:85%; height: 16px;">
+            {{row}}
+          </td>
+          <td style="Width:5%">
+            <button (click) ='RemoveThisStop(row)' id="btn_removeThisStop" style="color:red;background:none;border:none;height:5px">X</button>
+          </td>
         </tr>
       </tbody>
     </table>
