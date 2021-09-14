@@ -1,5 +1,6 @@
-<table class="center"  table cellpadding="10" table bordercolor="#ffffff" >
-    <thead>
+<table class="center"  table cellpadding="10">
+  
+  <thead>
   <tr>
   
   <th>First Name</th>
@@ -7,11 +8,13 @@
   <th>Information</th>
 </tr>
 </thead>
+<tbody>
 <tr>
     <td>{{userTo?.firstName}}</td>
     <td>{{userTo?.lastName}}</td>
     <td>information about user</td>
 </tr>
+</tbody>
 </table>
 <div class="centerbutton">
 <input type="button" value="Add Friend" (click)="addFriend()">
