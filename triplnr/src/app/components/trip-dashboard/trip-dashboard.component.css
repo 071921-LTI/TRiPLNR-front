@@ -261,3 +261,11 @@ select.is-invalid{
   background: rgb(201, 201, 201);
   cursor: pointer
 }
+
+.wDesc{
+  height: 90px;
+}
+
+.wDesc2{
+  height: 90px;
+}

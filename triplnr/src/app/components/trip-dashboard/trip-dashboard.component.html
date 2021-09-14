@@ -288,9 +288,9 @@
         </tr>
     </thead>
 
-    <tbody>
+    <tbody id="currentWTable">
       <ng-container *ngFor="let item of currWeather | keyvalue ; let i = index">
-        <tr *ngIf="!(i==8)">
+        <tr *ngIf="!((i==8) || (i==3))">
         <ng-container [ngSwitch]="i">
           <td *ngSwitchCase="4">{{item.key | titlecase}}(°F)</td>
           <td *ngSwitchCase="5">{{item.key | titlecase}}(°F)</td>
@@ -323,7 +323,7 @@
 
     <tbody>
       <ng-container *ngFor="let item of destWeather | keyvalue; let i = index">
-        <tr *ngIf="!(i==8)">
+        <tr *ngIf="!((i==8) || (i==3))">
             <td>{{item.value}}</td>
         </tr>
 
