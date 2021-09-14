@@ -274,26 +274,47 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let item of currWeather | keyvalue">
-            <td>{{item.key}}</td>
-            <td>{{item.value}}</td>
-        </tr>
-        
-      </tbody>
+      <ng-container *ngFor="let item of currWeather | keyvalue ; let i = index">
+        <tr *ngIf="!(i==8)">
+        <ng-container [ngSwitch]="i">
+          <td *ngSwitchCase="4">{{item.key | titlecase}}(°F)</td>
+          <td *ngSwitchCase="5">{{item.key | titlecase}}(°F)</td>
+          <td *ngSwitchCase="6">{{item.key| titlecase}}(°F)</td>
+          <td *ngSwitchCase="9">{{item.key| titlecase}}(inches) </td>
+          <td *ngSwitchCase="10">{{item.key| titlecase}}(%) </td>
+          <td *ngSwitchCase="12">{{item.key| titlecase}}(%) </td>
+          <td *ngSwitchCase="13">{{item.key| titlecase}}(inches) </td>
+          <td *ngSwitchCase="16">{{item.key| titlecase}}(°F)</td>
+          <td *ngSwitchCase="17">{{item.key| titlecase}}(°F)</td>
+          <td *ngSwitchCase="18">{{item.key| titlecase}}(°F)</td>
+          <td *ngSwitchCase="20">{{item.key| titlecase}}(miles)</td>
+          <td *ngSwitchCase="21">{{item.key| titlecase}}(mph)</td>
+          <td *ngSwitchCase="22">{{item.key| titlecase}}(mph)</td>
+          <td *ngSwitchDefault>{{item.key| titlecase}}</td>
+        </ng-container>
+          <td>{{item.value}}</td>
+      </tr>
+      </ng-container>
+    </tbody>
 </table>
 
   <table class="originWeatherTable2">
   
     <thead>
         <tr>
-            <th scope="col" class="a">Destination Weather</th>
+            <th scope="col" class="a">Dest. Weather</th>
         </tr>
     </thead>
 
     <tbody>
-        <tr *ngFor="let item of destWeather | keyvalue">
+      <ng-container *ngFor="let item of destWeather | keyvalue; let i = index">
+        <tr *ngIf="!(i==8)">
             <td>{{item.value}}</td>
         </tr>
+
+      </ng-container>
+
+        
         
       </tbody>
 </table>

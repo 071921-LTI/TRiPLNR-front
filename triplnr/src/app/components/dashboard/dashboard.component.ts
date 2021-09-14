@@ -73,8 +73,11 @@ export class DashboardComponent implements OnInit {
     let startTime = new Date(start);
     let currTime = Date.now();
     this.day = Math.round((startTime.valueOf() - currTime.valueOf())/86400000);
-    if (this.day > 15){
+    if (this.day >= 15){
       this.modalService.open("Cannot Predict More than 15 Days Weather.", {centered:true, ariaLabelledBy: 'modal-basic-title'});
+    }
+    else if(this.day < 0){
+      this.modalService.open("Cannnot show past weather.", {centered:true, ariaLabelledBy: 'modal-basic-title'});
     }
     else{
       this.modalService.open(content,  {size:'xl',centered: true, ariaLabelledBy: 'modal-basic-title'});
@@ -85,7 +88,7 @@ export class DashboardComponent implements OnInit {
         let endTime = new Date(end);
         let currTime = Date.now();
         this.day = Math.round((endTime.valueOf() - currTime.valueOf())/86400000);
-        if (this.day > 15){
+        if (this.day >= 15){
           this.modalService.open("Cannot Predict More than 15 Days Weather.", {centered:true, ariaLabelledBy: 'modal-basic-title'});
         }
         else{
