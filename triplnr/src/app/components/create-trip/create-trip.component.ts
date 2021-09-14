@@ -21,9 +21,11 @@ export class CreateTripComponent implements OnInit {
   destination: String = '';
   tripName: String = '';
 
+  //Used for the tables in the new passenger management system
   friends: User[]= [];
   passengerDeck: Array<User> = [];
   passengers: Array<User> = [];
+  
   spotify:string='';
 
   userId?: number;
@@ -51,6 +53,7 @@ export class CreateTripComponent implements OnInit {
   currDate:string = '';
   currDateEnd:string = '';
 
+  //Adds passenger to 'Current Passengers' table of the passanger management system  and removes them from the 'Friends' table
   addPassengerToDeck (pass:User): void {
     this.passengerDeck.push(pass)
     console.log('Added ', pass)
@@ -58,6 +61,8 @@ export class CreateTripComponent implements OnInit {
     const index: number = this.friends.indexOf(pass);
     this.friends.splice(index, 1); 
   }
+
+  //Adds passenger to 'Friends' table of the passanger management system and removes them from the 'Current Passanger' table
   removePassengerFromDeck (pass:User): void {
     this.friends.push(pass)
     console.log('Added ', pass)
@@ -67,6 +72,7 @@ export class CreateTripComponent implements OnInit {
     console.log('Removed ', pass)
   }
 
+  //Adds passengers from the 'Current Passengers' table of the passanger management system to the passenger list of the trip
   addPassengers(): void{
     this.passengers = [];
     this.passengers.push.apply(this.passengers, this.passengerDeck);

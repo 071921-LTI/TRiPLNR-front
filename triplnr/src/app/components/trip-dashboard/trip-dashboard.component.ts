@@ -61,11 +61,6 @@ export class TripDashboardComponent implements AfterViewInit {
   passengers: Array<User> = [];
   isManager: boolean = true;
 
-  //Used for the tables in the new method to manage passengers
-  friends:Array<User> = [];
-  passengerDeckPhase1: Array<User> = [];
-  passengerDeckPhase2: Array<User> = [];
-
   // need to add functionalit to check if playlist exists and if user roles exists and change value to true
   isPlaylist: boolean = true;
   isRoles: boolean = false;
@@ -119,6 +114,12 @@ export class TripDashboardComponent implements AfterViewInit {
     this.addRoles = true;
   }
 
+  //Used for the tables in the new passenger management system
+  friends:Array<User> = [];
+  passengerDeckPhase1: Array<User> = [];
+  passengerDeckPhase2: Array<User> = [];
+
+  //Adds passenger to 'Current Passengers' table of the passanger management system  and removes them from the 'Friends' table
   addPassengerToDeck (pass:User): void {
     this.passengerDeckPhase2.push(pass)
     console.log('Added ', pass)
@@ -126,6 +127,8 @@ export class TripDashboardComponent implements AfterViewInit {
     const index: number = this.passengerDeckPhase1.indexOf(pass);
     this.passengerDeckPhase1.splice(index, 1); 
   }
+
+  //Adds passenger to 'Friends' table of the passanger management system  and removes them from the 'Current Passanger' table
   removePassengerFromDeck (pass:User): void {
     this.passengerDeckPhase1.push(pass)
     console.log('Added ', pass)
@@ -135,6 +138,7 @@ export class TripDashboardComponent implements AfterViewInit {
     console.log('Removed ', pass)
   }
 
+  //Adds passengers from the 'Current Passengers' table of the passanger management system to the passenger list of the trip
   addPassengers(): void{
     this.passengers = [];
     this.passengers.push.apply(this.passengers, this.passengerDeckPhase2);
@@ -181,8 +185,6 @@ export class TripDashboardComponent implements AfterViewInit {
   //     //if anything other than a number is entered, clears input field
   //     this.userId = undefined;
   //   }
-
-
   // }
 
   updateTrip(): void {
@@ -387,29 +389,22 @@ export class TripDashboardComponent implements AfterViewInit {
 
     this.addMapsScript();
 
+    /*When loading the 'friends' table of the passenger management system, this checks
+    and makes sure that friends already on the passenger side aren't added to the friends 
+    so that their are no duplicates. For certain reasons, comparing objects directly always comes up false, 
+    hence this hack job to compare user id's instead.*/
     this.userService.getFriends(this.token!).subscribe(async response => {this.friends = response;
     this.passengerDeckPhase2.push.apply(this.passengerDeckPhase2, this.passengers);
-    console.log(this.passengerDeckPhase2);
-    console.log(this.friends);
-    let fArray = [];
-    let pArray = [];
-    for(let i=0; i < this.friends.length; i++){
-      fArray[i] = this.friends[i].userId;
-    }
-    for(let i=0; i < this.passengers.length; i++){
-      pArray[i] = this.passengers[i].userId;
-    }
 
-
-    for(let i=0; i < this.friends.length; i++){
-        if (!pArray.includes(fArray[i])) {
-          this.passengerDeckPhase1.push(this.friends[i]);
-          console.log(this.friends[i]);
-          console.log(this.passengerDeckPhase2.includes(this.friends[i]));
+    for(let i=0; i < this.friends.length; i++) {
+      for(let i=0; i < this.passengers.length; i++) {
+        if (this.friends[i].userId == this.passengers[i].userId) {
+          this.friends.splice(i, 1);
         }
       }
+    }
+    this.passengerDeckPhase1.push.apply(this.passengerDeckPhase1, this.friends);
     })
-    console.log(this.friends);
   }
 
   ngAfterContentInit() {
