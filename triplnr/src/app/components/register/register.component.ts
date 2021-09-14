@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { AddressFormComponent } from '../address-form/address-form.component';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
@@ -58,8 +59,17 @@ export class RegisterComponent implements OnInit {
       bio: this.bio,
       address: this.address
     }
+
+    const formData = new FormData();
+
+    formData.append('user', new Blob([JSON.stringify(this.user)], {
+      type: 'application/json'
+    }));
+
+    formData.append('file', this.imageFile!, "a file");
+
     //calls authService register method passes through new user object
-    this.userService.createUser(this.user).subscribe(
+    this.userService.createUser(formData).subscribe(
       (response) => {
         //sets token from header
         this.token = this.sub || '';
@@ -68,6 +78,8 @@ export class RegisterComponent implements OnInit {
         sessionStorage.setItem("token", this.token.valueOf());
         this.router.navigate(['/dashboard']);
         }
+
+        console.log(response);
       }, error => {
         this.error = "Register Failed";
       }
@@ -80,6 +92,7 @@ export class RegisterComponent implements OnInit {
     this.auth0.getUser().subscribe(res => {
       this.sub = res.sub;
       this.imageFileUrl = res.picture;
+      this.profilePic = res.picture;
     })
   }
 
