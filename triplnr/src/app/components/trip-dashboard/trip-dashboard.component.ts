@@ -6,6 +6,10 @@ import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
 import { environment } from 'src/environments/environment';
 import { } from 'google__maps';
+import { WeatherServiceService } from 'src/app/services/weather-service.service';
+import { weather } from 'src/app/models/weather';
+import { empty } from 'rxjs';
+import { ThrowStmt } from '@angular/compiler';
 
 declare var google: any;
 const locationButton = document.createElement("button");
@@ -17,7 +21,7 @@ const locationButton = document.createElement("button");
 export class TripDashboardComponent implements AfterViewInit {
   private map: any;
 
-  constructor(private tripService: TripServiceService, private router: Router) {
+  constructor(private tripService: TripServiceService, private router: Router, private weather:WeatherServiceService) {
     /*var script = document.createElement("script");
     script.type = "text/javascript";
     document.head.appendChild(script);
@@ -57,12 +61,12 @@ export class TripDashboardComponent implements AfterViewInit {
   isManager: boolean = true;
 
   // need to add functionalit to check if playlist exists and if user roles exists and change value to true
-  isPlaylist: boolean = false;
+  isPlaylist: boolean = true;
   isRoles: boolean = false;
   addRoles:boolean = false;
   role:string = '';
-  playlists: Array<string> = [];
-  playlist: string = '';
+  newSpotify: string = '';
+  curSpotify: string = this.trip?.spotify ||"";
 
 
 
@@ -94,12 +98,17 @@ export class TripDashboardComponent implements AfterViewInit {
   //WayPointsMap: Map<number, String> = new Map<number, String>();
   //May need to uncomment if we're doing additional stops...
 
-  addPlaylist(): void {
-    this.playlists.push(this.playlist);
-    this.playlist = '';
-    console.log(this.playlists);
-  }
 
+  //Weather vvariables
+  currWeather:weather[]=[];
+  destWeather:weather[]=[];
+  tripStartTime:any;
+  tripEndTime:any;
+  imageOrigin:String = "";
+  imageDest:String = "";
+
+
+  
   addRolesbtn(): void{
     this.addRoles = true;
   }
@@ -175,6 +184,11 @@ export class TripDashboardComponent implements AfterViewInit {
       this.startTimeString = this.trip?.startTime;
     }
 
+
+    if (this.newSpotify == ''){
+      this.newSpotify==this.curSpotify;
+    }
+
     //sets fields in trip object to data entered by user
     this.trip = {
       tripId: this.trip?.tripId,
@@ -182,7 +196,9 @@ export class TripDashboardComponent implements AfterViewInit {
       tripName: this.tripName,
       passengers: this.passengers,
       origin: this.tripOrigin,
+      spotify: this.newSpotify,
     }
+
 
 
 
@@ -224,15 +240,13 @@ export class TripDashboardComponent implements AfterViewInit {
   }
 
   isUserManager(): void {
-    let token = sessionStorage.getItem('Authorization');
-    console.log("this is my token: " + token);
-    let myArr = token?.split(":") || '';
-    let curUserId = parseInt(myArr[0]);
-    console.log("manager Id: " + this.trip?.manager?.userId + "| loged in user id: " + curUserId)
-    if (curUserId != this.trip?.manager?.userId) {
+    let token = sessionStorage.getItem('token');
+    if (token != this.trip?.manager?.sub)  {
       document.getElementById('tripNameinput')?.setAttribute('readonly', 'readonly');
     }
   }
+
+  
 
   ngAfterViewInit(): void {
     let today = new Date();
@@ -280,20 +294,36 @@ export class TripDashboardComponent implements AfterViewInit {
         this.tripManagerFirst = this.trip.manager?.firstName || '';
         this.tripManagerLast = this.trip.manager?.lastName || '';
         this.tripManager = this.tripManagerFirst + " " + this.tripManagerLast;
+        //set start and end time for weather API
+        this.tripStartTime = this.trip.startTime || '';
+        this.tripEndTime = this.trip.endTime || '';
+        this.curSpotify = this.trip.spotify ||"";
+
 
 
         this.passengers = this.trip.passengers || '';
 
 
         let token = sessionStorage.getItem('token');
+
+        if (this.curSpotify == '' || this.curSpotify == null){
+          this.isPlaylist = false;
+        }
+
         if (token != this.trip?.manager?.sub) {
           this.isManager = false;
           document.getElementById('tripNameinput')?.setAttribute('readonly', 'readonly');
-          document.getElementById('tripOrigininput')?.setAttribute('readonly', 'readonly');
-          document.getElementById('tripDestinationInput')?.setAttribute('readonly', 'readonly');
+          document.getElementById('originAdr')?.setAttribute('readonly', 'readonly');
+          document.getElementById('originCity')?.setAttribute('readonly', 'readonly');
+          document.getElementById('originState')?.setAttribute('readonly', 'readonly');
+          document.getElementById('originZip')?.setAttribute('readonly', 'readonly');
+          document.getElementById('desAdr')?.setAttribute('readonly', 'readonly');
+          document.getElementById('desCity')?.setAttribute('readonly', 'readonly');
+          document.getElementById('desState')?.setAttribute('readonly', 'readonly');
+          document.getElementById('desZip')?.setAttribute('readonly', 'readonly');
         } 
 
-
+        
         this.allAddr?.push(this.tripOrigin!);
         this.trip.passengers.forEach((pass: User) => {
           this.allAddr?.push(pass.address!);
@@ -301,11 +331,33 @@ export class TripDashboardComponent implements AfterViewInit {
         this.allAddr?.push(this.trip.destination!);
 
         console.log(this.allAddr);
-        
 
 
+
+      
+      //need to check if weather is two weeks or more out for API 2 week limit
+      let startTime = new Date(this.tripStartTime);
+      let endTime = new Date(this.tripEndTime);
+      let currTime = Date.now();
+
+      let currDayDiff = Math.round((startTime.valueOf() - currTime.valueOf())/86400000);
+      let destDayDiff = Math.round((endTime.valueOf() - currTime.valueOf())/86400000);
+
+      // //need to check if weather is two weeks or more out for API 2 week limit
+      if(currDayDiff >  15){
+        //cannot show weather
+      }else{
+        this.callOriginWeather(this.tripOrigin, this.tripDestination ,currDayDiff, destDayDiff);
+      }     
        
       });
+
+      console.log("Origin "+this.tripOrigin)
+      // console.log("Dest "+this.tripDestination)      
+
+
+
+
     this.addMapsScript();
   }
 
@@ -451,5 +503,29 @@ export class TripDashboardComponent implements AfterViewInit {
       return this.single_Map;
     }
   }
+  //gets called only if the weather day is within two days of current day
+  callOriginWeather(origin:String, dest:String ,day:number , day2:number){
+         //get the weather from origin and the destination
+         this.weather.getDestinationWeather(origin,day).subscribe((response) =>{
+          this.currWeather = response;
+          let iconName = response['icon']+".png";
+          this.imageOrigin = "assets/Weather_Icon/" + iconName;
+          if(day2<=15){
+            this.callDestWeather(dest,day2);
+          }
+        })   
+  }
+
+    //gets called only if the weather day is within two days of current day
+    callDestWeather(origin:String,day:number){
+      //get the weather from origin and the destination
+      this.weather.getDestinationWeather(origin,day).subscribe((response) =>{
+       this.destWeather = response;
+       let iconName = response['icon']+".png";
+       this.imageDest = "assets/Weather_Icon/" + iconName;
+     })   
+
+
+}
 
 }

@@ -12,4 +12,8 @@ export interface Trip {
     startTime?: string;
     endTime?: null;
     startTimeString?:string;
+    spotify?: string;
+    snacks?: User;
+    navigator?: User;
+    music?: User;
 }
