@@ -216,7 +216,7 @@ export class TripDashboardComponent implements AfterViewInit {
       passengers: this.passengers,
       origin: this.tripOrigin,
 
-      stops: this.tripStop
+      stops: this.tripStop,
 
       spotify: this.newSpotify,
 
