@@ -1,9 +1,6 @@
 h2 {
   margin: 20px auto;
   text-align: center;
-  color:blanchedalmond;
-  background-color: black;
-  max-width: 15%;
 }
 .center {
   margin-left: auto;
@@ -35,11 +32,6 @@ table {
   border-bottom-right-radius:3px solid black ;
 } */
 
-body{
-  background-image: linear-gradient(to right,blue , red);
-  position:absolute;
-
-}
 
 table { 
   border: 1px solid black;
@@ -99,11 +91,16 @@ tbody:last-child tr:last-child td:last-child{
 .clickRow:hover { 
   background-color:moccasin;
   cursor: pointer;
-  font-style:italic ;
 }
 
 .img {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+button{
+  background-color: powderblue;
+  text-align: center;
+  align-content: center;
 }
