@@ -47,8 +47,8 @@ export class TripDashboardComponent implements AfterViewInit {
   //representd Trip Model
   trip?: Trip;
 
-  startTime: string = '';
-  endTime: string = '';
+  startTime!: string;
+  endTime!: string;
 
   tripManagerLast: String = '';
   tripManagerFirst: String = '';
@@ -89,6 +89,11 @@ export class TripDashboardComponent implements AfterViewInit {
   navIndex: number = NaN;
   musicIndex: number = NaN;
   snackIndex: number = NaN;
+
+  curNav?:User;
+  curMusic?:User;
+  curSnack?:User;
+
 
 
   stopStreetAddress : String = '';
@@ -177,11 +182,12 @@ export class TripDashboardComponent implements AfterViewInit {
 
     this.token = sessionStorage.getItem("token") || '';
 
-    this.startTime = this.startTime.replace('T', ' ') || '';
-    this.startTime = this.startTime + ":00";
+    this.startTime = this.startTime.replace('T', ' ')|| '';
+    //this.startTime = this.startTime + ":00";
 
     this.endTime = this.endTime.replace('T', ' ') || '';
-    this.endTime = this.endTime + ":00";
+    //this.endTime = this.endTime + ":00";
+
 
     if (this.endTime != ":00") {
       //sets startTimeString equal to formated startTime
@@ -196,6 +202,7 @@ export class TripDashboardComponent implements AfterViewInit {
     } else {
       this.startTimeString = this.trip?.startTime;
     }
+    console.log(this.startTimeString);
 
 
     if (this.newSpotify == ''){
@@ -224,6 +231,8 @@ export class TripDashboardComponent implements AfterViewInit {
 
     console.log(this.startTimeString);
     console.log(this.endTimeString);
+
+    console.log(this.passengers[this.navIndex]);
 
 
 
@@ -261,6 +270,26 @@ export class TripDashboardComponent implements AfterViewInit {
         this.tripManagerFirst = this.trip.manager?.firstName || '';
         this.tripManagerLast = this.trip.manager?.lastName || '';
         this.tripManager = this.tripManagerFirst + " " + this.tripManagerLast;
+
+        this.startTime = this.tripStartTime.split(".")[0];
+        this.endTime = this.tripEndTime.split(".")[0];
+
+        for(let x = 0; x <= this.passengers.length; x++){
+          if(this.curNav?.userId == this.passengers[x].userId){
+            this.navIndex = x;
+            console.log("index x: "+x);
+          }
+          if(this.curMusic?.userId == this.passengers[x].userId){
+            this.musicIndex = x;
+            console.log("index x: "+x);
+          }
+          if(this.curSnack?.userId == this.passengers[x].userId){
+            this.snackIndex = x;
+            console.log("index x: "+x);
+          }
+  
+        }
+
       }
     )
   }
@@ -324,6 +353,9 @@ export class TripDashboardComponent implements AfterViewInit {
         this.tripStartTime = this.trip.startTime || '';
         this.tripEndTime = this.trip.endTime || '';
         this.curSpotify = this.trip.spotify ||"";
+        this.curNav = this.trip.navigator;
+        this.curMusic = this.trip.music;
+        this.curSnack = this.trip.snacks;
 
 
 
@@ -362,9 +394,36 @@ export class TripDashboardComponent implements AfterViewInit {
         )
         
 
-        this.allAddr?.push(this.trip.destination!);
+      this.allAddr?.push(this.trip.destination!);
+      console.log(this.allAddr);
 
-        console.log(this.allAddr);
+      //load existing trip start and end time into inputs for update
+      this.startTime = this.tripStartTime.split(".")[0];
+      this.endTime = this.tripEndTime.split(".")[0];
+
+      for(let x = 0; x <= this.passengers.length; x++){
+        if(this.curNav?.userId == this.passengers[x].userId){
+          this.navIndex = x;
+          console.log("index x: "+x);
+        }
+        if(this.curMusic?.userId == this.passengers[x].userId){
+          this.musicIndex = x;
+          console.log("index x: "+x);
+        }
+        if(this.curSnack?.userId == this.passengers[x].userId){
+          this.snackIndex = x;
+          console.log("index x: "+x);
+        }
+
+      }
+      
+
+      //load current user role into update page
+
+
+
+
+        
 
 
 
