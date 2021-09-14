@@ -32,6 +32,9 @@ module.exports = function (config) {
         { type: 'text-summary' }
       ]
     },
+    files: [
+      'test/global-variables.js',
+    ],
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
