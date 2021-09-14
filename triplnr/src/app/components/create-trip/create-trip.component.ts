@@ -20,7 +20,8 @@ export class CreateTripComponent implements OnInit {
   destination: String = '';
   tripName: String = '';
   passengers: Array<User> = [];
-
+  stops: Array<String> = [];
+  row: String = "";
   userId?: number;
   error: String = '';
 
@@ -46,6 +47,10 @@ export class CreateTripComponent implements OnInit {
   currDate:string = '';
   currDateEnd:string = '';
 
+  stopStreetAddress : String = '';
+  stopCity : String = '';
+  stopState : String = '';
+  stopZip : String = '';
 
   addPassenger(): void{
     //User object containt one field to be filled by user
@@ -68,6 +73,18 @@ export class CreateTripComponent implements OnInit {
     
   }
  
+  addStops(): void {
+    this.stops.push(this.stopStreetAddress + ", " + this.stopCity + ", " + this.stopState + ", " + this.stopZip);
+    console.log(this.stops);
+    this.stopStreetAddress = '';
+    this.stopCity = '';
+    this.stopState = '';
+    this.stopZip = '';
+  }
+
+  RemoveThisStop(row: any) : void {
+    this.stops.splice(this.stops.indexOf(row),1);
+  }
 
   createTrip(): void {
     this.destination=  this.streetAddress + ", " + this.city + ", " + this.state + ", " + this.zip;
@@ -100,6 +117,7 @@ export class CreateTripComponent implements OnInit {
       destination: this.destination,
       tripName: this.tripName,
       passengers: this.passengers,
+      stops: this.stops,
     } 
 
     //calls trip service create, passes in new trip object with user entered fields, Authorization token and the start time string
