@@ -79,10 +79,10 @@
                       <div class="modal-body">
                         <div class = "tableFriends" style="float: left">
                           <h3>Friends</h3>
-                          <table class="table table-borderless" table cellpadding="10">
+                          <table class="table table-borderless" table cellpadding="10" id='tableNone'>
                             <!-- populates table with datat from from friends lists -->
-                            <tr *ngFor="let row of friends" (click)="addPassengerToDeck(row)" class="clickRow">
-                              <td>{{row.firstName}} {{row.lastName}}</td>
+                            <tr *ngFor="let row of friends" (click)="addPassengerToDeck(row)" class="clickRow" id='rowNone'>
+                              <td id='tdNone'>{{row.firstName}} {{row.lastName}}</td>
                             </tr>
                           </table>
                         </div>
@@ -93,10 +93,10 @@
                       
                         <div class = "tablePassengers" style="float: right">
                           <h3>Passengers</h3>
-                          <table class="table table-borderless" table cellpadding="10">
+                          <table class="table table-borderless" table cellpadding="10"  id='tableNone'>
                             <!-- populates table with datat from passengerDeck lists -->
-                            <tr *ngFor="let row of passengerDeck" (click)="removePassengerFromDeck(row)" class="clickRow">
-                              <td>{{row.firstName}} {{row.lastName}}</td>
+                            <tr *ngFor="let row of passengerDeck" (click)="removePassengerFromDeck(row)" class="clickRow"  id='rowNone'>
+                              <td id='tdNone'>{{row.firstName}} {{row.lastName}}</td>
                             </tr>
                           </table>
                         </div>

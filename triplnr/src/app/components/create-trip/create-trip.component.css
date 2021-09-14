@@ -56,6 +56,24 @@
 
 }
 
+table, th, td, thead, tbody, tr {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+table{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th{
+  height: 60px;
+  background-color: rgb(68, 68, 68);
+  color: white;
+}
+
+tr:nth-child(even) {background-color: darkgray;}
 
 label {
   display: block;
@@ -101,23 +119,40 @@ select.is-invalid{
   cursor: pointer
 }
 
+/*Modal styling*/
 .tableFriends
 {
   margin-left: auto;
   margin-right: auto;
 }
-
 .tablePassengers
 {
   margin-left: auto;
   margin-right: auto;
 }
-
 .modal-body {
   display: flex;
 }
 .center {
   flex-grow: 1;
   margin: 0px
+}
+#tableNone{
+  border: none;
+  width:100%
+}
+#rowNone{
+  border: none;
+}
+#tdNone {
+  border: none;
+  background-color: white;
+}
+#thNone{
+  border: none;
+}
+#tdNone:hover { 
+  background: rgb(201, 201, 201);
+  cursor: pointer
 }
 

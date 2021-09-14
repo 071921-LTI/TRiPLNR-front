@@ -386,13 +386,14 @@ export class TripDashboardComponent implements AfterViewInit {
     this.userService.getFriends(this.token!).subscribe(async response => {this.friends = response;
     this.passengerDeckPhase2.push.apply(this.passengerDeckPhase2, this.passengers);
 
-    for(let i=0; i < this.friends.length; i++) {
-      for(let i=0; i < this.passengers.length; i++) {
-        if (this.friends[i].userId == this.passengers[i].userId) {
-          this.friends.splice(i, 1);
+    for(let i=0; i < this.passengers.length; i++) {
+      for(let j=0; j < this.friends.length; j++) {
+        if (this.friends[j].userId == this.passengers[i].userId) {
+          this.friends.splice(j, 1);
         }
       }
     }
+
     this.passengerDeckPhase1.push.apply(this.passengerDeckPhase1, this.friends);
     })
   }

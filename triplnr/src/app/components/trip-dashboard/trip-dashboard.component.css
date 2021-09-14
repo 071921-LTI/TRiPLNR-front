@@ -205,26 +205,6 @@ select.is-invalid{
   cursor: pointer
 }
 
-.tableFriends
-{
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.tablePassengers
-{
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.modal-body {
-  display: flex;
-}
-.center {
-  flex-grow: 1;
-  margin: 0px
-}
-
 .originWeatherTable {
   float: left
 }
@@ -239,4 +219,41 @@ select.is-invalid{
 
 .weatherIcon2{
   margin-left: 100px;
+}
+
+/*Modal styling*/
+.tableFriends
+{
+  margin-left: auto;
+  margin-right: auto;
+}
+.tablePassengers
+{
+  margin-left: auto;
+  margin-right: auto;
+}
+.modal-body {
+  display: flex;
+}
+.center {
+  flex-grow: 1;
+  margin: 0px
+}
+#tableNone{
+  border: none;
+  width:100%
+}
+#rowNone{
+  border: none;
+}
+#tdNone {
+  border: none;
+  background-color: white;
+}
+#thNone{
+  border: none;
+}
+#tdNone:hover { 
+  background: rgb(201, 201, 201);
+  cursor: pointer
 }
