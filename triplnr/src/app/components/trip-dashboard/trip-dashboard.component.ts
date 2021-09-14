@@ -56,6 +56,7 @@ export class TripDashboardComponent implements AfterViewInit {
   tripOrigin: String = '';
   tripDestination: String = '';
   tripManager: String = '';
+  tripStop: Array<String> = [];
 
   tripName: String = '';
   passengers: Array<User> = [];
@@ -66,9 +67,9 @@ export class TripDashboardComponent implements AfterViewInit {
   isRoles: boolean = false;
   addRoles:boolean = false;
   role:string = '';
+  stops: Array<String> = [];
   newSpotify: string = '';
   curSpotify: string = this.trip?.spotify ||"";
-
 
 
   originStreetAddress? : string;
@@ -84,6 +85,10 @@ export class TripDashboardComponent implements AfterViewInit {
   currDate : string = '';
   currDateEnd: string = '';
 
+  stopStreetAddress : String = '';
+  stopCity : String = '';
+  stopState : String = '';
+  stopZip : String = '';
 
   allAddr: Array<String> = [];
   singleMap: any;
@@ -144,51 +149,22 @@ export class TripDashboardComponent implements AfterViewInit {
     this.passengers.push.apply(this.passengers, this.passengerDeckPhase2);
   }
 
-  // addPassenger(): void {
-  //   //User object containt one field to be filled by user
-  //   this.user = {
-  //     //userId of passenger to be added
-  //     userId: this.userId
-  //   }
-  //   console.log(typeof this.userId)
-  //   //check to make sure entered data is a number datatype
-  //   if (typeof this.userId === 'number') {
-  //     //add user object to a passenger array contating all passengers to be included in new trip object
-  //     this.passengers.push(this.user)
-  //     //clears input field after selection
-  //     this.userId = undefined;
-  //   } else {
-  //     //if anything other than a number is entered, clears input field
-  //     this.userId = undefined;
-  //   }
-  // }
+  addStops(): void {
+    this.stops.push(this.stopStreetAddress + ", " + this.stopCity + ", " + this.stopState + ", " + this.stopZip);
+    console.log(this.stops);
+    this.stopStreetAddress = '';
+    this.stopCity = '';
+    this.stopState = '';
+    this.stopZip = '';
+  }
 
-  // removePassenger(): void {
-  //   //User object containt one field to be filled by user
-  //   this.user = {
-  //     //userId of passenger to be added
-  //     userId: this.userId
-  //   }
-  //   console.log(typeof this.userId)
-  //   //check to make sure entered data is a number datatype
-  //   if (typeof this.userId === 'number') {
-  //     //add user object to a passenger array contating all passengers to be included in new trip object
-  //     for (let i = 0; i < this.passengers.length; i++) {
-  //       if (this.passengers[i].userId == this.userId) {
-  //         this.passengers.splice(i, 1);
-  //         break;
-  //       }
-  //     }
-  //     //clears input field after selection
-  //     this.userId = undefined;
-  //   } else {
-  //     //if anything other than a number is entered, clears input field
-  //     this.userId = undefined;
-  //   }
-  // }
+  RemoveThisStop(row: any) : void {
+    this.stops.splice(this.stops.indexOf(row),1);
+  }
 
   updateTrip(): void {
     this.tripOrigin=  this.originStreetAddress + ", " + this.originCity + ", " + this.originState + ", " + this.originZip;
+    this.tripStop= this.stops;
     this.tripDestination=  this.desStreetAddress + ", " + this.desCity + ", " + this.desState + ", " + this.desZip;
 
     this.token = sessionStorage.getItem("token") || '';
@@ -225,16 +201,22 @@ export class TripDashboardComponent implements AfterViewInit {
       tripName: this.tripName,
       passengers: this.passengers,
       origin: this.tripOrigin,
+
+      stops: this.tripStop,
+
       spotify: this.newSpotify,
+
     }
 
-
+    console.log(this.startTimeString);
+    console.log(this.endTimeString);
 
 
     this.tripService.update(this.trip, this.token, this.startTimeString!, this.endTimeString).subscribe(
       response => {
         if (response != null) {
           this.router.navigate(['/dashboard']);
+          
         } else {
           this.error = "Trip Creation Error";
         }
@@ -331,8 +313,8 @@ export class TripDashboardComponent implements AfterViewInit {
 
 
         this.passengers = this.trip.passengers || '';
-
-
+        this.stops = this.trip.stops || '';
+        console.log(this.stops)
         let token = sessionStorage.getItem('token');
 
         if (this.curSpotify == '' || this.curSpotify == null){
@@ -357,6 +339,14 @@ export class TripDashboardComponent implements AfterViewInit {
         this.trip.passengers.forEach((pass: User) => {
           this.allAddr?.push(pass.address!);
         });
+        this.stops.forEach((value) =>
+          {
+            console.log(value);
+            this.allAddr?.push(value);
+          }
+        )
+        
+
         this.allAddr?.push(this.trip.destination!);
 
         console.log(this.allAddr);
@@ -455,8 +445,8 @@ export class TripDashboardComponent implements AfterViewInit {
     a marker.*/
   execute_Map(): void {
     //Add the Traffic Layer to the Map.
-    const trafficLayer = new google.maps.TrafficLayer();
-    trafficLayer.setMap(this.getMap());
+    // const trafficLayer = new google.maps.TrafficLayer();
+    // trafficLayer.setMap(this.getMap());
     this.ShowRoute();
   }
 
@@ -482,7 +472,7 @@ export class TripDashboardComponent implements AfterViewInit {
         this.originState = temp?.pop();
         this.originCity = splitted?.pop();
         this.originStreetAddress = splitted?.pop();
-
+        this.stops = this.trip.stops || '';
 
 
         this.tripDestination = this.trip.destination || '';
@@ -516,6 +506,7 @@ export class TripDashboardComponent implements AfterViewInit {
         stopover: true,
       });
     }
+    
     //Call upon Direction Services to chart a route on the map.
     directionsService
       .route({

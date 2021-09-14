@@ -26,6 +26,8 @@ export class CreateTripComponent implements OnInit {
   passengerDeck: Array<User> = [];
   passengers: Array<User> = [];
   
+  stops: Array<String> = [];
+  row: String = "";
   spotify:string='';
 
   userId?: number;
@@ -53,14 +55,19 @@ export class CreateTripComponent implements OnInit {
   currDate:string = '';
   currDateEnd:string = '';
 
-  //Adds passenger to 'Current Passengers' table of the passanger management system  and removes them from the 'Friends' table
-  addPassengerToDeck (pass:User): void {
-    this.passengerDeck.push(pass)
-    console.log('Added ', pass)
-    console.log(this.passengerDeck)
-    const index: number = this.friends.indexOf(pass);
-    this.friends.splice(index, 1); 
-  }
+  stopStreetAddress : String = '';
+  stopCity : String = '';
+  stopState : String = '';
+  stopZip : String = '';
+
+    //Adds passenger to 'Current Passengers' table of the passanger management system  and removes them from the 'Friends' table
+    addPassengerToDeck (pass:User): void {
+      this.passengerDeck.push(pass)
+      console.log('Added ', pass)
+      console.log(this.passengerDeck)
+      const index: number = this.friends.indexOf(pass);
+      this.friends.splice(index, 1); 
+    }
 
   //Adds passenger to 'Friends' table of the passanger management system and removes them from the 'Current Passanger' table
   removePassengerFromDeck (pass:User): void {
@@ -78,6 +85,18 @@ export class CreateTripComponent implements OnInit {
     this.passengers.push.apply(this.passengers, this.passengerDeck);
   }
  
+  addStops(): void {
+    this.stops.push(this.stopStreetAddress + ", " + this.stopCity + ", " + this.stopState + ", " + this.stopZip);
+    console.log(this.stops);
+    this.stopStreetAddress = '';
+    this.stopCity = '';
+    this.stopState = '';
+    this.stopZip = '';
+  }
+
+  RemoveThisStop(row: any) : void {
+    this.stops.splice(this.stops.indexOf(row),1);
+  }
 
   createTrip(): void {
     this.destination=  this.streetAddress + ", " + this.city + ", " + this.state + ", " + this.zip;
@@ -110,6 +129,7 @@ export class CreateTripComponent implements OnInit {
       destination: this.destination,
       tripName: this.tripName,
       passengers: this.passengers,
+      stops: this.stops,
       spotify: this.spotify,
     } 
 
