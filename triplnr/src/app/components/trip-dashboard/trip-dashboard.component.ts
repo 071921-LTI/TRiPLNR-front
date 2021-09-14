@@ -83,6 +83,14 @@ export class TripDashboardComponent implements AfterViewInit {
   currDate : string = '';
   currDateEnd: string = '';
 
+  navIndex: number = NaN;
+  musicIndex: number = NaN;
+  snackIndex: number = NaN;
+
+
+
+
+
 
   allAddr: Array<String> = [];
   singleMap: any;
@@ -158,6 +166,11 @@ export class TripDashboardComponent implements AfterViewInit {
 
   }
 
+  printPass(){
+    console.log(this.passengers[this.navIndex]);
+    
+  }
+
   updateTrip(): void {
     this.tripOrigin=  this.originStreetAddress + ", " + this.originCity + ", " + this.originState + ", " + this.originZip;
     this.tripDestination=  this.desStreetAddress + ", " + this.desCity + ", " + this.desState + ", " + this.desZip;
@@ -188,6 +201,7 @@ export class TripDashboardComponent implements AfterViewInit {
     if (this.newSpotify == ''){
       this.newSpotify==this.curSpotify;
     }
+    
 
     //sets fields in trip object to data entered by user
     this.trip = {
@@ -197,10 +211,10 @@ export class TripDashboardComponent implements AfterViewInit {
       passengers: this.passengers,
       origin: this.tripOrigin,
       spotify: this.newSpotify,
+      navigator: this.passengers[this.navIndex],
+      music: this.passengers[this.musicIndex],
+      snacks: this.passengers[this.snackIndex],
     }
-
-
-
 
     this.tripService.update(this.trip, this.token, this.startTimeString!, this.endTimeString).subscribe(
       response => {

@@ -234,19 +234,35 @@
               </tr>
             </thead>
             <tbody>
-              <!-- populates table with data from passengers -->
-              <tr *ngFor="let row of passengers">
-                <td>{{row.userId}}</td>
-                
-                    <!--something like {{ row.userRole }}, user role does not currently exist in modles or db  -->
-                  <td>
-                   <select class="custom-select" id="role" placeholder="Role" name = "role" placeholder="Role" [(ngModel)]="role"
-                   #roleControl="ngModel">
-                   <option value = "">Role</option>
-                   <option *ngFor="let role of roleArr">{{ role }}</option>
-                 </select>
+              <tr>
+                <td>Navigator</td>
+                <td>
+                  <select class="custom-select" id="navIndex" placeholder="Passenger" name = "navIndex" [(ngModel)]="navIndex"
+                  #navIndexControl="ngModel">
+                  <option value = "">Passenger</option>
+                  <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName }} {{ passenger.lastName }}</option>
+                </select>
                 </td>
-                
+              </tr>
+              <tr>
+                <td>Music</td>
+                <td>
+                  <select class="custom-select" id="musicIndex" placeholder="Passenger" name = "musicIndex" [(ngModel)]="musicIndex"
+                  #musicIndexControl="ngModel">
+                  <option value = "">Passenger</option>
+                  <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName }} {{ passenger.lastName }}</option>
+                </select>
+                </td>
+              </tr>
+              <tr>
+                <td>Snacks</td>
+                <td>
+                  <select class="custom-select" id="snackIndex" placeholder="Passenger" name = "snackIndex" [(ngModel)]="snackIndex"
+                  #snackIndexControl="ngModel">
+                  <option value = "">Passenger</option>
+                  <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName }} {{ passenger.lastName }}</option>
+                </select>
+                </td>
               </tr>
             </tbody>
           </table>
