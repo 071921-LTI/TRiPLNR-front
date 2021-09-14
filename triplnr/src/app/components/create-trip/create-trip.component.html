@@ -247,7 +247,7 @@
       <!-- populates table with data from TRIP_STOPS -->
       <tr *ngFor = "let row of stops; index as i; count as max;">
         <td>
-          <input type="number" id="txt_num_StopNum" min=1 max={{max}}  value={{i+1}} (change)="evt_StopChange(row, $event)">
+          <input type="number" id="txt_num_StopNum" min=1 max={{max}}  value={{i+1}} (change)="evt_StopChange(i, $event)">
         </td>
         <td style="width:85%; height: 16px;">
           {{row}}
