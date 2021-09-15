@@ -30,7 +30,7 @@
       ((row.passengers[2]?.firstName || '') + " " + (row.passengers[2]?.lastName || ''))}}</td>
     <td (click)="openTrip(row)">{{row.startTime | date:'medium'}}</td>
     <td (click)="openTrip(row)">{{row.endTime | date:'medium'}}</td>
-    <td><button class="btn btn-small btn-outline-primary" (click)="open(content,row.origin,row.startTime)">Weather</button></td>
+    <td><img src="assets/Weather_Icon/{{row.originIcon}}" class="img" (click)="open(content,row.origin,row.startTime)"></td>
     <td><button class="btn btn-small btn-outline-primary" (click)="open2(content,row.destination,row.endTime)">Weather</button></td>
   </tr>
 </tbody>

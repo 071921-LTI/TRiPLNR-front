@@ -14,6 +14,12 @@ h2 {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  transition-property: background-color;
+   transition-duration: 0.2s;
+}
+
+.img:hover{
+  background-color:red;
 }
 /* td {
   text-align: center;
