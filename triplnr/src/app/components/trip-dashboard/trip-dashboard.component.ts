@@ -429,10 +429,14 @@ export class TripDashboardComponent implements AfterViewInit {
           document.getElementById('originCity')?.setAttribute('readonly', 'readonly');
           document.getElementById('originState')?.setAttribute('readonly', 'readonly');
           document.getElementById('originZip')?.setAttribute('readonly', 'readonly');
+          document.getElementById('originZip')?.setAttribute('disabled', 'disabled');
+
           document.getElementById('desAdr')?.setAttribute('readonly', 'readonly');
           document.getElementById('desCity')?.setAttribute('readonly', 'readonly');
           document.getElementById('desState')?.setAttribute('readonly', 'readonly');
           document.getElementById('desZip')?.setAttribute('readonly', 'readonly');
+          document.getElementById('desZip')?.setAttribute('disabled', 'disabled');
+          
         } 
 
         
