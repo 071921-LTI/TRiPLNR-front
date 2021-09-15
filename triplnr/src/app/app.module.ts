@@ -24,7 +24,6 @@ import { PassengerPendingRequestsComponent } from './components/passenger-pendin
 import { environment } from 'src/environments/environment';
 import { AuthModule } from '@auth0/auth0-angular';
 import {MatDividerModule} from '@angular/material/divider';
-import { AddressCompleteComponent } from './components/address-complete/address-complete.component';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
@@ -48,9 +47,7 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
     ProfilesComponent,
     UserProfileComponent,
     FilterPipe,
-    PassengerPendingRequestsComponent,
-    AddressCompleteComponent
-
+    PassengerPendingRequestsComponent
   ],
   imports: [
     BrowserModule,

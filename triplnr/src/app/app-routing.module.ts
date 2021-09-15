@@ -8,7 +8,6 @@ import { CreateTripComponent } from './components/create-trip/create-trip.compon
 import { UserPreferencesComponent } from './components/user-preferences/user-preferences.component';
 import { ProfilesComponent } from './components/profiles/profiles.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { AddressCompleteComponent } from './components/address-complete/address-complete.component';
 const routes: Routes = [{
   path:'register',
   component:RegisterComponent
@@ -35,9 +34,6 @@ const routes: Routes = [{
 }, {
   path: 'user-profile',
   component: UserProfileComponent
-}, {
-  path: 'address-complete',
-  component: AddressCompleteComponent
 }
 ];
 
