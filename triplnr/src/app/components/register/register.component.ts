@@ -11,6 +11,7 @@ import { Options } from 'ngx-google-places-autocomplete/objects/options/options'
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  title:String = "register";
   [x: string]: any;
 
   constructor(private userService:UserServiceService, private router:Router, private auth0: Auth0ServiceService) { }

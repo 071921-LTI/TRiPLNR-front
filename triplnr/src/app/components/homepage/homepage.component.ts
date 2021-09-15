@@ -9,7 +9,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-
+  title:String = "homepage";
   constructor(private auth0: Auth0ServiceService, private router: Router, private userService: UserServiceService) { }
 
   ngOnInit(): void {

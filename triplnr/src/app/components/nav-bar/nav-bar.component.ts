@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-
+  title:String="nav-bar";
   constructor(@Inject(DOCUMENT) public document: Document, private router:Router, public auth: AuthService, private auth0Service: Auth0ServiceService, location: Location) {
 
     this.router.events.subscribe((event) => {
