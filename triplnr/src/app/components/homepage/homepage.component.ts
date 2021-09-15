@@ -15,7 +15,7 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
     this.auth0.getUser().subscribe(res => {
       if (res) {
-        this.userService.checkIfRegistered(res.sub).subscribe(result => {
+        this.userService.getUserBySub(res.sub).subscribe(result => {
           if (result) {
             this.router.navigate(['/dashboard'])
             sessionStorage.setItem('token', result.sub?.valueOf()!);

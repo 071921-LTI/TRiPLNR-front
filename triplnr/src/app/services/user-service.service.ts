@@ -58,7 +58,7 @@ export class UserServiceService {
     );
   }
 
-  checkIfRegistered(sub: string): Observable<User> {
+  getUserBySub(sub: string): Observable<User> {
     return this.http.get(environment.userURL + 'sub', { headers: { 'Authorization': sub } }).pipe(
       map(response => response as User)
     )

@@ -8,12 +8,12 @@
          </a>
         <nav class="s-sidebar__nav">
             <br>
-            <a routerLink = "profiles"><h1 style="text-align: center; text-decoration: underline;">Friends </h1></a>
-            <ul>
-                <li *ngFor="let friend of friends">
-                    <em>{{friend.userId + " " + friend.firstName + " " +friend.lastName}}</em>
-                </li>
-            </ul>
+            <a routerLink = "profiles"><h1 style="text-align: center; text-decoration: underline;" >Friends </h1></a>
+            <div class='friends-list p-3'>
+                <div *ngFor="let friend of friends" class='friends-list-item p-2 border-bottom pointer'>
+                    <img src={{friend.profilePic}} class='friend-profile-pic rounded pointer' >  <em class='pointer'>{{friend.userId}} {{friend.firstName}} {{friend.lastName}}</em>
+                </div>
+            </div>
         </nav>
     </div>
 
