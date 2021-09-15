@@ -407,6 +407,24 @@ export class TripDashboardComponent implements AfterViewInit {
       this.allAddr?.push(this.trip.destination!);
       console.log(this.allAddr);
 
+      //need to check if weather is two weeks or more out for API 2 week limit
+      let startTime = new Date(this.tripStartTime);
+      let endTime = new Date(this.tripEndTime);
+      let currTime = Date.now();
+
+      let currDayDiff = Math.round((startTime.valueOf() - currTime.valueOf())/86400000);
+      let destDayDiff = Math.round((endTime.valueOf() - currTime.valueOf())/86400000);
+
+      // //need to check if weather is two weeks or more out for API 2 week limit
+      if(currDayDiff >=  15 || currDayDiff <  0){
+         //dont show either weather
+          // if(destDayDiff >=0 && destDayDiff <15){
+          //   this.callDestWeather(this.tripDestination,destDayDiff);
+          // }
+       
+      }else{
+        this.callOriginWeather(this.tripOrigin, this.tripDestination ,currDayDiff, destDayDiff);
+      }     
       //load existing trip start and end time into inputs for update
       this.startTime = this.tripStartTime.split(".")[0];
       this.endTime = this.tripEndTime.split(".")[0];
@@ -438,24 +456,7 @@ export class TripDashboardComponent implements AfterViewInit {
 
 
       
-      //need to check if weather is two weeks or more out for API 2 week limit
-      let startTime = new Date(this.tripStartTime);
-      let endTime = new Date(this.tripEndTime);
-      let currTime = Date.now();
-
-      let currDayDiff = Math.round((startTime.valueOf() - currTime.valueOf())/86400000);
-      let destDayDiff = Math.round((endTime.valueOf() - currTime.valueOf())/86400000);
-
-      // //need to check if weather is two weeks or more out for API 2 week limit
-      if(currDayDiff >=  15 || currDayDiff <  0){
-         //dont show either weather
-          // if(destDayDiff >=0 && destDayDiff <15){
-          //   this.callDestWeather(this.tripDestination,destDayDiff);
-          // }
-       
-      }else{
-        this.callOriginWeather(this.tripOrigin, this.tripDestination ,currDayDiff, destDayDiff);
-      }     
+      
        
       });
 
