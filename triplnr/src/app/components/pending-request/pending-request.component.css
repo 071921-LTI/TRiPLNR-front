@@ -23,3 +23,14 @@
   table {
       border: 3px solid lightskyblue;
   }
+  
+  .clickRow:hover { 
+    background: rgb(201, 201, 201);
+    cursor: pointer
+    }
+
+  /*Styling for table in friend request info modal*/
+  #innerTable {
+    border:none;
+    width:100%;
+  }
