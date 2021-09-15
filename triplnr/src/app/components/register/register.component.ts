@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
-import { AddressFormComponent } from '../address-form/address-form.component';
-import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
@@ -66,7 +64,7 @@ export class RegisterComponent implements OnInit {
       type: 'application/json'
     }));
 
-    formData.append('file', this.imageFile!, "a file");
+    if (this.imageFile) formData.append('file', this.imageFile, "a file");
 
     //calls authService register method passes through new user object
     this.userService.createUser(formData).subscribe(
