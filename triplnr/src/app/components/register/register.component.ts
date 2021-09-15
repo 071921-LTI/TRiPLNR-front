@@ -4,6 +4,7 @@ import { AddressFormComponent } from '../address-form/address-form.component';
 import { Router } from '@angular/router';
 import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 
 @Component({
   selector: 'app-register',
@@ -34,15 +35,33 @@ export class RegisterComponent implements OnInit {
   city : String = '';
   state : String = '';
   zip : String = '';
+  
+
+  options = {
+    types: ['address'],
+  } as Options;
 
   //
   getAddress(fullAddress : String){
     this.address = fullAddress;
   }
 
+  handleAddressChange(address: any) {
+    this.address = address.formatted_address;
+    var splitted = this.address.split(","); 
+    if (splitted![2].split(" ").length > 2){
+      this.zip = splitted![2].split(" ")[2];
+    }else{
+      this.zip = "";
+    }
+    this.state = splitted![2].split(" ")[1];
+    this.city = splitted![1].split(" ")[1];
+    this.streetAddress = splitted![0];
+  }
+
 
   register(): void {
-    this.address=  this.streetAddress + ", " + this.city + ", " + this.state + ", " + this.zip;
+    this.address;
     //new user object
     this.user = {
       sub: this.sub,

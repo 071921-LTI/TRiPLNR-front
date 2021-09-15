@@ -3,7 +3,7 @@
 </head>
 <body>
 <div class="container">
-  <input ngx-google-places-autocomplete (onAddressChange)="handleAddressChange($event)" />
+  <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="handleAddressChange($event)" />
 
   <p>Address: {{ userAddress }}</p>
   <p>Latitude: {{ userLatitude }}</p>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 
 @Component({
   selector: 'app-address-complete',
@@ -21,18 +23,24 @@ export class AddressCompleteComponent implements OnInit {
   state?: string;
   city ?: string;
   streetAddress?: string;
+  options = {
+    types: ['address'],
+  } as Options;
+  
 
 
   handleAddressChange(address: any) {
     this.userAddress = address.formatted_address
     this.userLatitude = address.geometry.location.lat()
     this.userLongitude = address.geometry.location.lng()
-    var splitted = this.userAddress?.split(",",3); 
-    var temp = splitted?.pop()?.split(" ");
-    this.zip = temp?.pop();
-    this.state = temp?.pop();
-    this.city = splitted?.pop();
-    this.streetAddress = splitted?.pop();
+    var splitted = this.userAddress?.split(","); 
+    //var temp = splitted?.pop()?.split(" ");
+    if (splitted![2].split(" ").length > 2){
+      this.zip = splitted![2].split(" ")[2];
+    }
+    this.state = splitted![2].split(" ")[1];
+    this.city = splitted![1].split(" ")[1];
+    this.streetAddress = splitted![0];
   }
 
 }
