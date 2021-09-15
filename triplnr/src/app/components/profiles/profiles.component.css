@@ -40,3 +40,12 @@ h2 {
   align-items: center;
   margin-top: 2%;
   }
+
+  .row {
+    width: 100%
+  }
+
+  .profile-pic {
+    height: 70px;
+    width: 70px;
+  }

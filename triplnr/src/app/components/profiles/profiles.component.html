@@ -1,16 +1,9 @@
 <div class="centerfield"><input type="text" placeholder="Filter Profiles" [(ngModel)]="searchText"></div>
-<table class="center"  table cellpadding="10" table bordercolor="#ffffff" id="table">
-    <thead>
-  <tr>
-  
-  <th>First Name</th>
-  <th>Last Name</th>
-</tr>
-</thead>
-<tbody>
-<tr *ngFor="let row of profiles | filter: searchText" (click)="openProfile(row)" class="clickRow">
-  <td>{{row.firstName}}</td>
-  <td>{{row.lastName}}</td>
- </tr>
-</tbody>
-</table>
+<div class='container'>
+  <div *ngFor="let row of profiles | filter: searchText" (click)="openProfile(row)" class="row">
+    <div class='clickRow col-lg-3 mx-auto mt-2 rounded p-2'>
+      <img class='profile-pic mr-5' [src]='row.profilePic'>
+      <span>{{row.firstName}} {{row.lastName}}</span>
+    </div>
+  </div>
+</div>
