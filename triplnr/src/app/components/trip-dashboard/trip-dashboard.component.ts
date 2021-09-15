@@ -69,6 +69,9 @@ export class TripDashboardComponent implements AfterViewInit {
   addRoles:boolean = false;
   role:string = '';
   stops: Array<String> = [];
+  stopsChanged: Boolean = false;
+  roleChanged: Boolean = false;
+
   newSpotify: string = '';
   curSpotify: string = this.trip?.spotify ||"";
 
@@ -170,10 +173,13 @@ export class TripDashboardComponent implements AfterViewInit {
     this.stopCity = '';
     this.stopState = '';
     this.stopZip = '';
+    this.stopsChanged = true;
+    console.log("stops changed: " +this.stopsChanged);
   }
 
   RemoveThisStop(row: any) : void {
     this.stops.splice(this.stops.indexOf(row),1);
+    this.stopsChanged = true;
   }
 
   updateTrip(): void {
@@ -274,6 +280,9 @@ export class TripDashboardComponent implements AfterViewInit {
 
         this.startTime = this.tripStartTime.split(".")[0];
         this.endTime = this.tripEndTime.split(".")[0];
+        this.stops = this.trip.stops;
+        this.stopsChanged = false;
+        this.addRoles = false;
 
         for(let x = 0; x <= this.passengers.length; x++){
           if(this.curNav?.userId == this.passengers[x].userId){
@@ -405,6 +414,7 @@ export class TripDashboardComponent implements AfterViewInit {
 
         this.passengers = this.trip.passengers || '';
         this.stops = this.trip.stops || '';
+
         console.log(this.stops)
         let token = sessionStorage.getItem('token');
 
