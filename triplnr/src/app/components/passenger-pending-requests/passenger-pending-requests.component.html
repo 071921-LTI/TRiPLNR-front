@@ -1,7 +1,37 @@
 <table>
-    <tr *ngFor="let row of requests">
-        <td id="name"><b>Trip Invite:</b> {{row.trip?.tripName}} | <b>From:</b> {{row.trip?.manager?.firstName + " " + row.trip?.manager?.lastName}} </td>
+    <tr *ngFor="let row of requests" class="clickRow" (click)='prettierDatesAndSavePass(row.trip?.startTime, row.trip?.endTime, row.trip?.passengers)' data-toggle="modal" [attr.data-target]="'#passengerModal'">
+        <td id="name"><b>Trip Invite:</b> {{row.trip?.manager?.firstName}} {{row.trip?.manager?.lastName}}</td>
         <td><input type="button" value="Accept" (click)="acceptRequest(row)" id="accept"></td>
         <td><input type="button" value="Deny" (click)="denyRequest(row)" id="deny"></td>
+
+        <!-- Modal for Passenger Request Info-->
+        <div class="modal fade" id="passengerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Passenger Request Info</h5>
+                        <button type="button" class="btn btn-primary" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><b>From:</b> {{row.trip?.manager?.firstName}} {{row.trip?.manager?.lastName}}</p>
+                        <br>
+                        <p><b>Origin:</b> {{row.trip?.origin}}</p>
+                        <p><b>Destination:</b> {{row.trip?.destination}}</p>
+                        <br>
+                        <p><b>Start Date:</b> {{prettyStart}}</p>
+                        <p><b>End Date:</b> {{prettyEnd}}</p>
+
+                        <b>Passengers:</b>
+                        <table id='innerTable'>
+                            <tr *ngFor="let passenger of passengers">
+                                <td>{{passenger?.firstName}} {{passenger?.lastName}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </tr>
 </table>

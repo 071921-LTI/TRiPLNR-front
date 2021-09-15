@@ -5,6 +5,7 @@ import { Trip } from 'src/app/models/trip'
 import { User } from 'src/app/models/user';
 import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 
 @Component({
   selector: 'app-create-trip',
@@ -99,7 +100,6 @@ export class CreateTripComponent implements OnInit {
   }
 
   createTrip(): void {
-    this.destination=  this.streetAddress + ", " + this.city + ", " + this.state + ", " + this.zip;
     //item stored in session when loged in contains ([userID]:[username]) of current user
     this.token= sessionStorage.getItem("token") || '';
 
@@ -177,6 +177,37 @@ export class CreateTripComponent implements OnInit {
 
     this.userService.getFriends(sessionStorage.getItem("token")!).subscribe(
       async response => {this.friends = response;})
+  }
+
+
+  options = {
+    types: ['address'],
+  } as Options;
+
+  handleAddressChangeTrip(address: any) {
+    this.destination = address.formatted_address;
+    var splitted = this.destination!.split(","); 
+    if (splitted![2].split(" ").length > 2){
+      this.zip = splitted![2].split(" ")[2];
+    }else{
+      this.zip = "";
+    }
+    this.state = splitted![2].split(" ")[1];
+    this.city = splitted![1].split(" ")[1];
+    this.streetAddress = splitted![0];
+  }
+
+  handleAddressChangeStop(address: any) {
+    var stopAddress = address.formatted_address;
+    var splitted = stopAddress!.split(","); 
+    if (splitted![2].split(" ").length > 2){
+      this.stopZip = splitted![2].split(" ")[2];
+    }else{
+      this.stopZip = "";
+    }
+    this.stopState = splitted![2].split(" ")[1];
+    this.stopCity = splitted![1].split(" ")[1];
+    this.stopStreetAddress = splitted![0];
   }
 
   evt_StopChange(i: number, e: any) {

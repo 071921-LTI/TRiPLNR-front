@@ -5,6 +5,8 @@ export interface User {
     sub?: String;
     firstName?: String;
     lastName?: String;
+    profilePic?: String;
+    bio?: String;
     address?: String;
     trips?: any;
     friends?: any;

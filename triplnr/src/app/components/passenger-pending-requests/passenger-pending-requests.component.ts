@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { PassengerRequest } from 'src/app/models/passenger-request';
 import { PassengerRequestServiceService } from 'src/app/services/passenger-request-service.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-passenger-pending-requests',
@@ -29,6 +30,23 @@ export class PassengerPendingRequestsComponent implements OnInit {
   requests:PassengerRequest[] = [];
   token?:string;
 
+  passengers:User[] = [];
+
+  //Used to make dates look not horrible
+  prettyStart?:string;
+  prettyEnd?:string;
+  prettierDatesAndSavePass(start:any, end:any, users:User[]):void {
+    let toArray =  start.split("T");
+    this.prettyStart = toArray[0];
+
+    toArray = [];
+
+    toArray =  end.split("T");
+    this.prettyEnd = toArray[0];
+
+    this.passengers = users;
+  }
+
   getRequests(){
     this.token = sessionStorage.getItem("token") || '';
     if (this.token != ''){
@@ -51,6 +69,7 @@ export class PassengerPendingRequestsComponent implements OnInit {
         request = response;
       }
     );
+    event?.stopPropagation()
   }
 
   denyRequest(request:PassengerRequest){
@@ -62,5 +81,6 @@ export class PassengerPendingRequestsComponent implements OnInit {
       request = response;
     }
   );
+  event?.stopPropagation()
   }
 }
