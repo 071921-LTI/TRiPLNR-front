@@ -75,15 +75,15 @@
         <div class="col-50">
           <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
           <input type="text" id="desAdr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
-            #stopStreetControl = "ngModel" [class.is-invalid]="stopStreetControl.invalid && stopStreetControl.touched"
+            #desStreetControl = "ngModel" [class.is-invalid]="desStreetControl.invalid && desStreetControl.touched"
             name="desAddress" placeholder="542 W. 15th Street" [(ngModel)]="desStreetAddress">
-          <small class="text-danger" [class.d-none] = "stopStreetControl.valid || stopStreetControl.untouched">Please enter Street Address</small>
+          <small class="text-danger" [class.d-none] = "desStreetControl.valid || desStreetControl.untouched">Please enter Street Address</small>
           
           <label for="city"><i class="fa fa-institution"></i> City</label>
           <input type="text" id="desCity" class="form-control" required pattern="[a-zA-Z ]+$" 
-            #stopCityControl="ngModel" [class.is-invalid]="stopCityControl.invalid && stopCityControl.touched"
+            #desCityControl="ngModel" [class.is-invalid]="desCityControl.invalid && desCityControl.touched"
             name="desCity" placeholder="New York" [(ngModel)]="desCity">
-          <small class="text-danger" [class.d-none] = "stopCityControl.valid || stopCityControl.untouched">Please enter City or Town name</small>
+          <small class="text-danger" [class.d-none] = "desCityControl.valid || desCityControl.untouched">Please enter City or Town name</small>
         
         
           <div class="row">
@@ -91,21 +91,21 @@
               <div class="form-group">
                 <label for="state">State</label>
                 <select class="custom-select" id="desState" placeholder="State" required pattern="^\w{2}$" name = "desState" placeholder="NY" [(ngModel)]="desState"
-                  #stopStateControl="ngModel" [class.is-invalid]="stopStateControl.invalid && stopStateControl.touched">
+                  #desStateControl="ngModel" [class.is-invalid]="desStateControl.invalid && desStateControl.touched">
                   <option value = "">State</option>
                   <option *ngFor="let state of stateArr">{{ state }}</option>
                 </select>
-                <small class="text-danger" [class.d-none] = "stopStateControl.valid || stopStateControl.untouched">Please select a state</small>
+                <small class="text-danger" [class.d-none] = "desStateControl.valid || desStateControl.untouched">Please select a state</small>
               </div>
             </div>
 
             <div class="col-50">
               <div class="form-group">
                 <label for="zip">Zip</label>
-                <input type="text" id="desZip" name="desZip" required pattern="^\d{5}$" #stopZipControl="ngModel"
-                  [class.is-invalid]="stopZipControl.invalid && stopZipControl.touched"
+                <input type="text" id="desZip" name="desZip" required pattern="^\d{5}$" #desZipControl="ngModel"
+                  [class.is-invalid]="desZipControl.invalid && desZipControl.touched"
                   class="form-control" placeholder="00000" [(ngModel)]="desZip">
-                <small class="text-danger" [class.d-none] = "stopZipControl.valid || stopZipControl.untouched">Please enter a valid zip code</small>
+                <small class="text-danger" [class.d-none] = "desZipControl.valid || desZipControl.untouched">Please enter a valid zip code</small>
               </div>
             </div>
           </div>
@@ -347,15 +347,16 @@
         <div class="col-50">
           <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
           <input type="text" id="adr" class="form-control" pattern="[a-zA-Z0-9 ]+$" 
-            #streetControl = "ngModel" [class.is-invalid]="streetControl.invalid && streetControl.touched"
+            #stopStreetControl = "ngModel" [class.is-invalid]="stopStreetControl.invalid && stopStreetControl.touched"
             name="address" placeholder="542 W. 15th Street" [(ngModel)]="stopStreetAddress">
-          <small class="text-danger" [class.d-none] = "streetControl.valid || streetControl.untouched">Please enter Street Address</small>
+          <small class="text-danger" [class.d-none] = "stopStreetControl.valid || stopStreetControl.untouched">Please enter Street Address</small>
+          
           
           <label for="city"><i class="fa fa-institution"></i> City</label>
           <input type="text" id="city" class="form-control" pattern="[a-zA-Z ]+$" 
-            #cityControl="ngModel" [class.is-invalid]="cityControl.invalid && cityControl.touched"
+            #stopCityControl="ngModel" [class.is-invalid]="stopCityControl.invalid && stopCityControl.touched"
             name="city" placeholder="New York" [(ngModel)]="stopCity">
-          <small class="text-danger" [class.d-none] = "cityControl.valid || cityControl.untouched">Please enter City or Town name</small>
+          <small class="text-danger" [class.d-none] = "stopCityControl.valid || stopCityControl.untouched">Please enter City or Town name</small>
         
         
           <div class="row">
@@ -363,21 +364,21 @@
               <div class="form-group">
                 <label for="state">State</label>
                 <select class="custom-select" id="state" placeholder="State" pattern="^\w{2}$" name = "state" placeholder="NY" [(ngModel)]="stopState"
-                  #stateControl="ngModel" [class.is-invalid]="stateControl.invalid && stateControl.touched">
+                  #stopStateControl="ngModel" [class.is-invalid]="stopStateControl.invalid && stopStateControl.touched">
                   <option value = "">State</option>
                   <option *ngFor="let state of stateArr">{{ state }}</option>
                 </select>
-                <small class="text-danger" [class.d-none] = "stateControl.valid || stateControl.untouched">Please select a state</small>
+                <small class="text-danger" [class.d-none] = "stopStateControl.valid || stopStateControl.untouched">Please select a state</small>
               </div>
             </div>
   
             <div class="col-50">
               <div class="form-group">
                 <label for="zip">Zip</label>
-                <input type="text" id="zip" name="zip" pattern="^\d{5}$" #zipControl="ngModel"
-                  [class.is-invalid]="zipControl.invalid && zipControl.touched"
+                <input type="text" id="zip" name="zip" pattern="^\d{5}$" #stopZipControl="ngModel"
+                  [class.is-invalid]="stopZipControl.invalid && stopZipControl.touched"
                   class="form-control" placeholder="00000" [(ngModel)]="stopZip">
-                <small class="text-danger" [class.d-none] = "zipControl.valid || zipControl.untouched">Please enter a valid zip code</small>
+                <small class="text-danger" [class.d-none] = "stopZipControl.valid || stopZipControl.untouched">Please enter a valid zip code</small>
               </div>
             </div>
           </div>
@@ -445,9 +446,9 @@
     <div class="checkbox mb-3">
     </div>
     <ng-container *ngIf="isManager">
-      <button [disabled]="tripUpdateForm.form.pristine" class="w-100 btn btn-lg btn-primary" type="input" (click)="tripUpdateForm.form.markAsPristine()" (click)='reset()'>Reset</button>
+      <button [disabled]="tripUpdateForm.form.pristine && !stopsChanged && !addRoles" class="w-100 btn btn-lg btn-primary" type="input" (click)="tripUpdateForm.form.markAsPristine()" (click)="tripUpdateForm.control.markAsUntouched();" (click)='reset()'>Reset</button>
       <br><br>
-      <button [disabled]="tripUpdateForm.form.invalid" class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
+      <button [disabled]="tripUpdateForm.form.invalid || tripUpdateForm.form.pristine && !stopsChanged" class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
     </ng-container>
    
 </div>
