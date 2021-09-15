@@ -117,7 +117,7 @@
   
       <div class="checkbox mb-3">
       </div>
-      <button [disabled]="userPref.form.pristine" class="w-100 btn btn-lg btn-primary" type="input" (click)="userPref.form.markAsPristine()" (click)='reset()'>Reset</button>
+      <button [disabled]="userPref.form.pristine && !isImageSelected" class="w-100 btn btn-lg btn-primary" type="input" (click)="userPref.form.markAsPristine()" (click)='reset()'>Reset</button>
       <br><br>
       <button [disabled]="userPref.form.invalid || userPref.form.pristine && !isImageSelected" class="w-100 btn btn-lg btn-primary" type="input" (click)='update()'>Update</button>
       <div id="error">
