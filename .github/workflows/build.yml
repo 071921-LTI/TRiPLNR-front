@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - 'dev'
+      - 'nick_dev'
   pull_request:
       types: [opened, synchronize, reopened]
 name: Main Workflow
