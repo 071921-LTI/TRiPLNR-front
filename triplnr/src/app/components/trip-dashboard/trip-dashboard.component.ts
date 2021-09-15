@@ -6,6 +6,11 @@ import { Router } from '@angular/router';
 import { Loader } from '@googlemaps/js-api-loader';
 import { environment } from 'src/environments/environment';
 import { } from 'google__maps';
+import { WeatherServiceService } from 'src/app/services/weather-service.service';
+import { weather } from 'src/app/models/weather';
+import { empty } from 'rxjs';
+import { identifierModuleUrl, ThrowStmt } from '@angular/compiler';
+import { UserServiceService } from 'src/app/services/user-service.service';
 
 declare var google: any;
 const locationButton = document.createElement("button");
@@ -17,7 +22,7 @@ const locationButton = document.createElement("button");
 export class TripDashboardComponent implements AfterViewInit {
   private map: any;
 
-  constructor(private tripService: TripServiceService, private router: Router) {
+  constructor(private userService: UserServiceService, private tripService: TripServiceService, private router: Router, private weather:WeatherServiceService) {
     /*var script = document.createElement("script");
     script.type = "text/javascript";
     document.head.appendChild(script);
@@ -42,8 +47,8 @@ export class TripDashboardComponent implements AfterViewInit {
   //representd Trip Model
   trip?: Trip;
 
-  startTime: string = '';
-  endTime: string = '';
+  startTime!: string;
+  endTime!: string;
 
   tripManagerLast: String = '';
   tripManagerFirst: String = '';
@@ -51,19 +56,23 @@ export class TripDashboardComponent implements AfterViewInit {
   tripOrigin: String = '';
   tripDestination: String = '';
   tripManager: String = '';
+  tripStop: Array<String> = [];
 
   tripName: String = '';
   passengers: Array<User> = [];
   isManager: boolean = true;
 
   // need to add functionalit to check if playlist exists and if user roles exists and change value to true
-  isPlaylist: boolean = false;
+  isPlaylist: boolean = true;
   isRoles: boolean = false;
   addRoles:boolean = false;
   role:string = '';
-  playlists: Array<string> = [];
-  playlist: string = '';
+  stops: Array<String> = [];
+  stopsChanged: Boolean = false;
+  roleChanged: Boolean = false;
 
+  newSpotify: string = '';
+  curSpotify: string = this.trip?.spotify ||"";
 
 
   originStreetAddress? : string;
@@ -80,6 +89,22 @@ export class TripDashboardComponent implements AfterViewInit {
   currDateEnd: string = '';
 
 
+  navIndex: number = NaN;
+  musicIndex: number = NaN;
+  snackIndex: number = NaN;
+
+  curNav?:User;
+  curMusic?:User;
+  curSnack?:User;
+
+
+
+  stopStreetAddress : String = '';
+  stopCity : String = '';
+  stopState : String = '';
+  stopZip : String = '';
+
+
   allAddr: Array<String> = [];
   singleMap: any;
   lat?: number;
@@ -94,90 +119,81 @@ export class TripDashboardComponent implements AfterViewInit {
   //WayPointsMap: Map<number, String> = new Map<number, String>();
   //May need to uncomment if we're doing additional stops...
 
+
+  //Weather vvariables
+  currWeather:weather[]=[];
+  destWeather:weather[]=[];
+  tripStartTime:any;
+  tripEndTime:any;
+  imageOrigin:String = "";
+  imageDest:String = "";
+
+
+  
   addRolesbtn(): void{
     this.addRoles = true;
   }
 
+  //Used for the tables in the new passenger management system
+  friends:Array<User> = [];
+  passengerDeckPhase1: Array<User> = [];
+  passengerDeckPhase2: Array<User> = [];
 
-  addPlaylist(): void {
-    this.playlists.push(this.playlist);
-    this.playlist = '';
-    console.log(this.playlists);
+  //Adds passenger to 'Current Passengers' table of the passanger management system  and removes them from the 'Friends' table
+  addPassengerToDeck (pass:User): void {
+    this.passengerDeckPhase2.push(pass)
+    console.log('Added ', pass)
+    console.log(this.passengerDeckPhase2)
+    const index: number = this.passengerDeckPhase1.indexOf(pass);
+    this.passengerDeckPhase1.splice(index, 1); 
+  }
+
+  //Adds passenger to 'Friends' table of the passanger management system  and removes them from the 'Current Passanger' table
+  removePassengerFromDeck (pass:User): void {
+    this.passengerDeckPhase1.push(pass)
+    console.log('Added ', pass)
+    console.log(this.passengerDeckPhase1)
+    const index: number = this.passengerDeckPhase2.indexOf(pass);
+    this.passengerDeckPhase2.splice(index, 1);
+    console.log('Removed ', pass)
+  }
+
+  //Adds passengers from the 'Current Passengers' table of the passanger management system to the passenger list of the trip
+  addPassengers(): void{
+    this.passengers = [];
+    this.passengers.push.apply(this.passengers, this.passengerDeckPhase2);
   }
 
 
-
-
-  addRolesbtn(): void{
-    this.addRoles = true;
+  addStops(): void {
+    this.stops.push(this.stopStreetAddress + ", " + this.stopCity + ", " + this.stopState + ", " + this.stopZip);
+    console.log(this.stops);
+    this.stopStreetAddress = '';
+    this.stopCity = '';
+    this.stopState = '';
+    this.stopZip = '';
+    this.stopsChanged = true;
+    console.log("stops changed: " +this.stopsChanged);
   }
 
-
-  addPlaylist(): void {
-    this.playlists.push(this.playlist);
-    this.playlist = '';
-    console.log(this.playlists);
-  }
-
-
-  addPassenger(): void {
-    //User object containt one field to be filled by user
-    this.user = {
-      //userId of passenger to be added
-      userId: this.userId
-    }
-    console.log(typeof this.userId)
-    //check to make sure entered data is a number datatype
-    if (typeof this.userId === 'number') {
-      //add user object to a passenger array contating all passengers to be included in new trip object
-      this.passengers.push(this.user)
-      //clears input field after selection
-      this.userId = undefined;
-    } else {
-      //if anything other than a number is entered, clears input field
-      this.userId = undefined;
-    }
-
-
-  }
-
-  removePassenger(): void {
-    //User object containt one field to be filled by user
-    this.user = {
-      //userId of passenger to be added
-      userId: this.userId
-    }
-    console.log(typeof this.userId)
-    //check to make sure entered data is a number datatype
-    if (typeof this.userId === 'number') {
-      //add user object to a passenger array contating all passengers to be included in new trip object
-      for (let i = 0; i < this.passengers.length; i++) {
-        if (this.passengers[i].userId == this.userId) {
-          this.passengers.splice(i, 1);
-          break;
-        }
-      }
-      //clears input field after selection
-      this.userId = undefined;
-    } else {
-      //if anything other than a number is entered, clears input field
-      this.userId = undefined;
-    }
-
-
+  RemoveThisStop(row: any) : void {
+    this.stops.splice(this.stops.indexOf(row),1);
+    this.stopsChanged = true;
   }
 
   updateTrip(): void {
     this.tripOrigin=  this.originStreetAddress + ", " + this.originCity + ", " + this.originState + ", " + this.originZip;
+    this.tripStop= this.stops;
     this.tripDestination=  this.desStreetAddress + ", " + this.desCity + ", " + this.desState + ", " + this.desZip;
 
     this.token = sessionStorage.getItem("token") || '';
 
-    this.startTime = this.startTime.replace('T', ' ') || '';
-    this.startTime = this.startTime + ":00";
+    this.startTime = this.startTime.replace('T', ' ')|| '';
+    //this.startTime = this.startTime + ":00";
 
     this.endTime = this.endTime.replace('T', ' ') || '';
-    this.endTime = this.endTime + ":00";
+    //this.endTime = this.endTime + ":00";
+
 
     if (this.endTime != ":00") {
       //sets startTimeString equal to formated startTime
@@ -192,6 +208,13 @@ export class TripDashboardComponent implements AfterViewInit {
     } else {
       this.startTimeString = this.trip?.startTime;
     }
+    console.log(this.startTimeString);
+
+
+    if (this.newSpotify == ''){
+      this.newSpotify==this.curSpotify;
+    }
+    
 
     //sets fields in trip object to data entered by user
     this.trip = {
@@ -200,7 +223,22 @@ export class TripDashboardComponent implements AfterViewInit {
       tripName: this.tripName,
       passengers: this.passengers,
       origin: this.tripOrigin,
+
+      stops: this.tripStop,
+
+      spotify: this.newSpotify,
+
+      navigator: this.passengers[this.navIndex],
+      music: this.passengers[this.musicIndex],
+      snacks: this.passengers[this.snackIndex],
+
+
     }
+
+    console.log(this.startTimeString);
+    console.log(this.endTimeString);
+
+    console.log(this.passengers[this.navIndex]);
 
 
 
@@ -208,6 +246,7 @@ export class TripDashboardComponent implements AfterViewInit {
       response => {
         if (response != null) {
           this.router.navigate(['/dashboard']);
+          
         } else {
           this.error = "Trip Creation Error";
         }
@@ -221,15 +260,15 @@ export class TripDashboardComponent implements AfterViewInit {
         this.trip = response;
         this.tripName = this.trip.tripName || '';
         this.tripOrigin = this.trip.origin || '';
-        var splitted = response.origin?.split(",",3)
-        var temp = splitted?.pop()?.split(" ");
+        let splitted = response.origin?.split(",",3)
+        let temp = splitted?.pop()?.split(" ");
         this.originZip = temp?.pop();
         this.originState = temp?.pop();
         this.originCity = splitted?.pop();
         this.originStreetAddress = splitted?.pop();
         this.tripDestination = this.trip.destination || '';
-        var splitted = response.destination?.split(",",3)
-        var temp = splitted?.pop()?.split(" ");
+        splitted = response.destination?.split(",",3)
+        temp = splitted?.pop()?.split(" ");
         this.desZip = temp?.pop();
         this.desState = temp?.pop();
         this.desCity = splitted?.pop();
@@ -237,20 +276,41 @@ export class TripDashboardComponent implements AfterViewInit {
         this.tripManagerFirst = this.trip.manager?.firstName || '';
         this.tripManagerLast = this.trip.manager?.lastName || '';
         this.tripManager = this.tripManagerFirst + " " + this.tripManagerLast;
+
+        this.startTime = this.tripStartTime.split(".")[0];
+        this.endTime = this.tripEndTime.split(".")[0];
+        this.stops = this.trip.stops;
+        this.stopsChanged = false;
+        this.addRoles = false;
+
+        for(let x = 0; x <= this.passengers.length; x++){
+          if(this.curNav?.userId == this.passengers[x].userId){
+            this.navIndex = x;
+            console.log("index x: "+x);
+          }
+          if(this.curMusic?.userId == this.passengers[x].userId){
+            this.musicIndex = x;
+            console.log("index x: "+x);
+          }
+          if(this.curSnack?.userId == this.passengers[x].userId){
+            this.snackIndex = x;
+            console.log("index x: "+x);
+          }
+  
+        }
+
       }
     )
   }
 
   isUserManager(): void {
-    let token = sessionStorage.getItem('Authorization');
-    console.log("this is my token: " + token);
-    let myArr = token?.split(":") || '';
-    let curUserId = parseInt(myArr[0]);
-    console.log("manager Id: " + this.trip?.manager?.userId + "| loged in user id: " + curUserId)
-    if (curUserId != this.trip?.manager?.userId) {
+    let token = sessionStorage.getItem('token');
+    if (token != this.trip?.manager?.sub)  {
       document.getElementById('tripNameinput')?.setAttribute('readonly', 'readonly');
     }
   }
+
+  
 
   ngAfterViewInit(): void {
     let today = new Date();
@@ -298,41 +358,150 @@ export class TripDashboardComponent implements AfterViewInit {
         this.tripManagerFirst = this.trip.manager?.firstName || '';
         this.tripManagerLast = this.trip.manager?.lastName || '';
         this.tripManager = this.tripManagerFirst + " " + this.tripManagerLast;
+        //set start and end time for weather API
+        this.tripStartTime = this.trip.startTime || '';
+        this.tripEndTime = this.trip.endTime || '';
+        this.curSpotify = this.trip.spotify ||"";
+        this.curNav = this.trip.navigator;
+        this.curMusic = this.trip.music;
+        this.curSnack = this.trip.snacks;
+
 
 
         this.passengers = this.trip.passengers || '';
+        this.stops = this.trip.stops || '';
 
-
+        console.log(this.stops)
         let token = sessionStorage.getItem('token');
+
+        if (this.curSpotify == '' || this.curSpotify == null){
+          this.isPlaylist = false;
+        }
+
         if (token != this.trip?.manager?.sub) {
           this.isManager = false;
           document.getElementById('tripNameinput')?.setAttribute('readonly', 'readonly');
-          document.getElementById('tripOrigininput')?.setAttribute('readonly', 'readonly');
-          document.getElementById('tripDestinationInput')?.setAttribute('readonly', 'readonly');
+          document.getElementById('originAdr')?.setAttribute('readonly', 'readonly');
+          document.getElementById('originCity')?.setAttribute('readonly', 'readonly');
+          document.getElementById('originState')?.setAttribute('readonly', 'readonly');
+          document.getElementById('originZip')?.setAttribute('readonly', 'readonly');
+          document.getElementById('desAdr')?.setAttribute('readonly', 'readonly');
+          document.getElementById('desCity')?.setAttribute('readonly', 'readonly');
+          document.getElementById('desState')?.setAttribute('readonly', 'readonly');
+          document.getElementById('desZip')?.setAttribute('readonly', 'readonly');
         } 
 
-
+        
         this.allAddr?.push(this.tripOrigin!);
         this.trip.passengers.forEach((pass: User) => {
           this.allAddr?.push(pass.address!);
         });
-        this.allAddr?.push(this.trip.destination!);
+        this.stops.forEach((value) =>
+          {
+            console.log(value);
+            this.allAddr?.push(value);
+          }
+        )
+        
 
-        console.log(this.allAddr);
+      this.allAddr?.push(this.trip.destination!);
+      console.log(this.allAddr);
+
+      //load existing trip start and end time into inputs for update
+      this.startTime = this.tripStartTime.split(".")[0];
+      this.endTime = this.tripEndTime.split(".")[0];
+
+      for(let x = 0; x <= this.passengers.length; x++){
+        if(this.curNav?.userId == this.passengers[x].userId){
+          this.navIndex = x;
+          console.log("index x: "+x);
+        }
+        if(this.curMusic?.userId == this.passengers[x].userId){
+          this.musicIndex = x;
+          console.log("index x: "+x);
+        }
+        if(this.curSnack?.userId == this.passengers[x].userId){
+          this.snackIndex = x;
+          console.log("index x: "+x);
+        }
+
+      }
+      
+
+      //load current user role into update page
+
+
+
+
         
 
 
+
+      
+      //need to check if weather is two weeks or more out for API 2 week limit
+      let startTime = new Date(this.tripStartTime);
+      let endTime = new Date(this.tripEndTime);
+      let currTime = Date.now();
+
+      let currDayDiff = Math.round((startTime.valueOf() - currTime.valueOf())/86400000);
+      let destDayDiff = Math.round((endTime.valueOf() - currTime.valueOf())/86400000);
+
+      // //need to check if weather is two weeks or more out for API 2 week limit
+      if(currDayDiff >=  15 || currDayDiff <  0){
+         //dont show either weather
+          // if(destDayDiff >=0 && destDayDiff <15){
+          //   this.callDestWeather(this.tripDestination,destDayDiff);
+          // }
+       
+      }else{
+        this.callOriginWeather(this.tripOrigin, this.tripDestination ,currDayDiff, destDayDiff);
+      }     
        
       });
+
+      console.log("Origin "+this.tripOrigin)
+      // console.log("Dest "+this.tripDestination)      
+
+
+
+
     this.addMapsScript();
+
+    /*When loading the 'friends' table of the passenger management system, this checks
+    and makes sure that friends already on the passenger side aren't added to the friends 
+    so that their are no duplicates. For certain reasons, comparing objects directly always comes up false, 
+    hence this hack job to compare user id's instead.*/
+    this.userService.getFriends(this.token!).subscribe(async response => {this.friends = response;
+    this.passengerDeckPhase2.push.apply(this.passengerDeckPhase2, this.passengers);
+
+    for(let i=0; i < this.passengers.length; i++) {
+      for(let j=0; j < this.friends.length; j++) {
+        if (this.friends[j].userId == this.passengers[i].userId) {
+          this.friends.splice(j, 1);
+        }
+      }
+    }
+
+    this.passengerDeckPhase1.push.apply(this.passengerDeckPhase1, this.friends);
+    })
   }
 
+evt_StopChange(row: any, e: any) {
+    
+    let origNDX :number = this.stops.indexOf(row);
+    let NDX_To :number = e.target.value -1;
+    let temp :String = this.stops[NDX_To];
+    console.log(origNDX);
+    console.log(temp);
+    console.log(NDX_To);
+    this.stops[NDX_To] = this.stops[origNDX];
+    this.stops[origNDX] = temp;
+  }
   ngAfterContentInit() {
 
   }
 
   ngOnit() {
-
   }
 
   
@@ -376,8 +545,8 @@ export class TripDashboardComponent implements AfterViewInit {
     a marker.*/
   execute_Map(): void {
     //Add the Traffic Layer to the Map.
-    const trafficLayer = new google.maps.TrafficLayer();
-    trafficLayer.setMap(this.getMap());
+    // const trafficLayer = new google.maps.TrafficLayer();
+    // trafficLayer.setMap(this.getMap());
     this.ShowRoute();
   }
 
@@ -397,19 +566,19 @@ export class TripDashboardComponent implements AfterViewInit {
 
         this.tripOrigin = this.trip.origin || '';
 
-        var splitted = response.origin?.split(",",3)
-        var temp = splitted?.pop()?.split(" ");
+        let splitted = response.origin?.split(",",3)
+        let temp = splitted?.pop()?.split(" ");
         this.originZip = temp?.pop();
         this.originState = temp?.pop();
         this.originCity = splitted?.pop();
         this.originStreetAddress = splitted?.pop();
-
+        this.stops = this.trip.stops || '';
 
 
         this.tripDestination = this.trip.destination || '';
 
-        var splitted = response.destination?.split(",",3)
-        var temp = splitted?.pop()?.split(" ");
+        splitted = response.destination?.split(",",3)
+        temp = splitted?.pop()?.split(" ");
         this.desZip = temp?.pop();
         this.desState = temp?.pop();
         this.desCity = splitted?.pop();
@@ -437,6 +606,7 @@ export class TripDashboardComponent implements AfterViewInit {
         stopover: true,
       });
     }
+    
     //Call upon Direction Services to chart a route on the map.
     directionsService
       .route({
@@ -469,5 +639,29 @@ export class TripDashboardComponent implements AfterViewInit {
       return this.single_Map;
     }
   }
+  //gets called only if the weather day is within two days of current day
+  callOriginWeather(origin:String, dest:String ,day:number , day2:number){
+         //get the weather from origin and the destination
+         this.weather.getDestinationWeather(origin,day).subscribe((response) =>{
+          this.currWeather = response;
+          let iconName = response['icon']+".png";
+          this.imageOrigin = "assets/Weather_Icon/" + iconName;
+          if(day2<15 ){
+            this.callDestWeather(dest,day2);
+          }
+        })   
+  }
+
+    //gets called only if the weather day is within two days of current day
+    callDestWeather(origin:String,day:number){
+      //get the weather from origin and the destination
+      this.weather.getDestinationWeather(origin,day).subscribe((response) =>{
+       this.destWeather = response;
+       let iconName = response['icon']+".png";
+       this.imageDest = "assets/Weather_Icon/" + iconName;
+     })   
+
+
+}
 
 }

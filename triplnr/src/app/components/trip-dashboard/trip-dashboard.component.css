@@ -172,14 +172,6 @@ th{
 
 tr:nth-child(even) {background-color: darkgray;}
 
-elect {
-  width: 100%;
-  margin-bottom: 20px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-} 
-
 input {
   width: 100%;
   margin-bottom: 20px;
@@ -206,4 +198,74 @@ input.is-untouched{
 
 select.is-invalid{
   border-color: red;
+}
+
+.clickRow:hover { 
+  background: rgb(201, 201, 201);
+  cursor: pointer
+}
+
+.originWeatherTable {
+  float: left;
+  width: 340px;
+  
+}
+
+.originWeatherTable2 {
+  float: left;
+
+  width: 170px;
+}
+
+.weatherIcon1{
+  padding-left: 120px;
+}
+
+.weatherIcon2{
+  padding-left: 120px;
+}
+
+/*Modal styling*/
+.tableFriends
+{
+  margin-left: auto;
+  margin-right: auto;
+}
+.tablePassengers
+{
+  margin-left: auto;
+  margin-right: auto;
+}
+.modal-body {
+  display: flex;
+}
+.center {
+  flex-grow: 1;
+  margin: 0px
+}
+#tableNone{
+  border: none;
+  width:100%
+}
+#rowNone{
+  border: none;
+}
+#tdNone {
+  border: none;
+  background-color: white;
+}
+#thNone{
+  border: none;
+}
+#tdNone:hover { 
+  background: rgb(201, 201, 201);
+  cursor: pointer
+}
+
+.wDesc{
+  height: 90px;
+}
+
+.wDesc2{
+  height: 90px;
 }

@@ -22,8 +22,11 @@ import { FilterPipe } from './pipes/filter.pipe';
 import {NgbPaginationModule, NgbAlertModule} from '@ng-bootstrap/ng-bootstrap';
 import { PassengerPendingRequestsComponent } from './components/passenger-pending-requests/passenger-pending-requests.component';
 import { environment } from 'src/environments/environment';
-//import {MatTableModule} from '@angular/material/table';
 import { AuthModule } from '@auth0/auth0-angular';
+import {MatDividerModule} from '@angular/material/divider';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 @NgModule({
   declarations: [
@@ -43,8 +46,7 @@ import { AuthModule } from '@auth0/auth0-angular';
     ProfilesComponent,
     UserProfileComponent,
     FilterPipe,
-
-    PassengerPendingRequestsComponent
+    PassengerPendingRequestsComponent, 
 
   ],
   imports: [
@@ -52,6 +54,10 @@ import { AuthModule } from '@auth0/auth0-angular';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    MatDividerModule,
+    LoadingBarHttpClientModule,
+    LoadingBarRouterModule,
+    LoadingBarModule,
 
     [NgbPaginationModule, NgbAlertModule],
     AuthModule.forRoot({
