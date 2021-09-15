@@ -1,5 +1,4 @@
- <div class="jumbotron" >
-    <div class="container">
-        <img [src]="imageSrc" [alt]="imageAlt"/>
-    </div>
-  </div>
+<div class="banner" >
+  <img [src]="imageSrc" [alt]="imageAlt"/>
+  <img *ngIf='profilePic' [src]='profilePic' class='profile-pic rounded'>
+</div>

@@ -1,17 +1,17 @@
 
-.jumbotron {
-   
+.banner {
     color:whitesmoke;
     background-color:rgb(35, 68, 167);
 }
 
-.jumbotron h1{
-    display:inline-block;
-    align-content: center;
-}
-.jumbotron image {
+.banner image {
     width: 120px;
     height: 80px;
-    vertical-align: middle;
-    display:inline;
 }
+
+.profile-pic {
+    height: 70px;
+    width: 70px;
+    float: right;
+    margin: 3px;
+  }
