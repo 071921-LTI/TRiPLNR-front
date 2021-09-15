@@ -1,4 +1,4 @@
-import { Component, OnInit,AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,20 +9,14 @@ import { environment } from 'src/environments/environment';
 export class AddressCompleteComponent implements OnInit {
 
   constructor() { }
-
-  ngOnInit(): void {
-    this.addMapsScript();
-  }
-
-  ngAfterViewInit(): void{
- 
+  
+  ngOnInit(): void {   
   }
 
   title = 'google-places-autocomplete';
   userAddress?: string;
   userLatitude?: string;
   userLongitude?: string;
-  googleMapsUrl: string = "https://maps.googleapis.com/maps/api/js?key=" + environment.mapsKey + "&libraries=places&language=en";
   zip ?: string;
   state?: string;
   city ?: string;
@@ -39,26 +33,6 @@ export class AddressCompleteComponent implements OnInit {
     this.state = temp?.pop();
     this.city = splitted?.pop();
     this.streetAddress = splitted?.pop();
-  }
-
-  addMapsScript() {
-    if (document.getElementById('JSScript') == null) {
-      console.log("We do not have the JSScript yet.");
-      if (!document.querySelectorAll(`[src="${this.googleMapsUrl}"]`).length) {
-        document.body.appendChild //Append the following to the HTML body.
-          (
-            Object.assign
-              (
-                document.createElement('script'),//Create Script Element
-                {
-                  id: 'JSScript',
-                  type: 'text/javascript',
-                  src: this.googleMapsUrl
-                }
-              )
-          );
-      }
-    }
   }
 
 }
