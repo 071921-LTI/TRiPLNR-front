@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
@@ -13,17 +14,17 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 })
 export class FriendsSidebarComponent implements OnInit {
 
-  constructor(private userService:UserServiceService, private router:Router, public auth: AuthService, private auth0Service: Auth0ServiceService) { 
+  constructor(private userService:UserServiceService, private router:Router, public auth: AuthService, private auth0Service: Auth0ServiceService, location: Location) { 
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-          this.getFriends();
+        if (location.path() !== '/register') this.getFriends();
       }
 
       if (event instanceof NavigationEnd) {
-        this.getFriends();
-    }
-  });
+        if (location.path() !== '/register') this.getFriends();
+      }
+    });
 
   }
 
