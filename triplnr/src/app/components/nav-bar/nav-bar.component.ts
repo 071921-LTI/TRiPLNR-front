@@ -56,5 +56,10 @@ export class NavBarComponent implements OnInit {
       this.isNotLoggedIn = false;
     }
   }
+
+  logout() {
+    this.clearStorage();
+    this.auth.logout()
+  }
   
 }
