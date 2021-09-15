@@ -11,7 +11,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-
+  title:String="nav-bar";
   constructor(@Inject(DOCUMENT) public document: Document, private router:Router, public auth: AuthService, location: Location) {
 
     this.router.events.subscribe((event) => {

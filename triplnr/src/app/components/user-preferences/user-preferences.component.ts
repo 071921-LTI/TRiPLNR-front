@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, ViewChil
 import { Trip } from 'src/app/models/trip';
 import { User } from 'src/app/models/user';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
+
 @Component({
   selector: 'app-user-preferences',
   templateUrl: './user-preferences.component.html',
@@ -9,7 +11,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 })
 export class UserPreferencesComponent implements OnInit {
 
-  stateArr = ['CT', 'GA', 'NY', 'VT', 'TX'];
+  stateArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
 
   @ViewChild('fileInput')
   fileInput!: ElementRef;
@@ -33,6 +35,10 @@ export class UserPreferencesComponent implements OnInit {
   address? : String;
   trips?:Trip[];
   friends?:User[];
+  options = {
+    types: ['address']
+  } as Options;
+  
 
   imageFile?: File;
   imageFileUrl: any = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png';
@@ -75,6 +81,20 @@ export class UserPreferencesComponent implements OnInit {
 
   
   ngOnInit(): void {
+  }
+
+  
+  handleAddressChange(address: any) {
+    this.address = address.formatted_address;
+    var splitted = this.address!.split(","); 
+    if (splitted![2].split(" ").length > 2){
+      this.zip = splitted![2].split(" ")[2];
+    }else{
+      this.zip = "";
+    }
+    this.state = splitted![2].split(" ")[1];
+    this.city = splitted![1].split(" ")[1];
+    this.streetAddress = splitted![0];
   }
 
   reset(){

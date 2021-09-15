@@ -11,7 +11,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./pending-request.component.css']
 })
 export class PendingRequestComponent implements OnInit {
-
+  title:String = "PendingRequestComponent";
   constructor(private userService: UserServiceService, private requestService:FriendRequestServiceService, private router:Router) { 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {

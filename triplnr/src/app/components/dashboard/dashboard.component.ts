@@ -10,6 +10,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  title:String= "Dashboard";
   trips : Trip[]= [];
   token?:string;
   //list of trips sorted by time

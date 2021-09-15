@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./trip-dashboard-manager.component.css']
 })
 export class TripDashboardManagerComponent implements OnInit {
-
+  title:String = "TripDashboardManager";
   constructor() { }
 
   ngOnInit(): void {
