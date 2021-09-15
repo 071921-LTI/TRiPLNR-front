@@ -3,6 +3,7 @@ import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
 import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 
 @Component({
   selector: 'app-register',
@@ -10,6 +11,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  title:String = "register";
   [x: string]: any;
 
   constructor(private userService:UserServiceService, private router:Router, private auth0: Auth0ServiceService) { }
@@ -36,6 +38,11 @@ export class RegisterComponent implements OnInit {
   city : String = '';
   state : String = '';
   zip : String = '';
+  
+
+  options = {
+    types: ['address'],
+  } as Options;
 
   imageFile?: File;
   imageFileUrl: any = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png';
@@ -45,9 +52,22 @@ export class RegisterComponent implements OnInit {
     this.address = fullAddress;
   }
 
+  handleAddressChange(address: any) {
+    this.address = address.formatted_address;
+    var splitted = this.address.split(","); 
+    if (splitted![2].split(" ").length > 2){
+      this.zip = splitted![2].split(" ")[2];
+    }else{
+      this.zip = "";
+    }
+    this.state = splitted![2].split(" ")[1];
+    this.city = splitted![1].split(" ")[1];
+    this.streetAddress = splitted![0];
+  }
+
 
   register(): void {
-    this.address=  this.streetAddress + ", " + this.city + ", " + this.state + ", " + this.zip;
+    this.address;
     //new user object
     this.user = {
       sub: this.sub,

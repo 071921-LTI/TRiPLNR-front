@@ -186,7 +186,12 @@ select {
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 3px;
+  color:black;
 } 
+
+select.is-disabled{
+  background-color: rgb(233, 236, 239);
+}
 
 input.is-invalid{
   border-color: red;
