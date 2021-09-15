@@ -64,8 +64,8 @@ export class UserServiceService {
     )
   }
 
-  createUser(user: User): Observable<any> {
-    return this.http.post(environment.userURL + 'create', user ).pipe(
+  createUser(formData: FormData): Observable<any> {
+    return this.http.post(environment.userURL + 'create', formData).pipe(
       map(response => response)
     )
   }
