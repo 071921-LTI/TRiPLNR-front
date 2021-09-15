@@ -56,6 +56,9 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
     HttpClientModule,
     MatDividerModule,
     GooglePlaceModule,
+    LoadingBarHttpClientModule,
+    LoadingBarModule,
+    LoadingBarRouterModule,
 
     [NgbPaginationModule, NgbAlertModule],
     AuthModule.forRoot({
