@@ -26,20 +26,25 @@
           </div>
           <br>
 
-          <form class="form-group" enctype='multipart/form-data'>
+          
+          <div class="form-group" enctype='multipart/form-data'>
             <img [src]='imageFileUrl' class='rounded' width=200 height=200>
               <label for="file-upload" class="custom-file-upload">
                 <i class="fa fa-cloud-upload"></i> Upload Image
               </label>
               <input #fileInput id="file-upload" type="file" accept="image/png, image/jpeg" (change)='selectImage($event)' name="profilePic" #file/>
-            </form>
+            </div>
+            
           <br>
   
           <div class="form-group">
             <div class="form-floating">
               <div class="form-group">
                 <label for="bio">Bio</label>
-                <textarea type='text' id='bio' [(ngModel)]="bio" maxlength="500" placeholder='Bio' class="form-control" rows="3" name='bio'></textarea>
+                <textarea type='text' id='bio' #bioControl="ngModel" [(ngModel)]="bio" maxlength="500" 
+                  placeholder='Bio' class="form-control" rows="3" name='bio'
+                  [class.is-invalid]="bioControl.invalid && bioControl.touched"></textarea>
+                  <small class="text-danger" [class.d-none] = "bioControl.valid || bioControl.untouched">Enter a Bio</small>
               </div>
             </div>
           </div>
@@ -114,7 +119,7 @@
       </div>
       <button [disabled]="userPref.form.pristine" class="w-100 btn btn-lg btn-primary" type="input" (click)="userPref.form.markAsPristine()" (click)='reset()'>Reset</button>
       <br><br>
-      <button [disabled]="userPref.form.invalid || userPref.form.pristine" class="w-100 btn btn-lg btn-primary" type="input" (click)='update()'>Update</button>
+      <button [disabled]="userPref.form.invalid || userPref.form.pristine && !isImageSelected" class="w-100 btn btn-lg btn-primary" type="input" (click)='update()'>Update</button>
       <div id="error">
           <br>{{response}}
       </div>
