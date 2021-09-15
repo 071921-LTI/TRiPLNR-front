@@ -3,7 +3,8 @@ on:
   # a pull request. 
   push:
     branches:
-      - dev
+      - main
+      - 'dev'
   pull_request:
       types: [opened, synchronize, reopened]
 name: Main Workflow
