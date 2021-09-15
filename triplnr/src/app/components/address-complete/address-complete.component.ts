@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 
@@ -42,5 +43,4 @@ export class AddressCompleteComponent implements OnInit {
     this.city = splitted![1].split(" ")[1];
     this.streetAddress = splitted![0];
   }
-
 }
