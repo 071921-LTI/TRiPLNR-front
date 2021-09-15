@@ -32,7 +32,7 @@
       <div class="form-group">
         <div class="col-50">
           <label for="originAdr"><i class="fa fa-address-card-o"></i> Address</label>
-          <input type="text" id="originAdr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
+          <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="handleAddressChangeTripOrigin($event)" type="text" id="originAdr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
             #streetControl = "ngModel" [class.is-invalid]="streetControl.invalid && streetControl.touched"
             name="address" placeholder="542 W. 15th Street" [(ngModel)]="originStreetAddress">
           <small class="text-danger" [class.d-none] = "streetControl.valid || streetControl.untouched">Please enter Street Address</small>
@@ -74,7 +74,7 @@
       <div class="form-group">
         <div class="col-50">
           <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-          <input type="text" id="desAdr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
+          <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="handleAddressChangeTripDestination($event)" type="text" id="desAdr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
             #desStreetControl = "ngModel" [class.is-invalid]="desStreetControl.invalid && desStreetControl.touched"
             name="desAddress" placeholder="542 W. 15th Street" [(ngModel)]="desStreetAddress">
           <small class="text-danger" [class.d-none] = "desStreetControl.valid || desStreetControl.untouched">Please enter Street Address</small>
@@ -346,7 +346,7 @@
       <div class="form-group">
         <div class="col-50">
           <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-          <input type="text" id="adr" class="form-control" pattern="[a-zA-Z0-9 ]+$" 
+          <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="handleAddressChangeStop($event)" type="text" id="adr" class="form-control" pattern="[a-zA-Z0-9 ]+$" 
             #stopStreetControl = "ngModel" [class.is-invalid]="stopStreetControl.invalid && stopStreetControl.touched"
             name="address" placeholder="542 W. 15th Street" [(ngModel)]="stopStreetAddress">
           <small class="text-danger" [class.d-none] = "stopStreetControl.valid || stopStreetControl.untouched">Please enter Street Address</small>

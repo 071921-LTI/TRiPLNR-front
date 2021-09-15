@@ -11,6 +11,7 @@ import { weather } from 'src/app/models/weather';
 import { empty } from 'rxjs';
 import { identifierModuleUrl, ThrowStmt } from '@angular/compiler';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 
 declare var google: any;
 const locationButton = document.createElement("button");
@@ -308,6 +309,49 @@ export class TripDashboardComponent implements AfterViewInit {
     if (token != this.trip?.manager?.sub)  {
       document.getElementById('tripNameinput')?.setAttribute('readonly', 'readonly');
     }
+  }
+
+  options = {
+    types: ['address'],
+  } as Options;
+
+  handleAddressChangeTripOrigin(address: any) {
+    this.tripOrigin = address.formatted_address;
+    var splitted = this.tripOrigin!.split(","); 
+    if (splitted![2].split(" ").length > 2){
+      this.originZip = splitted![2].split(" ")[2];
+    }else{
+      this.originZip = "";
+    }
+    this.originState = splitted![2].split(" ")[1];
+    this.originCity = splitted![1].split(" ")[1];
+    this.originStreetAddress = splitted![0];
+  }
+
+  handleAddressChangeTripDestination(address: any) {
+    this.tripDestination = address.formatted_address;
+    var splitted = this.tripOrigin!.split(","); 
+    if (splitted![2].split(" ").length > 2){
+      this.desZip = splitted![2].split(" ")[2];
+    }else{
+      this.desZip = "";
+    }
+    this.desState = splitted![2].split(" ")[1];
+    this.desCity = splitted![1].split(" ")[1];
+    this.desStreetAddress = splitted![0];
+  }
+
+  handleAddressChangeStop(address: any) {
+    var stopAddress = address.formatted_address;
+    var splitted = stopAddress!.split(","); 
+    if (splitted![2].split(" ").length > 2){
+      this.stopZip = splitted![2].split(" ")[2];
+    }else{
+      this.stopZip = "";
+    }
+    this.stopState = splitted![2].split(" ")[1];
+    this.stopCity = splitted![1].split(" ")[1];
+    this.stopStreetAddress = splitted![0];
   }
 
   
