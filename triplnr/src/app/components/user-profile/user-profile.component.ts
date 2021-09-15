@@ -13,7 +13,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 export class UserProfileComponent implements OnInit {
 
   constructor(private userService:UserServiceService, private requestService:FriendRequestServiceService, private router:Router) { }
-
+  title:String="User Profile";
   ngOnInit(): void {
   
     this.token = sessionStorage.getItem("token") || '';

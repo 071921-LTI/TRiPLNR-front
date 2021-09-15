@@ -9,7 +9,7 @@ import { FriendRequestServiceService } from 'src/app/services/friend-request-ser
   styleUrls: ['./pending-request.component.css']
 })
 export class PendingRequestComponent implements OnInit {
-
+  title:String = "PendingRequestComponent";
   constructor(private requestService:FriendRequestServiceService, private router:Router) { 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {

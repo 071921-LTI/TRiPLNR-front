@@ -9,7 +9,7 @@ import { PassengerRequestServiceService } from 'src/app/services/passenger-reque
   styleUrls: ['./passenger-pending-requests.component.css']
 })
 export class PassengerPendingRequestsComponent implements OnInit {
-
+  title:String= "PassengerPendingRequestsComponent";
   constructor(private requestService:PassengerRequestServiceService, private router:Router) { 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {

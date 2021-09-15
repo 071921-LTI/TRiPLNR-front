@@ -11,7 +11,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
+  title:String = "register";
   constructor(private userService:UserServiceService, private router:Router, private auth0: Auth0ServiceService) { }
 
   

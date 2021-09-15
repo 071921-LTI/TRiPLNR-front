@@ -1,25 +1,72 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, flushMicrotasks, TestBed } from '@angular/core/testing';
 import { UserPreferencesComponent } from './user-preferences.component';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
 describe('UserPreferencesComponent', () => {
   let component: UserPreferencesComponent;
   let fixture: ComponentFixture<UserPreferencesComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule,
+        FormsModule
+      ],
       declarations: [ UserPreferencesComponent ]
     })
     .compileComponents();
   });
-
   beforeEach(() => {
     fixture = TestBed.createComponent(UserPreferencesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(UserPreferencesComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app).toBeTruthy();
   });
+  it('should have an address', ()=>{
+    const fixture = TestBed.createComponent(UserPreferencesComponent);
+    const app = fixture.debugElement.componentInstance;
+    app.emitAddress();
+    expect(app.address).toBeDefined
+  })
+  it('should update user values',()=>{
+    const fixture = TestBed.createComponent(UserPreferencesComponent);
+    const app = fixture.debugElement.componentInstance;
+    app.user = {}
+    app.first="FirstName";
+    app.last="LastName";
+    app.address="123 fake street";
+    app.update();
+    expect(app.user).toBeFalsy;
+  })
+  it('should render the passed @Input value', ()=>{
+    component.toEmit= true;
+    fixture.detectChanges();
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled).toBeTruthy
+    })
+it('should correctly @Output value of String input in component', () => {
+  spyOn(component.newAddressEvent, 'emit');
+  const button = fixture.nativeElement.querySelector('button');
+  fixture.nativeElement.querySelector('input').value = 'A new address';
+  const inputText = fixture.nativeElement.querySelector('input').value;
+  button.click();
+  fixture.detectChanges();
+  expect(component.newAddressEvent.emit).toBeTruthy
+});
+it('it should update adress',()=>{
+  const fixture = TestBed.createComponent(UserPreferencesComponent);
+  const app = fixture.debugElement.componentInstance;
+  app.streetAddress = 'a';
+  app.city = 'b';
+  app.state = 'c';
+  app.zip = 'd';
+  let temp = app.address;
+  app.emmitAddress;
+  expect(temp).toBeTruthy
+})
 });
