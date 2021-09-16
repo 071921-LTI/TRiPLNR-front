@@ -124,6 +124,8 @@ export class CreateTripComponent implements OnInit {
       this.startTimeString = '0000-00-00 00:00:00';
     }
     
+    this.destination = this.streetAddress + " " + this.city + " " + this.state + " " + this.zip; 
+
     //sets fields in trip object to data entered by user
     this.trip = {
       destination: this.destination,
