@@ -67,7 +67,7 @@ export class RegisterComponent implements OnInit {
 
 
   register(): void {
-    this.address;
+    this.address = this.streetAddress + " " + this.city + " " + this.state + " " + this.zip;
     //new user object
     this.user = {
       sub: this.sub,
