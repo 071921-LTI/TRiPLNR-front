@@ -48,8 +48,8 @@
             <div class="col-50">
               <div class="form-group">
                 <label for="state">State</label>
-                <select class="custom-select" id="originState" placeholder="State" required pattern="^\w{2}$" name = "state" placeholder="NY" [(ngModel)]="originState"
-                  #stateControl="ngModel" [class.is-invalid]="stateControl.invalid && stateControl.touched">
+                <select [disabled]="!isManager" class="custom-select" id="originState" placeholder="State" required pattern="^\w{2}$" name = "state" placeholder="NY" [(ngModel)]="originState"
+                  #stateControl="ngModel" [class.is-invalid]="stateControl.invalid && stateControl.touched" [class.is-disabled]="!isManager">
                   <option value = "">State</option>
                   <option *ngFor="let state of stateArr">{{ state }}</option>
                 </select>
@@ -90,8 +90,8 @@
             <div class="col-50">
               <div class="form-group">
                 <label for="state">State</label>
-                <select class="custom-select" id="desState" placeholder="State" required pattern="^\w{2}$" name = "desState" placeholder="NY" [(ngModel)]="desState"
-                  #desStateControl="ngModel" [class.is-invalid]="desStateControl.invalid && desStateControl.touched">
+                <select [disabled]="!isManager" class="custom-select" id="desState" placeholder="State" required pattern="^\w{2}$" name = "desState" placeholder="NY" [(ngModel)]="desState"
+                  #desStateControl="ngModel" [class.is-invalid]="desStateControl.invalid && desStateControl.touched" [class.is-disabled]="!isManager">
                   <option value = "">State</option>
                   <option *ngFor="let state of stateArr">{{ state }}</option>
                 </select>
@@ -214,7 +214,7 @@
     <br>
 
     <ng-container *ngIf="isManager">
-    <button class="w-100 btn btn-lg btn-secondary" id="rolesBtn" type="input" (click)="addRolesbtn()">add/updae Roles</button>
+    <button class="w-100 btn btn-lg btn-secondary" id="rolesBtn" type="input" (click)="addRolesbtn()">Add/Update Roles</button>
   </ng-container>
     <br>
     <br>

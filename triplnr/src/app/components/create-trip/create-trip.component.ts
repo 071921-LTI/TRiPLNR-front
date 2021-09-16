@@ -240,26 +240,6 @@ callOriginWeather(origin:String, dest:String ,day:number , day2:number){
     }else{
       this.callOriginWeather(this.origin, this.destination, currDayDiff, destDayDiff);
     }
-
-    // //sets fields in trip object to data entered by user
-    // this.trip = {
-    //   destination: this.destination,
-    //   tripName: this.tripName,
-    //   passengers: this.passengers,
-    //   stops: this.stops,
-    //   spotify: this.spotify,
-    // } 
-
-    // //calls trip service create, passes in new trip object with user entered fields, Authorization token and the start time string
-    // this.tripService.create(this.trip, this.token, this.startTimeString, this.endTimeString).subscribe(
-    //   response => {
-    //     if(response != null){
-    //       this.router.navigate(['/dashboard']);
-    //     } else {
-    //     this.error = "Trip Creation Error";
-    //   }
-    // }
-    // );
   }
 
   ngOnInit(): void {

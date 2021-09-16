@@ -18,11 +18,11 @@ export class FriendsSidebarComponent implements OnInit {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        if (location.path() !== '/register') this.getFriends();
+        if (location.path() !== '/register' || location.path() !== '/') this.getFriends();
       }
 
       if (event instanceof NavigationEnd) {
-        if (location.path() !== '/register') this.getFriends();
+        if (location.path() !== '/register' || location.path() !== '/') this.getFriends();
       }
     });
 
