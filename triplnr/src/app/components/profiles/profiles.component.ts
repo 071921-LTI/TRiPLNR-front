@@ -20,6 +20,7 @@ export class ProfilesComponent implements OnInit {
         this.userService.getProfiles(this.token).subscribe(
           response => {
             this.profiles = response;
+            console.log(response);
           }
         )
       }

@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { Auth0User } from 'src/app/models/auth0User';
@@ -14,7 +14,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 })
 export class FriendsSidebarComponent implements OnInit {
 
-  constructor(private userService:UserServiceService, private router:Router, public auth: AuthService, private auth0Service: Auth0ServiceService, location: Location) { 
+  constructor(private userService:UserServiceService, private router:Router, public auth: AuthService, private auth0Service: Auth0ServiceService, private location: Location) { 
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -54,6 +54,13 @@ export class FriendsSidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.isNotLoggedIn = true;
+  }
+
+  openProfile(user:User){
+    sessionStorage.setItem("userId", user.userId?.toString() || '');
+    if (this.location.path() !== '/user-profile') {
+      this.router.navigate(['/user-profile']);
+    }
   }
 
 }
