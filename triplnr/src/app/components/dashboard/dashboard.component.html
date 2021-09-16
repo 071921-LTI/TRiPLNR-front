@@ -68,8 +68,6 @@
       ((row.passengers[2]?.firstName || '') + " " + (row.passengers[2]?.lastName || ''))}}</td>
     <td (click)="openTrip(row)">{{row.startTime | date:'medium'}}</td>
     <td (click)="openTrip(row)">{{row.endTime | date:'medium'}}</td>
-    <!-- <td *ngIf="row.destinationIcon != ''; else noIcon"><img src="assets/Weather_Icon/{{row.destinationIcon}}" class="img" (click)="open(content,row.origin,row.startTime)"></td>
-    <ng-template #noIcon><img src="assets/Weather_Icon/fog.png" class="img" (click)="open(content,row.origin,row.startTime)"></ng-template> -->
     <td><img src="assets/Weather_Icon/{{row.originIcon}}" class="img" (click)="open2(content,row.origin,row.endTime)"></td>
     <td><img src="assets/Weather_Icon/{{row.destinationIcon}}" class="img" (click)="open2(content,row.destination,row.endTime)"></td>
   </tr>
