@@ -7,12 +7,10 @@
   <th>Last Name</th>
 </tr>
 </thead>
-<!-- <tr *ngFor="let row of profiles" (click)="openProfile(row)" class="clickRow">
-    <td>{{row.firstName}}</td>
-    <td>{{row.lastName}}</td>
-</tr> -->
+<tbody>
 <tr *ngFor="let row of profiles | filter: searchText" (click)="openProfile(row)" class="clickRow">
   <td>{{row.firstName}}</td>
   <td>{{row.lastName}}</td>
  </tr>
+</tbody>
 </table>

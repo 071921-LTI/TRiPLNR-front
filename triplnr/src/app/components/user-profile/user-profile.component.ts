@@ -13,27 +13,34 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 export class UserProfileComponent implements OnInit {
 
   constructor(private userService:UserServiceService, private requestService:FriendRequestServiceService, private router:Router) { }
-
+  title:String="User Profile";
   ngOnInit(): void {
   
     this.token = sessionStorage.getItem("token") || '';
     this.userId = Number(sessionStorage.getItem("userId")) || 0;
     this.userService.getUser(this.token, this.userId).subscribe(
       response => {
-        this.user = response;
+        this.userTo = response;
+      }
+    );
+
+    this.userService.getCurrentUser(this.token).subscribe(
+      response => {
+        this.userFrom = response;
       }
     )
   
   }
 
-  user?:User;
+  userFrom?:User;
+  userTo?:User;
   token?:string;
   userId?:number;
 
 
   addFriend(){
     let from:User = {
-      userId : Number(this.token?.split(":")[0])
+      userId : this.userFrom?.userId
     }
 
     let to:User = {

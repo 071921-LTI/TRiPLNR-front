@@ -1,3 +1,4 @@
+@import url('..\assets\css\responsive-table.css');
 h2 {
     margin: 20px auto;
       text-align: center;
@@ -15,12 +16,12 @@ h2 {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
   }
+
   td {
-    text-align: center;
-    border: 1px solid black;
-    border-collapse: collapse;
+    background-color: powderblue;
   }
-  
+
+/*  
   th {
     text-align: center;
     border: 1px solid black;
@@ -29,4 +30,4 @@ h2 {
   
   table {
     border: 3px solid black;
-  }
+  } */
