@@ -6,6 +6,8 @@ import { Auth0User } from 'src/app/models/auth0User';
 import { User } from 'src/app/models/user';
 import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { CommonService } from 'src/app/services/common.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-friends-sidebar',
@@ -14,7 +16,13 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 })
 export class FriendsSidebarComponent implements OnInit {
 
-  constructor(private userService:UserServiceService, private router:Router, public auth: AuthService, private auth0Service: Auth0ServiceService, location: Location) { 
+  private listenForFriend: Subscription;
+
+  constructor(private userService:UserServiceService, 
+    private router:Router, public auth: AuthService, 
+    private auth0Service: Auth0ServiceService, 
+    private commonService: CommonService, 
+    location: Location) { 
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -24,6 +32,12 @@ export class FriendsSidebarComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         if (location.path() !== '/register' || location.path() !== '/') this.getFriends();
       }
+      
+    });
+
+    this.listenForFriend= this.commonService.getFriend().subscribe
+    (message => { //message contains the data sent from service
+      this.getFriends();
     });
 
   }
