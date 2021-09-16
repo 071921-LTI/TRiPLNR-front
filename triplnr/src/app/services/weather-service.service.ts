@@ -17,7 +17,6 @@ export class WeatherServiceService {
   }
 
   getDestinationWeather(address:String, day:number):Observable<any>{
-    // return this.http.get<any>(this.url+start+"/"+day);
     let uri = this.url+address+'/'+day;
     return this.http.get<any>(uri);
   }

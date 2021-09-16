@@ -14,7 +14,6 @@ export class PassengerPendingRequestsComponent implements OnInit {
   constructor(private requestService:PassengerRequestServiceService, private router:Router) { 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        //this.getRequests();
       }
 
       if (event instanceof NavigationEnd) {

@@ -1,9 +1,8 @@
-import { NgModule, Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Trip } from 'src/app/models/trip'
 import { User } from 'src/app/models/user';
-import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 
@@ -64,8 +63,6 @@ export class CreateTripComponent implements OnInit {
     //Adds passenger to 'Current Passengers' table of the passanger management system  and removes them from the 'Friends' table
     addPassengerToDeck (pass:User): void {
       this.passengerDeck.push(pass)
-      console.log('Added ', pass)
-      console.log(this.passengerDeck)
       const index: number = this.friends.indexOf(pass);
       this.friends.splice(index, 1); 
     }
@@ -73,11 +70,8 @@ export class CreateTripComponent implements OnInit {
   //Adds passenger to 'Friends' table of the passanger management system and removes them from the 'Current Passanger' table
   removePassengerFromDeck (pass:User): void {
     this.friends.push(pass)
-    console.log('Added ', pass)
-    console.log(this.friends)
     const index: number = this.passengerDeck.indexOf(pass);
     this.passengerDeck.splice(index, 1);
-    console.log('Removed ', pass)
   }
 
   //Adds passengers from the 'Current Passengers' table of the passanger management system to the passenger list of the trip
@@ -88,7 +82,6 @@ export class CreateTripComponent implements OnInit {
  
   addStops(): void {
     this.stops.push(this.stopStreetAddress + ", " + this.stopCity + ", " + this.stopState + ", " + this.stopZip);
-    console.log(this.stops);
     this.stopStreetAddress = '';
     this.stopCity = '';
     this.stopState = '';
@@ -216,9 +209,6 @@ export class CreateTripComponent implements OnInit {
     let origNDX :number = i;
     let NDX_To :number = e.target.value -1;
     let temp :String = this.stops[NDX_To];
-    console.log(origNDX);
-    console.log(temp);
-    console.log(NDX_To);
     this.stops[NDX_To] = this.stops[origNDX];
     this.stops[origNDX] = temp;
   }

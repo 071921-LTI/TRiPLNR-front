@@ -34,7 +34,7 @@
         <form class="form-group" enctype='multipart/form-data'>
           <img [src]='imageFileUrl' class='rounded' width=200 height=200>
             <label for="file-upload" class="custom-file-upload">
-              <i class="fa fa-cloud-upload"></i> Upload Image
+              <em class="fa fa-cloud-upload"></em> Upload Image
             </label>
             <input id="file-upload" type="file" accept="image/png, image/jpeg" (change)='selectImage($event)' name="profilePic" #file/>
           </form>
@@ -53,12 +53,12 @@
         
         <div class="form-group">
           <div class="col-50">
-            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+            <label for="adr"><em class="fa fa-address-card-o"></em> Address</label>
             <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="handleAddressChange($event)" type="text" id="adr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
               #streetControl = "ngModel" [class.is-invalid]="streetControl.invalid && streetControl.touched"
               name="address" placeholder="542 W. 15th Street" [(ngModel)]="streetAddress">
             <small class="text-danger" [class.d-none] = "streetControl.valid || streetControl.untouched">Please enter Street Address</small>
-            <label for="city"><i class="fa fa-institution"></i> City</label>
+            <label for="city"><em class="fa fa-institution"></em> City</label>
             <input type="text" id="city" class="form-control" required pattern="[a-zA-Z ]+$" 
               #cityControl="ngModel" [class.is-invalid]="cityControl.invalid && cityControl.touched"
               name="city" placeholder="New York" [(ngModel)]="city">

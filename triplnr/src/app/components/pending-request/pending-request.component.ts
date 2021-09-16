@@ -48,8 +48,6 @@ export class PendingRequestComponent implements OnInit {
         this.myFriends = response;
   
         this.sharedFriends = [];
-        console.log(this.myFriends)
-        console.log(this.friend?.friends)
 
         for(let i=0; i < this.myFriends.length; i++) {
           for(let j=0; j < this.friend?.friends.length; j++) {

@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
 import { } from 'google__maps';
 import { WeatherServiceService } from 'src/app/services/weather-service.service';
 import { weather } from 'src/app/models/weather';
-import { empty } from 'rxjs';
 import { identifierModuleUrl, ThrowStmt } from '@angular/compiler';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
@@ -24,11 +23,6 @@ export class TripDashboardComponent implements AfterViewInit {
   private map: any;
 
   constructor(private userService: UserServiceService, private tripService: TripServiceService, private router: Router, private weather:WeatherServiceService) {
-    /*var script = document.createElement("script");
-    script.type = "text/javascript";
-    document.head.appendChild(script);
-    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBF5PtKSivpcDm_7d-MBqAnkolq0MvKKxk";
-    */
   }
 
   stateArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
@@ -143,8 +137,6 @@ export class TripDashboardComponent implements AfterViewInit {
   //Adds passenger to 'Current Passengers' table of the passanger management system  and removes them from the 'Friends' table
   addPassengerToDeck (pass:User): void {
     this.passengerDeckPhase2.push(pass)
-    console.log('Added ', pass)
-    console.log(this.passengerDeckPhase2)
     const index: number = this.passengerDeckPhase1.indexOf(pass);
     this.passengerDeckPhase1.splice(index, 1); 
   }
@@ -152,11 +144,8 @@ export class TripDashboardComponent implements AfterViewInit {
   //Adds passenger to 'Friends' table of the passanger management system  and removes them from the 'Current Passanger' table
   removePassengerFromDeck (pass:User): void {
     this.passengerDeckPhase1.push(pass)
-    console.log('Added ', pass)
-    console.log(this.passengerDeckPhase1)
     const index: number = this.passengerDeckPhase2.indexOf(pass);
     this.passengerDeckPhase2.splice(index, 1);
-    console.log('Removed ', pass)
   }
 
   //Adds passengers from the 'Current Passengers' table of the passanger management system to the passenger list of the trip
@@ -168,13 +157,11 @@ export class TripDashboardComponent implements AfterViewInit {
 
   addStops(): void {
     this.stops.push(this.stopStreetAddress + ", " + this.stopCity + ", " + this.stopState + ", " + this.stopZip);
-    console.log(this.stops);
     this.stopStreetAddress = '';
     this.stopCity = '';
     this.stopState = '';
     this.stopZip = '';
     this.stopsChanged = true;
-    console.log("stops changed: " +this.stopsChanged);
   }
 
   RemoveThisStop(row: any) : void {
@@ -209,8 +196,6 @@ export class TripDashboardComponent implements AfterViewInit {
     } else {
       this.startTimeString = this.trip?.startTime;
     }
-    console.log(this.startTimeString);
-
 
     if (this.newSpotify == ''){
       this.newSpotify==this.curSpotify;
@@ -235,13 +220,6 @@ export class TripDashboardComponent implements AfterViewInit {
 
 
     }
-
-    console.log(this.startTimeString);
-    console.log(this.endTimeString);
-
-    console.log(this.passengers[this.navIndex]);
-
-
 
     this.tripService.update(this.trip, this.token, this.startTimeString!, this.endTimeString).subscribe(
       response => {
@@ -287,15 +265,12 @@ export class TripDashboardComponent implements AfterViewInit {
         for(let x = 0; x <= this.passengers.length; x++){
           if(this.curNav?.userId == this.passengers[x].userId){
             this.navIndex = x;
-            console.log("index x: "+x);
           }
           if(this.curMusic?.userId == this.passengers[x].userId){
             this.musicIndex = x;
-            console.log("index x: "+x);
           }
           if(this.curSnack?.userId == this.passengers[x].userId){
             this.snackIndex = x;
-            console.log("index x: "+x);
           }
   
         }
@@ -390,8 +365,6 @@ export class TripDashboardComponent implements AfterViewInit {
 
     //gets current user authorization token from session storage
     this.token = sessionStorage.getItem('token') || '';
-    console.log(this.token);
-
    
     this.tripService.getTripById(this.token, Number(sessionStorage.getItem('tripId'))).subscribe(
       response => {
@@ -415,7 +388,6 @@ export class TripDashboardComponent implements AfterViewInit {
         this.passengers = this.trip.passengers || '';
         this.stops = this.trip.stops || '';
 
-        console.log(this.stops)
         let token = sessionStorage.getItem('token');
 
         if (this.curSpotify == '' || this.curSpotify == null){
@@ -446,14 +418,12 @@ export class TripDashboardComponent implements AfterViewInit {
         });
         this.stops.forEach((value) =>
           {
-            console.log(value);
             this.allAddr?.push(value);
           }
         )
         
 
       this.allAddr?.push(this.trip.destination!);
-      console.log(this.allAddr);
 
 
       //need to check if weather is two weeks or more out for API 2 week limit      
@@ -463,8 +433,6 @@ export class TripDashboardComponent implements AfterViewInit {
 
       let currDayDiff = Math.round((startTime.valueOf() - currTime.valueOf())/86400000);
       let destDayDiff = Math.round((endTime.valueOf() - currTime.valueOf())/86400000);
-      console.log("cdif: "+currDayDiff);
-      console.log("ddiff"+ destDayDiff);
 
       // //need to check if weather is two weeks or more out for API 2 week limit
       if(currDayDiff >=  15 || currDayDiff <  0){
@@ -486,24 +454,19 @@ export class TripDashboardComponent implements AfterViewInit {
       for(let x = 0; x <= this.passengers.length; x++){
         if(this.curNav?.userId == this.passengers[x].userId){
           this.navIndex = x;
-          console.log("index x: "+x);
         }
         if(this.curMusic?.userId == this.passengers[x].userId){
           this.musicIndex = x;
-          console.log("index x: "+x);
         }
         if(this.curSnack?.userId == this.passengers[x].userId){
           this.snackIndex = x;
-          console.log("index x: "+x);
         }
 
       }
       
       //load current user role into update page
       });
-
-      console.log("Origin "+this.tripOrigin)
-      // console.log("Dest "+this.tripDestination)      
+     
 
 
 
@@ -534,9 +497,7 @@ evt_StopChange(row: any, e: any) {
     let origNDX :number = this.stops.indexOf(row);
     let NDX_To :number = e.target.value -1;
     let temp :String = this.stops[NDX_To];
-    console.log(origNDX);
-    console.log(temp);
-    console.log(NDX_To);
+
     this.stops[NDX_To] = this.stops[origNDX];
     this.stops[origNDX] = temp;
   }
@@ -558,7 +519,6 @@ evt_StopChange(row: any, e: any) {
   start the map up.*/
   addMapsScript() {
     if (document.getElementById('JSScript') == null) {
-      console.log("We do not have the JSScript yet.");
       if (!document.querySelectorAll(`[src="${this.googleMapsUrl}"]`).length) {
         document.body.appendChild //Append the following to the HTML body.
           (
