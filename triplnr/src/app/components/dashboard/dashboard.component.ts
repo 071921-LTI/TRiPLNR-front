@@ -3,8 +3,7 @@ import { Trip } from 'src/app/models/trip';
 import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Router } from '@angular/router';
 import { WeatherServiceService } from 'src/app/services/weather-service.service';
-import { async } from 'rxjs';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',

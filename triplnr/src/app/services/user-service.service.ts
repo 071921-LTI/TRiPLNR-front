@@ -14,11 +14,11 @@ export class UserServiceService {
   authToken: any = sessionStorage.getItem("token");
   
   //update users will make a http put request for the current user to the server and log the result
-  update(user: User, token:string): Observable<String>{
+  update(formData: FormData, token:string): Observable<String>{
     let headers = new HttpHeaders({
       Authorization: token
     });
-    return this.http.put(environment.userURL + "update", user, {headers}).pipe(
+    return this.http.put(environment.userURL + "update", formData, {headers}).pipe(
       map(response => response as String));
   }
 
@@ -58,7 +58,7 @@ export class UserServiceService {
     );
   }
 
-  checkIfRegistered(sub: string): Observable<User> {
+  getUserBySub(sub: string): Observable<User> {
     return this.http.get(environment.userURL + 'sub', { headers: { 'Authorization': sub } }).pipe(
       map(response => response as User)
     )
