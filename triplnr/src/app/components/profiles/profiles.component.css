@@ -31,6 +31,15 @@ h2 {
     cursor: pointer
   } */
 
+  .clickable:hover {
+    background: lightgray;
+    cursor: pointer;
+  }
+
+  .clickable:active {
+    background: lightgray;
+  }
+
   .centerfield {
     width: 100vw;
   position: relative;
@@ -41,11 +50,12 @@ h2 {
   margin-top: 2%;
   }
 
-  .row {
-    width: 100%
-  }
-
   .profile-pic {
     height: 70px;
     width: 70px;
+    margin-right: 20px;
+  }
+
+  .content-holder {
+    display: inline-block;
   }
