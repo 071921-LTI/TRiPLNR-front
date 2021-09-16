@@ -56,7 +56,9 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
     HttpClientModule,
     MatDividerModule,
     GooglePlaceModule,
-
+    LoadingBarHttpClientModule,
+    LoadingBarRouterModule,
+    LoadingBarModule,
     [NgbPaginationModule, NgbAlertModule],
     AuthModule.forRoot({
       domain: environment.AUTH_DOMAIN,
