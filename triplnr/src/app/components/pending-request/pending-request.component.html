@@ -1,8 +1,31 @@
 
 <table>
-    <tr *ngFor="let row of requests">
-        <td id="name">{{row.from?.firstName + " " + row.from?.lastName}}</td>
+    <tr *ngFor="let row of requests" class="clickRow" (click)='getPotentialFriend(row.from?.userId)' data-toggle="modal" [attr.data-target]="'#friendModal'">
+        <td id="name"><b>Friend Request: </b>{{row.from?.firstName + " " + row.from?.lastName}}</td>
         <td><input type="button" value="Accept" (click)="acceptRequest(row)" id="accept"></td>
         <td><input type="button" value="Deny" (click)="denyRequest(row)" id="deny"></td>
+
+        <!-- Modal for Friend Request Info-->
+        <div class="modal fade" id="friendModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Friend Request Info</h5>
+                        <button type="button" class="btn btn-primary" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p><b>From:</b> {{friend?.firstName}} {{friend?.lastName}}</p>
+                        <b>Shared Friends:</b>
+                        <table id='innerTable'>
+                            <tr *ngFor="let friend of sharedFriends">
+                                <td>{{friend?.firstName}} {{friend?.lastName}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </tr>
 </table>

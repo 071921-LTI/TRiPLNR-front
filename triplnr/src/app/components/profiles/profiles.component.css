@@ -1,3 +1,6 @@
+@import url('..\assets\css\responsive-table.css');
+
+
 h2 {
     margin: 20px auto;
       text-align: center;
@@ -7,7 +10,7 @@ h2 {
     margin-right: auto;
     margin-top: 2%;
   }
-  td {
+  /* td {
     text-align: center;
     border: 1px solid black;
     border-collapse: collapse;
@@ -26,7 +29,7 @@ h2 {
   .clickRow:hover { 
     background: rgb(201, 201, 201);
     cursor: pointer
-  }
+  } */
 
   .centerfield {
     width: 100vw;

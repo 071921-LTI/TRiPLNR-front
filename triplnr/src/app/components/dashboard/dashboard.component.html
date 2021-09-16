@@ -1,10 +1,9 @@
+<body>
 <h2>Current Trips</h2>
 <div class="table-responsive">
-<table class="center table" table cellpadding="10" table bordercolor="#ffffff">
+<table class="center table" table cellpadding="10">
   <thead>
     <tr>
-
-
       <th scope="col">Trip Id</th>
       <th scope="col">Trip Name</th>
       <th scope="col">Trip Origin</th>
@@ -15,14 +14,12 @@
       <th scope="col">End Time</th>
       <th scope="col">Orgin Weather</th>
       <th scope="col">Destination Weather</th>
-
-
     </tr>
   </thead>
-  
+
+  <tbody>
   <!-- populates table with datat from trips lists -->
   <tr *ngFor="let row of currentTrips"  class="clickRow">
-
     <td (click)="openTrip(row)">{{row.tripId}}</td>
     <td (click)="openTrip(row)" >{{row.tripName}}</td>
     <td (click)="openTrip(row)">{{row.origin}}</td>
@@ -33,17 +30,17 @@
       ((row.passengers[2]?.firstName || '') + " " + (row.passengers[2]?.lastName || ''))}}</td>
     <td (click)="openTrip(row)">{{row.startTime | date:'medium'}}</td>
     <td (click)="openTrip(row)">{{row.endTime | date:'medium'}}</td>
-    <td><button class="btn btn-lg btn-outline-primary" (click)="open(content,row.origin)">Weather</button></td>
-    <td><button class="btn btn-lg btn-outline-primary" (click)="open2(content,row.destination)">Weather</button></td>
+    <td><button class="btn btn-small btn-outline-primary" (click)="open(content,row.origin,row.startTime)">Weather</button></td>
+    <td><button class="btn btn-small btn-outline-primary" (click)="open2(content,row.destination,row.endTime)">Weather</button></td>
   </tr>
+</tbody>
 </table>
 </div>
 <br><br>
-
 <h2>Future Trips</h2>
-
 <div class="table-responsive">
-<table class="center table" table cellpadding="10" table bordercolor="#ffffff">
+
+<table class="center table" table cellpadding="10">
   <thead>
     <tr>
       <th>Trip Id</th>
@@ -58,6 +55,8 @@
       <th>Destination Weather</th>
     </tr>
   </thead>
+
+  <tbody>
   <tr *ngFor="let row of futureTrips"  class="clickRow">
     <td (click)="openTrip(row)">{{row.tripId}}</td>
     <td (click)="openTrip(row)">{{row.tripName}}</td>
@@ -69,18 +68,20 @@
       ((row.passengers[2]?.firstName || '') + " " + (row.passengers[2]?.lastName || ''))}}</td>
     <td (click)="openTrip(row)">{{row.startTime | date:'medium'}}</td>
     <td (click)="openTrip(row)">{{row.endTime | date:'medium'}}</td>
-    <td><button class="btn btn-lg btn-outline-primary" (click)="open(content,row.origin)">Weather</button></td>
-    <td><button class="btn btn-lg btn-outline-primary" (click)="open2(content,row.destination)">Weather</button></td>
+    <td><button class="btn btn-small btn-outline-primary" (click)="open(content,row.origin,row.startTime)">Weather</button></td>
+    <td><button class="btn btn-small btn-outline-primary" (click)="open2(content,row.destination,row.endTime)">Weather</button></td>
   </tr>
+</tbody>
 </table>
 </div>
 
+<br><br>
 <h2>Past Trips</h2>
 <div class="table-responsive">
-<table class="center" table cellpadding="10" table bordercolor="#ffffff">
+<table class="center table" table cellpadding="10">
+
   <thead>
     <tr>
-
       <th>Trip Id</th>
       <th>Trip Name</th>
       <th>Trip Origin</th>
@@ -89,10 +90,9 @@
       <th>Passengers</th>
       <th>Start Time</th>
       <th>End Time</th>
-      <th>Orgin Weather</th>
-      <th>Destination Weather</th>
     </tr>
   </thead>
+  <tbody>
   <tr *ngFor="let row of pastTrips" class="clickRow">
     <td (click)="openTrip(row)">{{row.tripId}}</td>
     <td (click)="openTrip(row)">{{row.tripName}}</td>
@@ -104,31 +104,31 @@
       ((row.passengers[2]?.firstName || '') + " " + (row.passengers[2]?.lastName || ''))}}</td>
     <td (click)="openTrip(row)">{{row.startTime | date:'medium'}}</td>
     <td (click)="openTrip(row)">{{row.endTime | date:'medium'}}</td>
-    <td><button class="btn btn-lg btn-outline-primary" (click)="open(content,row.origin)">Weather</button></td>
-    <td><button class="btn btn-lg btn-outline-primary" (click)="open2(content,row.destination)">Weather</button></td>
   </tr>
+  </tbody>
 </table>
-
-
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="center" id="modal-basic-title">Weather</h4>
-
   </div>
   <div class="modal-body">
     <form>
       <div class="form-group">
-        <table class="center" table cellpadding="20" table bordercolor="#ffffff">
-          <thead>
+        <img src="{{imageSrc}}" class="img">
+        <br><br>
+        <table class="center" table cellpadding="20" table bordercolor="#FFFFFF">
+          <thead >
             <tr>
-              <th>Location</th>
-              <th>Date</th>
-              <th>Temperature</th>
+              <th>Trip_Location_Address</th>
+              <th>Weather_Date</th>
+              <th>Temperature (°F)</th>
+              <th>Wind Speed (mph)</th>
+              <th>Visibility (miles)</th>
               <th>Humidity</th>
               <th>Condition</th>
             </tr>
           </thead>
-          <tbody id="table1">
+          <tbody id="table1" style="text-align:center">
           </tbody>
         </table>
         <br><br>
@@ -138,5 +138,8 @@
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">close</button>
   </div>
+
 </ng-template>
+
+
 

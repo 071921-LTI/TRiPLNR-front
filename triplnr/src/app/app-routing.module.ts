@@ -8,7 +8,6 @@ import { CreateTripComponent } from './components/create-trip/create-trip.compon
 import { UserPreferencesComponent } from './components/user-preferences/user-preferences.component';
 import { ProfilesComponent } from './components/profiles/profiles.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-
 const routes: Routes = [{
   path:'register',
   component:RegisterComponent
@@ -39,7 +38,7 @@ const routes: Routes = [{
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled',})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

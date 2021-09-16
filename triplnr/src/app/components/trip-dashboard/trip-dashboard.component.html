@@ -31,14 +31,14 @@
       <h1 class="h5 mb-3 fw-normal">Origin</h1>
       <div class="form-group">
         <div class="col-50">
-          <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-          <input type="text" id="adr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
+          <label for="originAdr"><i class="fa fa-address-card-o"></i> Address</label>
+          <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="handleAddressChangeTripOrigin($event)" type="text" id="originAdr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
             #streetControl = "ngModel" [class.is-invalid]="streetControl.invalid && streetControl.touched"
             name="address" placeholder="542 W. 15th Street" [(ngModel)]="originStreetAddress">
           <small class="text-danger" [class.d-none] = "streetControl.valid || streetControl.untouched">Please enter Street Address</small>
           
           <label for="city"><i class="fa fa-institution"></i> City</label>
-          <input type="text" id="city" class="form-control" required pattern="[a-zA-Z ]+$" 
+          <input type="text" id="originCity" class="form-control" required pattern="[a-zA-Z ]+$" 
             #cityControl="ngModel" [class.is-invalid]="cityControl.invalid && cityControl.touched"
             name="city" placeholder="New York" [(ngModel)]="originCity">
           <small class="text-danger" [class.d-none] = "cityControl.valid || cityControl.untouched">Please enter City or Town name</small>
@@ -48,8 +48,8 @@
             <div class="col-50">
               <div class="form-group">
                 <label for="state">State</label>
-                <select class="custom-select" id="state" placeholder="State" required pattern="^\w{2}$" name = "state" placeholder="NY" [(ngModel)]="originState"
-                  #stateControl="ngModel" [class.is-invalid]="stateControl.invalid && stateControl.touched">
+                <select [disabled]="!isManager" class="custom-select" id="originState" placeholder="State" required pattern="^\w{2}$" name = "state" placeholder="NY" [(ngModel)]="originState"
+                  #stateControl="ngModel" [class.is-invalid]="stateControl.invalid && stateControl.touched" [class.is-disabled]="!isManager">
                   <option value = "">State</option>
                   <option *ngFor="let state of stateArr">{{ state }}</option>
                 </select>
@@ -60,7 +60,7 @@
             <div class="col-50">
               <div class="form-group">
                 <label for="zip">Zip</label>
-                <input type="text" id="zip" name="zip" required pattern="^\d{5}$" #zipControl="ngModel"
+                <input type="text" id="originZip" name="zip" required pattern="^\d{5}$" #zipControl="ngModel"
                   [class.is-invalid]="zipControl.invalid && zipControl.touched"
                   class="form-control" placeholder="00000" [(ngModel)]="originZip">
                 <small class="text-danger" [class.d-none] = "zipControl.valid || zipControl.untouched">Please enter a valid zip code</small>
@@ -74,7 +74,7 @@
       <div class="form-group">
         <div class="col-50">
           <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-          <input type="text" id="dadr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
+          <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="handleAddressChangeTripDestination($event)" type="text" id="desAdr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
             #desStreetControl = "ngModel" [class.is-invalid]="desStreetControl.invalid && desStreetControl.touched"
             name="desAddress" placeholder="542 W. 15th Street" [(ngModel)]="desStreetAddress">
           <small class="text-danger" [class.d-none] = "desStreetControl.valid || desStreetControl.untouched">Please enter Street Address</small>
@@ -90,8 +90,8 @@
             <div class="col-50">
               <div class="form-group">
                 <label for="state">State</label>
-                <select class="custom-select" id="desState" placeholder="State" required pattern="^\w{2}$" name = "desState" placeholder="NY" [(ngModel)]="desState"
-                  #desStateControl="ngModel" [class.is-invalid]="desStateControl.invalid && desStateControl.touched">
+                <select [disabled]="!isManager" class="custom-select" id="desState" placeholder="State" required pattern="^\w{2}$" name = "desState" placeholder="NY" [(ngModel)]="desState"
+                  #desStateControl="ngModel" [class.is-invalid]="desStateControl.invalid && desStateControl.touched" [class.is-disabled]="!isManager">
                   <option value = "">State</option>
                   <option *ngFor="let state of stateArr">{{ state }}</option>
                 </select>
@@ -121,10 +121,7 @@
 
       <ng-container *ngIf="isManager">
       <div class="form-floating">
-          <input type="number" class="form-control" name = "passenger"placeholder="Trip Name" [(ngModel)]="userId">
-          <label for="floatingPassword">Passenger ID number</label>
-          <button style = "background-color: blue;display:inline;" class = "w-80 btn btn-lg btn-dark" type="input" (click)='addPassenger()'>Add</button>
-          <button style = "background-color: red;display: inline;" class="w-80 btn btn-lg btn-dark" type="input" (click)='removePassenger()'>Remove</button>
+        <button class="w-100 btn btn-lg btn-dark" data-toggle="modal" [attr.data-target]="'#passengerModal'">Manage Passengers</button>
         </div>
 
         <br>
@@ -164,20 +161,28 @@
 </div>
 
 
+<br>
 <div class="col-5">
+  
+  <ng-container *ngIf="isPlaylist">
+    <p>your current spotify playlist: <a href="{{curSpotify}}" target="_blank"> playlist </a></p> 
+  </ng-container>
 
-<form #playlistForm = "ngForm">
+
+  <form #playlistForm = "ngForm">
+  <ng-container *ngIf="isManager">
 <div class="form-group">
   <div class="form-floating">
-    <input type="text" #playlistControl = "ngModel" class="form-control" 
-          id="playlistinput" placeholder="submit a playlist" name = "playlist"[(ngModel)]="playlist">
-        <label for="floatingInput">Enter a Playlist</label>
+    <input type="text" pattern="^.*open.spotify.com/.*" #newSpotifyControl = "ngModel"  class="form-control" 
+          id="newSpotifyInput" placeholder="submit a playlist" name = "newSpotify" [(ngModel)]="newSpotify">
+        <small class="text-danger" [class.d-none]="newSpotifyControl.valid">not a propper spotify playlist link</small>
+        <label for="floatingInput">Enter New Playlist</label>
   </div>
 </div>
+  </ng-container> 
 </form>
 
 
-<button class="w-50 btn btn-lg btn-dark" id="playlistBtn" type="input" (click)="addPlaylist()">add Playlist</button>
 <ng-container *ngIf="!addRoles">
     <h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Current Passengers</h2>
     <div id="MyTrip" class="text-center">
@@ -207,8 +212,10 @@
     </div>
   </ng-container>
     <br>
-    <button class="w-100 btn btn-lg btn-secondary" id="rolesBtn" type="input" (click)="addRolesbtn()">add/updae Roles</button>
-    
+
+    <ng-container *ngIf="isManager">
+    <button class="w-100 btn btn-lg btn-secondary" id="rolesBtn" type="input" (click)="addRolesbtn()">Add/Update Roles</button>
+  </ng-container>
     <br>
     <br>
     <!-- add in passenger roles info-->
@@ -225,19 +232,35 @@
               </tr>
             </thead>
             <tbody>
-              <!-- populates table with data from passengers -->
-              <tr *ngFor="let row of passengers">
-                <td>{{row.userId}}</td>
-                
-                    <!--something like {{ row.userRole }}, user role does not currently exist in modles or db  -->
-                  <td>
-                   <select class="custom-select" id="role" placeholder="Role" name = "role" placeholder="Role" [(ngModel)]="role"
-                   #roleControl="ngModel">
-                   <option value = "">Role</option>
-                   <option *ngFor="let role of roleArr">{{ role }}</option>
-                 </select>
+              <tr>
+                <td>Navigator</td>
+                <td>
+                  <select class="custom-select" id="navIndex" placeholder="Passenger" name = "navIndex" [(ngModel)]="navIndex"
+                  #navIndexControl="ngModel">
+                  <option value = "">Passenger</option>
+                  <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName }} {{ passenger.lastName }}</option>
+                </select>
                 </td>
-                
+              </tr>
+              <tr>
+                <td>Music</td>
+                <td>
+                  <select class="custom-select" id="musicIndex" placeholder="Passenger" name = "musicIndex" [(ngModel)]="musicIndex"
+                  #musicIndexControl="ngModel">
+                  <option value = "">Passenger</option>
+                  <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName }} {{ passenger.lastName }}</option>
+                </select>
+                </td>
+              </tr>
+              <tr>
+                <td>Snacks</td>
+                <td>
+                  <select class="custom-select" id="snackIndex" placeholder="Passenger" name = "snackIndex" [(ngModel)]="snackIndex"
+                  #snackIndexControl="ngModel">
+                  <option value = "">Passenger</option>
+                  <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName }} {{ passenger.lastName }}</option>
+                </select>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -248,9 +271,160 @@
   </ng-container> 
   <hr>
 
+<img src="{{imageOrigin}}" class="weatherIcon1"> 
+  <img src="{{imageDest}}" class="weatherIcon2">
+
+  <div>
   <!-- put weather here !!!!!!!!-->
 
+    
+    
+  <table class="originWeatherTable">
+    
+    <thead>
+        <tr>
+            <th scope="col" class="a">Detail</th>
+            <th scope="col" class="a">Origin Weather</th>
+        </tr>
+    </thead>
 
+    <tbody id="currentWTable">
+      <ng-container *ngFor="let item of currWeather | keyvalue ; let i = index">
+        <tr *ngIf="!((i==8) || (i==3))">
+        <ng-container [ngSwitch]="i">
+          <td *ngSwitchCase="4">{{item.key | titlecase}}(°F)</td>
+          <td *ngSwitchCase="5">{{item.key | titlecase}}(°F)</td>
+          <td *ngSwitchCase="6">{{item.key| titlecase}}(°F)</td>
+          <td *ngSwitchCase="9">{{item.key| titlecase}}(inches) </td>
+          <td *ngSwitchCase="10">{{item.key| titlecase}}(%) </td>
+          <td *ngSwitchCase="12">{{item.key| titlecase}}(%) </td>
+          <td *ngSwitchCase="13">{{item.key| titlecase}}(inches) </td>
+          <td *ngSwitchCase="16">{{item.key| titlecase}}(°F)</td>
+          <td *ngSwitchCase="17">{{item.key| titlecase}}(°F)</td>
+          <td *ngSwitchCase="18">{{item.key| titlecase}}(°F)</td>
+          <td *ngSwitchCase="20">{{item.key| titlecase}}(miles)</td>
+          <td *ngSwitchCase="21">{{item.key| titlecase}}(mph)</td>
+          <td *ngSwitchCase="22">{{item.key| titlecase}}(mph)</td>
+          <td *ngSwitchDefault>{{item.key| titlecase}}</td>
+        </ng-container>
+          <td>{{item.value}}</td>
+      </tr>
+      </ng-container>
+    </tbody>
+</table>
+
+  <table class="originWeatherTable2">
+  
+    <thead>
+        <tr>
+            <th scope="col" class="a">Dest. Weather</th>
+        </tr>
+    </thead>
+
+    <tbody>
+      <ng-container *ngFor="let item of destWeather | keyvalue; let i = index">
+        <tr *ngIf="!((i==8) || (i==3))">
+            <td>{{item.value}}</td>
+        </tr>
+
+      </ng-container>
+
+        
+        
+      </tbody>
+</table>
+
+    
+  </div>
+
+
+<form #stopTripForm="ngForm">
+    
+    <div id="stopss">
+      
+    <div class="form-floating">                 <!-- [(ngModel)] referes to variable in typeScript file -->
+      <div class="form-group">
+        <div class="col-50">
+          <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+          <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="handleAddressChangeStop($event)" type="text" id="adr" class="form-control" pattern="[a-zA-Z0-9 ]+$" 
+            #stopStreetControl = "ngModel" [class.is-invalid]="stopStreetControl.invalid && stopStreetControl.touched"
+            name="address" placeholder="542 W. 15th Street" [(ngModel)]="stopStreetAddress">
+          <small class="text-danger" [class.d-none] = "stopStreetControl.valid || stopStreetControl.untouched">Please enter Street Address</small>
+          
+          
+          <label for="city"><i class="fa fa-institution"></i> City</label>
+          <input type="text" id="city" class="form-control" pattern="[a-zA-Z ]+$" 
+            #stopCityControl="ngModel" [class.is-invalid]="stopCityControl.invalid && stopCityControl.touched"
+            name="city" placeholder="New York" [(ngModel)]="stopCity">
+          <small class="text-danger" [class.d-none] = "stopCityControl.valid || stopCityControl.untouched">Please enter City or Town name</small>
+        
+        
+          <div class="row">
+            <div class="col-50">
+              <div class="form-group">
+                <label for="state">State</label>
+                <select class="custom-select" id="state" placeholder="State" pattern="^\w{2}$" name = "state" placeholder="NY" [(ngModel)]="stopState"
+                  #stopStateControl="ngModel" [class.is-invalid]="stopStateControl.invalid && stopStateControl.touched">
+                  <option value = "">State</option>
+                  <option *ngFor="let state of stateArr">{{ state }}</option>
+                </select>
+                <small class="text-danger" [class.d-none] = "stopStateControl.valid || stopStateControl.untouched">Please select a state</small>
+              </div>
+            </div>
+  
+            <div class="col-50">
+              <div class="form-group">
+                <label for="zip">Zip</label>
+                <input type="text" id="zip" name="zip" pattern="^\d{5}$" #stopZipControl="ngModel"
+                  [class.is-invalid]="stopZipControl.invalid && stopZipControl.touched"
+                  class="form-control" placeholder="00000" [(ngModel)]="stopZip">
+                <small class="text-danger" [class.d-none] = "stopZipControl.valid || stopZipControl.untouched">Please enter a valid zip code</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  
+    <br>
+    <button id = "stopsButton" class="w-100 btn-lg btn-dark" type="input" (click)='addStops()'>Add Stops</button>
+  </div>
+  </div>
+    <br>
+    <br>
+  
+    <!--<button class="w-100 btn btn-lg btn-dark" type="input" (click)='removeStops()'>Remove Stops</button>-->
+      </form>
+  
+      <h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Stops</h2>
+  <div id="MyTrip" class="text-center">
+    
+    <table style="width:fit-content">
+      
+      <thead>
+        <tr>
+          <th scope="col">Stop Number</th>
+          <th scope="col">Stop Location</th>
+          <th scope="col">Remove Stop?</th>
+        </tr>
+      </thead>
+       <tbody>  
+         <!-- populates table with data from TRIP_STOPS -->
+        <tr *ngFor = "let row of stops; index as i; count as max;">
+          <td>
+            <input type="number" id="txt_num_StopNum" min=1 max={{max}}  value={{i+1}} (change)="evt_StopChange(row, $event)">
+          </td>
+          <td style="width:85%; height: 16px;">
+            {{row}}
+          </td>
+          <td style="Width:5%">
+            <button (click) ='RemoveThisStop(row)' id="btn_removeThisStop" style="color:red;background:none;border:none;height:5px">X</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br>
 
   </div>
   
@@ -260,6 +434,7 @@
 </div><!--1st row tag  -->
   <!-- new col -->
 
+ 
   <div class="row justify-content-md-center">
 
 
@@ -267,13 +442,13 @@
     <!--Control that will hold the map-->
 
 </div>
-
+<br>
     <div class="checkbox mb-3">
     </div>
     <ng-container *ngIf="isManager">
-      <button [disabled]="tripUpdateForm.form.pristine" class="w-100 btn btn-lg btn-primary" type="input" (click)="tripUpdateForm.form.markAsPristine()" (click)='reset()'>Reset</button>
+      <button [disabled]="tripUpdateForm.form.pristine && !stopsChanged && !addRoles" class="w-100 btn btn-lg btn-primary" type="input" (click)="tripUpdateForm.form.markAsPristine()" (click)="tripUpdateForm.control.markAsUntouched();" (click)='reset()'>Reset</button>
       <br><br>
-      <button [disabled]="tripUpdateForm.form.invalid" class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
+      <button [disabled]="tripUpdateForm.form.invalid || tripUpdateForm.form.pristine && !stopsChanged" class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
     </ng-container>
    
 </div>
@@ -281,4 +456,45 @@
   
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="passengerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Manage Passengers</h5>
+      <button type="button" class="btn btn-primary" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+        </div>
+            <div class="modal-body">
+              <div class = "tableFriends" style="float: left">
+                <h3>Friends</h3>
+                <table class="table-borderless" table cellpadding="10" id='tableNone'>
+                  <!-- populates table with datat from from friends lists -->
+                  <tr *ngFor="let row of passengerDeckPhase1" (click)="addPassengerToDeck(row)" class="clickRow" id='rowNone'>
+                    <td id='tdNone'>{{row.firstName}} {{row.lastName}}</td>
+                  </tr>
+                </table>
+              </div>
+
+              <div id='center'>
+                <mat-divider [vertical]="true" style="height:100%"></mat-divider>
+              </div>
+            
+              <div class = "tablePassengers" style="float: right">
+                <h3>Passengers</h3>
+                <table class="table table-borderless" table cellpadding="10" id='tableNone'>
+                  <!-- populates table with datat from passengerDeck lists -->
+                  <tr *ngFor="let row of passengerDeckPhase2" (click)="removePassengerFromDeck(row)" class="clickRow" id='rowNone'>
+                    <td id='tdNone'>{{row.firstName}} {{row.lastName}}</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="addPassengers()" data-dismiss="modal">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </html>

@@ -31,11 +31,30 @@
         <br>
         <!-- added -->
 
+        <form class="form-group" enctype='multipart/form-data'>
+          <img [src]='imageFileUrl' class='rounded' width=200 height=200>
+            <label for="file-upload" class="custom-file-upload">
+              <i class="fa fa-cloud-upload"></i> Upload Image
+            </label>
+            <input id="file-upload" type="file" accept="image/png, image/jpeg" (change)='selectImage($event)' name="profilePic" #file/>
+          </form>
+        <br>
+
+        <div class="form-group">
+          <div class="form-floating">
+            <div class="form-group">
+              <label for="bio">Bio</label>
+              <textarea type='text' id='bio' [(ngModel)]="bio" maxlength="500" placeholder='Bio' class="form-control" rows="3" name='bio'></textarea>
+            </div>
+          </div>
+        </div>
+        <br>
+
         
         <div class="form-group">
           <div class="col-50">
             <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-            <input type="text" id="adr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
+            <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="handleAddressChange($event)" type="text" id="adr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
               #streetControl = "ngModel" [class.is-invalid]="streetControl.invalid && streetControl.touched"
               name="address" placeholder="542 W. 15th Street" [(ngModel)]="streetAddress">
             <small class="text-danger" [class.d-none] = "streetControl.valid || streetControl.untouched">Please enter Street Address</small>
@@ -59,6 +78,7 @@
                 </div>
               </div>
 
+              
               <div class="col-50">
                 <div class="form-group">
                 <label for="zip">Zip</label>

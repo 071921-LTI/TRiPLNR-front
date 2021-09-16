@@ -9,13 +9,13 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
-
+  title:String = "homepage";
   constructor(private auth0: Auth0ServiceService, private router: Router, private userService: UserServiceService) { }
 
   ngOnInit(): void {
     this.auth0.getUser().subscribe(res => {
       if (res) {
-        this.userService.checkIfRegistered(res.sub).subscribe(result => {
+        this.userService.getUserBySub(res.sub).subscribe(result => {
           if (result) {
             this.router.navigate(['/dashboard'])
             sessionStorage.setItem('token', result.sub?.valueOf()!);
