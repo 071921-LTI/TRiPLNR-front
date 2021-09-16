@@ -13,7 +13,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./friends-sidebar.component.css']
 })
 export class FriendsSidebarComponent implements OnInit {
-
+  title:String = "friends-sidebar";
   constructor(private userService:UserServiceService, private router:Router, public auth: AuthService, private auth0Service: Auth0ServiceService, location: Location) { 
 
     this.router.events.subscribe((event) => {

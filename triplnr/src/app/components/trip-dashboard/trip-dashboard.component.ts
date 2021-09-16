@@ -22,7 +22,7 @@ const locationButton = document.createElement("button");
 })
 export class TripDashboardComponent implements AfterViewInit {
   private map: any;
-
+  title:String = "trip-dashboard";
   constructor(private userService: UserServiceService, private tripService: TripServiceService, private router: Router, private weather:WeatherServiceService) {
     /*var script = document.createElement("script");
     script.type = "text/javascript";
@@ -472,6 +472,8 @@ export class TripDashboardComponent implements AfterViewInit {
           // if(destDayDiff >=0 && destDayDiff <15){
           //   this.callDestWeather(this.tripDestination,destDayDiff);
           // }
+            this.imageDest= "assets/Weather_Icon/na.png";
+            this.imageOrigin= "assets/Weather_Icon/na.png";
        
       }else{
         this.callOriginWeather(this.tripOrigin, this.tripDestination ,currDayDiff, destDayDiff);
@@ -692,6 +694,9 @@ evt_StopChange(row: any, e: any) {
           if(day2<15 ){
             this.callDestWeather(dest,day2);
           }
+          else{
+            this.imageDest= "assets/Weather_Icon/na.png";
+          }
         })   
   }
 
@@ -701,6 +706,7 @@ evt_StopChange(row: any, e: any) {
       this.weather.getDestinationWeather(origin,day).subscribe((response) =>{
        this.destWeather = response;
        let iconName = response['icon']+".png";
+       console.log(iconName);
        this.imageDest = "assets/Weather_Icon/" + iconName;
      })   
 
