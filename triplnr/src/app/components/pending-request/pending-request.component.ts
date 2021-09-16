@@ -4,6 +4,7 @@ import { FriendRequest } from 'src/app/models/friend-request';
 import { User } from 'src/app/models/user';
 import { FriendRequestServiceService } from 'src/app/services/friend-request-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { DataSharingService } from 'src/app/services/data-sharing.service';
 
 @Component({
   selector: 'app-pending-request',
@@ -15,7 +16,6 @@ export class PendingRequestComponent implements OnInit {
   constructor(private userService: UserServiceService, private requestService:FriendRequestServiceService, private router:Router) { 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        //this.getRequests();
       }
 
       if (event instanceof NavigationEnd) {
