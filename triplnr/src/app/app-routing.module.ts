@@ -8,32 +8,42 @@ import { CreateTripComponent } from './components/create-trip/create-trip.compon
 import { UserPreferencesComponent } from './components/user-preferences/user-preferences.component';
 import { ProfilesComponent } from './components/profiles/profiles.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { RouteGuardService } from './services/route-guard.service';
+import { HomeGuardService } from './services/home-guard.service';
 const routes: Routes = [{
   path:'register',
-  component:RegisterComponent
+  component:RegisterComponent,
+  canActivate: [RouteGuardService]
 }, {
   path: '',
-  component: HomepageComponent
+  component: HomepageComponent,
+  canActivate: [HomeGuardService]
 }, {
   path: 'dashboard',
-  component: DashboardComponent
+  component: DashboardComponent,
+  canActivate: [RouteGuardService]
 }, {
   path: 'trip-dashboard',
-  component: TripDashboardComponent
+  component: TripDashboardComponent,
+  canActivate: [RouteGuardService]
 }, {
   path: 'create-trip',
-  component: CreateTripComponent
+  component: CreateTripComponent,
+  canActivate: [RouteGuardService]
 } ,
 {
   path: 'user-preferences',
-  component: UserPreferencesComponent
+  component: UserPreferencesComponent,
+  canActivate: [RouteGuardService]
 },
 {
   path: 'profiles',
-  component: ProfilesComponent
+  component: ProfilesComponent,
+  canActivate: [RouteGuardService]
 }, {
   path: 'user-profile',
-  component: UserProfileComponent
+  component: UserProfileComponent,
+  canActivate: [RouteGuardService]
 }
 ];
 
