@@ -1,14 +1,13 @@
+name: Build
 on:
-  # Trigger analysis when pushing in master or pull requests, and when creating
-  # a pull request. 
   push:
     branches:
-      - main
+      - master
       - 'dev'
       - 'nick_dev'
   pull_request:
-      types: [opened, synchronize, reopened]
-name: Main Workflow
+    types: [opened, synchronize, reopened]
+jobs:
   sonarcloud:
     name: SonarCloud
     runs-on: ubuntu-latest
@@ -21,5 +20,6 @@ name: Main Workflow
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
           WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
           MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
