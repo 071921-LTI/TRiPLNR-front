@@ -154,6 +154,28 @@ callOriginWeather(origin:String, dest:String ,day:number , day2:number){
    if(day2<15 ){
      this.callDestWeather(dest,day2);
    }
+   else{
+    this.trip = {
+      destination: this.destination,
+      tripName: this.tripName,
+      passengers: this.passengers,
+      stops: this.stops,
+      spotify: this.spotify,
+      originIcon: this.originIcon,
+      destinationIcon:"na.png"
+    } 
+    //calls trip service create, passes in new trip object with user entered fields, Authorization token and the start time string
+    this.tripService.create(this.trip, this.token!, this.startTimeString!, this.endTimeString!).subscribe(
+      response => {
+        if(response != null){
+          this.router.navigate(['/dashboard']);
+        } else {
+        this.error = "Trip Creation Error";
+      }
+    }
+    );
+
+   }
  })   
 }
 
@@ -200,6 +222,8 @@ callOriginWeather(origin:String, dest:String ,day:number , day2:number){
         passengers: this.passengers,
         stops: this.stops,
         spotify: this.spotify,
+        originIcon:"na.png",  ////
+        destinationIcon:"na.png" ///
       } 
   
       //calls trip service create, passes in new trip object with user entered fields, Authorization token and the start time string
@@ -217,25 +241,25 @@ callOriginWeather(origin:String, dest:String ,day:number , day2:number){
       this.callOriginWeather(this.origin, this.destination, currDayDiff, destDayDiff);
     }
 
-    //sets fields in trip object to data entered by user
-    this.trip = {
-      destination: this.destination,
-      tripName: this.tripName,
-      passengers: this.passengers,
-      stops: this.stops,
-      spotify: this.spotify,
-    } 
+    // //sets fields in trip object to data entered by user
+    // this.trip = {
+    //   destination: this.destination,
+    //   tripName: this.tripName,
+    //   passengers: this.passengers,
+    //   stops: this.stops,
+    //   spotify: this.spotify,
+    // } 
 
-    //calls trip service create, passes in new trip object with user entered fields, Authorization token and the start time string
-    this.tripService.create(this.trip, this.token, this.startTimeString, this.endTimeString).subscribe(
-      response => {
-        if(response != null){
-          this.router.navigate(['/dashboard']);
-        } else {
-        this.error = "Trip Creation Error";
-      }
-    }
-    );
+    // //calls trip service create, passes in new trip object with user entered fields, Authorization token and the start time string
+    // this.tripService.create(this.trip, this.token, this.startTimeString, this.endTimeString).subscribe(
+    //   response => {
+    //     if(response != null){
+    //       this.router.navigate(['/dashboard']);
+    //     } else {
+    //     this.error = "Trip Creation Error";
+    //   }
+    // }
+    // );
   }
 
   ngOnInit(): void {
