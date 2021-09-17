@@ -8,8 +8,6 @@ import { environment } from 'src/environments/environment';
 import { } from 'google__maps';
 import { WeatherServiceService } from 'src/app/services/weather-service.service';
 import { weather } from 'src/app/models/weather';
-import { empty } from 'rxjs';
-import { identifierModuleUrl, ThrowStmt } from '@angular/compiler';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 
