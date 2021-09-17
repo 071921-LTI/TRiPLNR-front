@@ -16,7 +16,8 @@ import { Options } from 'ngx-google-places-autocomplete/objects/options/options'
 declare var google: any;
 const locationButton = document.createElement("button");
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //This import is used for testing, but not for production
+  //changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-trip-dashboard',
   templateUrl: './trip-dashboard.component.html',
   styleUrls: ['./trip-dashboard.component.css']
