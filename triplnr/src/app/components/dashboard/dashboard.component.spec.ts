@@ -5,16 +5,20 @@ import { DashboardComponent } from './dashboard.component';
 import {TripServiceService} from 'src/app/services/trip-service.service';
 import { WeatherServiceService } from 'src/app/services/weather-service.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AuthConfig, AuthModule, } from '@auth0/auth0-angular';
 import { Trip } from 'src/app/models/trip';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
-
+  const testConfig: AuthConfig = {
+    domain: 'test.domain.com',
+    clientId: '123abc',
+  };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ DashboardComponent ],
-      imports: [RouterTestingModule,HttpClientTestingModule], 
+      imports: [RouterTestingModule,HttpClientTestingModule,AuthModule.forRoot(testConfig)], 
       providers: [TripServiceService,WeatherServiceService]
     })
     .compileComponents();
