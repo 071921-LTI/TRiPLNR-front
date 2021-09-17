@@ -74,6 +74,7 @@ export class TripDashboardComponent implements AfterViewInit {
   stops: Array<String> = [];
   stopsChanged: Boolean = false;
   roleChanged: Boolean = false;
+  passChanged:Boolean = false;
 
   newSpotify: string = '';
   curSpotify: string = this.trip?.spotify ||"";
@@ -166,6 +167,7 @@ export class TripDashboardComponent implements AfterViewInit {
   addPassengers(): void{
     this.passengers = [];
     this.passengers.push.apply(this.passengers, this.passengerDeckPhase2);
+    this.passChanged = true;
   }
 
 
@@ -241,7 +243,8 @@ export class TripDashboardComponent implements AfterViewInit {
       navigator: this.curPassengers[this.navIndex],
       music: this.curPassengers[this.musicIndex],
       snacks: this.curPassengers[this.snackIndex],
-
+      originIcon: this.trip?.originIcon,
+      destinationIcon: this.trip?.destinationIcon
 
     }
 
@@ -444,6 +447,9 @@ export class TripDashboardComponent implements AfterViewInit {
           document.getElementById('desState')?.setAttribute('readonly', 'readonly');
           document.getElementById('desZip')?.setAttribute('readonly', 'readonly');
           document.getElementById('desZip')?.setAttribute('disabled', 'disabled');
+
+          document.getElementById('txt_num_StopNum')?.setAttribute('readonly', 'readonly');
+          document.getElementById('txt_num_StopNum')?.setAttribute('disabled', 'disabled');
           
         } 
 
