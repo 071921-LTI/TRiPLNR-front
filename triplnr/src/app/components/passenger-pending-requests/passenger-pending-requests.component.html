@@ -1,11 +1,11 @@
 <table>
-    <tr *ngFor="let row of requests" class="clickRow" (click)='prettierDatesAndSavePass(row.trip?.startTime, row.trip?.endTime, row.trip?.passengers)' data-toggle="modal" [attr.data-target]="'#passengerModal'">
+    <tr *ngFor="let row of requests" class="clickRow" (click)='prettierDatesAndSavePass(row.trip?.startTime, row.trip?.endTime, row.trip?.passengers)' data-toggle="modal" [attr.data-target]="'#passengerRequestModal'">
         <td id="name"><b>Trip Invite:</b> {{row.trip?.manager?.firstName}} {{row.trip?.manager?.lastName}}</td>
         <td><input type="button" value="Accept" (click)="acceptRequest(row)" id="accept"></td>
         <td><input type="button" value="Deny" (click)="denyRequest(row)" id="deny"></td>
 
         <!-- Modal for Passenger Request Info-->
-        <div class="modal fade" id="passengerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="passengerRequestModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
