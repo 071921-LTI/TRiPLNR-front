@@ -96,12 +96,13 @@ describe('CreateTripComponent', () => {
   it('should change the trip address',()=>{
     let address: any = {"street":"744 walker","city":"toen","state asd":"T T","zip":"77777"};
     fixture.componentInstance.handleAddressChangeTrip(address);
-    expect(component.state).toBeDefined;
-    expect(component.city).toBeDefined;
-    expect(component.streetAddress).toBeDefined;
+    // expect(component.state).toBeDefined;
+    // expect(component.city).toBeDefined;
+    // expect(component.streetAddress).toBeDefined;
+    expect(component.handleAddressChangeTrip).toBeTruthy();
   })
   it('should calculate currDayDiff',()=>{
     fixture.componentInstance.createTrip();
-    expect(fixture.componentInstance)
+    expect(fixture.componentInstance);
   })
 });

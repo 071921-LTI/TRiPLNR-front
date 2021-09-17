@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit,ChangeDetectionStrategy } from '@angular/core';
 import { Trip } from 'src/app/models/trip';
 import { User } from 'src/app/models/user';
 import { TripServiceService } from 'src/app/services/trip-service.service';
@@ -16,6 +16,7 @@ import { Options } from 'ngx-google-places-autocomplete/objects/options/options'
 declare var google: any;
 const locationButton = document.createElement("button");
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-trip-dashboard',
   templateUrl: './trip-dashboard.component.html',
   styleUrls: ['./trip-dashboard.component.css']
