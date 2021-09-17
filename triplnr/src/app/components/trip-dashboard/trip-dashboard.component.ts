@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit,ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, AfterViewInit,ChangeDetectorRef } from '@angular/core';
 import { Trip } from 'src/app/models/trip';
 import { User } from 'src/app/models/user';
 import { TripServiceService } from 'src/app/services/trip-service.service';
@@ -16,7 +16,6 @@ import { Options } from 'ngx-google-places-autocomplete/objects/options/options'
 declare var google: any;
 const locationButton = document.createElement("button");
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-trip-dashboard',
   templateUrl: './trip-dashboard.component.html',
   styleUrls: ['./trip-dashboard.component.css']
@@ -24,14 +23,16 @@ const locationButton = document.createElement("button");
 export class TripDashboardComponent implements AfterViewInit {
   private map: any;
   title:String = "trip-dashboard";
-  constructor(private userService: UserServiceService, private tripService: TripServiceService, private router: Router, private weather:WeatherServiceService) {
+  constructor(private userService: UserServiceService, private tripService: TripServiceService, private router: Router, private weather:WeatherServiceService,private cdr: ChangeDetectorRef) {
     /*var script = document.createElement("script");
     script.type = "text/javascript";
     document.head.appendChild(script);
     script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBF5PtKSivpcDm_7d-MBqAnkolq0MvKKxk";
     */
   }
-
+  ngAfterViewChecked(){
+    this.cdr.detectChanges();
+ }
   stateArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
   roleArr = ['Music', 'Navigator', 'Snacks']
 
