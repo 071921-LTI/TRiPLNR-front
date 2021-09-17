@@ -6,7 +6,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
   styleUrls: ['./address-form.component.css']
 })
 export class AddressFormComponent implements OnInit {
-
+  title:String="address-form";
   constructor() { }
 
   ngOnInit(): void {

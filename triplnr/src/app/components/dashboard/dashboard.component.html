@@ -12,7 +12,7 @@
       <th scope="col">Passengers</th>
       <th scope="col">Start Time</th>
       <th scope="col">End Time</th>
-      <th scope="col">Orgin Weather</th>
+      <th scope="col">Origin Weather</th>
       <th scope="col">Destination Weather</th>
     </tr>
   </thead>
@@ -30,8 +30,8 @@
       ((row.passengers[2]?.firstName || '') + " " + (row.passengers[2]?.lastName || ''))}}</td>
     <td (click)="openTrip(row)">{{row.startTime | date:'medium'}}</td>
     <td (click)="openTrip(row)">{{row.endTime | date:'medium'}}</td>
-    <td><button class="btn btn-small btn-outline-primary" (click)="open(content,row.origin,row.startTime)">Weather</button></td>
-    <td><button class="btn btn-small btn-outline-primary" (click)="open2(content,row.destination,row.endTime)">Weather</button></td>
+    <td class="icon"><img src="assets/Weather_Icon/{{row.originIcon}}" class="img" (click)="open(content,row.origin,row.startTime)"></td>
+    <td><img src="assets/Weather_Icon/{{row.destinationIcon}}" class="img" (click)="open2(content,row.destination,row.endTime)"></td>
   </tr>
 </tbody>
 </table>
@@ -51,7 +51,7 @@
       <th>Passengers</th>
       <th>Start Time</th>
       <th>End Time</th>
-      <th>Orgin Weather</th>
+      <th>Origin Weather</th>
       <th>Destination Weather</th>
     </tr>
   </thead>
@@ -68,8 +68,8 @@
       ((row.passengers[2]?.firstName || '') + " " + (row.passengers[2]?.lastName || ''))}}</td>
     <td (click)="openTrip(row)">{{row.startTime | date:'medium'}}</td>
     <td (click)="openTrip(row)">{{row.endTime | date:'medium'}}</td>
-    <td><button class="btn btn-small btn-outline-primary" (click)="open(content,row.origin,row.startTime)">Weather</button></td>
-    <td><button class="btn btn-small btn-outline-primary" (click)="open2(content,row.destination,row.endTime)">Weather</button></td>
+    <td><img src="assets/Weather_Icon/{{row.originIcon}}" class="img" (click)="open(content,row.origin,row.startTime)"></td>
+    <td><img src="assets/Weather_Icon/{{row.destinationIcon}}" class="img" (click)="open2(content,row.destination,row.endTime)"></td>
   </tr>
 </tbody>
 </table>

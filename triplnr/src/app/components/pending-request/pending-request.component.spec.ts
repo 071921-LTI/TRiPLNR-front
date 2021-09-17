@@ -42,6 +42,14 @@ describe('PendingRequestComponent', () => {
     expect(service).toBeTruthy();
    });
 
+   it('should call ngOninit', () => {
+    expect(component.ngOnInit).toBeTruthy();
+   });
+
+   it('should call getPotentialFriend', () => {
+    expect(component.getPotentialFriend).toBeTruthy();
+   });
+
    it('should get request', () => {
     expect(component.getRequests).toBeTruthy();
    });
