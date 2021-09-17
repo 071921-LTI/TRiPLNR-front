@@ -241,7 +241,8 @@ export class TripDashboardComponent implements AfterViewInit {
       navigator: this.curPassengers[this.navIndex],
       music: this.curPassengers[this.musicIndex],
       snacks: this.curPassengers[this.snackIndex],
-
+      originIcon: this.trip?.originIcon,
+      destinationIcon: this.trip?.destinationIcon
 
     }
 
