@@ -144,7 +144,10 @@ export class UserPreferencesComponent implements OnInit {
       type: 'application/json'
     }));
 
-    if (this.imageFile) formData.append('file', this.imageFile, "a file");
+    if (this.imageFile) {
+      formData.append('file', this.imageFile, "a file");
+      sessionStorage.removeItem('profilePic');
+    }
     
 
     //calls user service to update existing user
@@ -158,6 +161,7 @@ export class UserPreferencesComponent implements OnInit {
       }
 
     )
+
     }
 
     selectImage(event: any) {
