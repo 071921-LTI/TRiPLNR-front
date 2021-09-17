@@ -191,13 +191,20 @@ export class TripDashboardComponent implements AfterViewInit {
     this.tripDestination=  this.desStreetAddress + ", " + this.desCity + ", " + this.desState + ", " + this.desZip;
 
     this.token = sessionStorage.getItem("token") || '';
+    
 
     this.startTime = this.startTime.replace('T', ' ')|| '';
-    //this.startTime = this.startTime + ":00";
-
+    
+    if(this.startTime?.length == 16){
+      this.startTime = this.startTime + ":00";
+    }
+    
+   
+   
     this.endTime = this.endTime.replace('T', ' ') || '';
-    //this.endTime = this.endTime + ":00";
-
+    if(this.endTime?.length == 16){
+      this.endTime = this.endTime + ":00";
+    }
 
     if (this.endTime != ":00") {
       //sets startTimeString equal to formated startTime
@@ -212,7 +219,6 @@ export class TripDashboardComponent implements AfterViewInit {
     } else {
       this.startTimeString = this.trip?.startTime;
     }
-    console.log(this.startTimeString);
 
 
     if (this.newSpotify == ''){
@@ -239,8 +245,6 @@ export class TripDashboardComponent implements AfterViewInit {
 
     }
 
-    console.log(this.startTimeString);
-    console.log(this.endTimeString);
 
     console.log(this.curPassengers[this.navIndex]);
 
