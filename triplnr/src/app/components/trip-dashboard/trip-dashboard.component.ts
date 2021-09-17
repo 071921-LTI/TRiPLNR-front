@@ -63,6 +63,7 @@ export class TripDashboardComponent implements AfterViewInit {
 
   tripName: String = '';
   passengers: Array<User> = [];
+  curPassengers: Array<User> = [];
   isManager: boolean = true;
 
   // need to add functionalit to check if playlist exists and if user roles exists and change value to true
@@ -190,13 +191,20 @@ export class TripDashboardComponent implements AfterViewInit {
     this.tripDestination=  this.desStreetAddress + ", " + this.desCity + ", " + this.desState + ", " + this.desZip;
 
     this.token = sessionStorage.getItem("token") || '';
+    
 
     this.startTime = this.startTime.replace('T', ' ')|| '';
-    //this.startTime = this.startTime + ":00";
-
+    
+    if(this.startTime?.length == 16){
+      this.startTime = this.startTime + ":00";
+    }
+    
+   
+   
     this.endTime = this.endTime.replace('T', ' ') || '';
-    //this.endTime = this.endTime + ":00";
-
+    if(this.endTime?.length == 16){
+      this.endTime = this.endTime + ":00";
+    }
 
     if (this.endTime != ":00") {
       //sets startTimeString equal to formated startTime
@@ -211,7 +219,6 @@ export class TripDashboardComponent implements AfterViewInit {
     } else {
       this.startTimeString = this.trip?.startTime;
     }
-    console.log(this.startTimeString);
 
 
     if (this.newSpotify == ''){
@@ -231,17 +238,15 @@ export class TripDashboardComponent implements AfterViewInit {
 
       spotify: this.newSpotify,
 
-      navigator: this.passengers[this.navIndex],
-      music: this.passengers[this.musicIndex],
-      snacks: this.passengers[this.snackIndex],
+      navigator: this.curPassengers[this.navIndex],
+      music: this.curPassengers[this.musicIndex],
+      snacks: this.curPassengers[this.snackIndex],
 
 
     }
 
-    console.log(this.startTimeString);
-    console.log(this.endTimeString);
 
-    console.log(this.passengers[this.navIndex]);
+    console.log(this.curPassengers[this.navIndex]);
 
 
 
@@ -286,16 +291,16 @@ export class TripDashboardComponent implements AfterViewInit {
         this.stopsChanged = false;
         this.addRoles = false;
 
-        for(let x = 0; x <= this.passengers.length; x++){
-          if(this.curNav?.userId == this.passengers[x].userId){
+        for(let x = 0; x <= this.curPassengers.length; x++){
+          if(this.curNav?.userId == this.curPassengers[x].userId){
             this.navIndex = x;
             console.log("index x: "+x);
           }
-          if(this.curMusic?.userId == this.passengers[x].userId){
+          if(this.curMusic?.userId == this.curPassengers[x].userId){
             this.musicIndex = x;
             console.log("index x: "+x);
           }
-          if(this.curSnack?.userId == this.passengers[x].userId){
+          if(this.curSnack?.userId == this.curPassengers[x].userId){
             this.snackIndex = x;
             console.log("index x: "+x);
           }
@@ -415,6 +420,7 @@ export class TripDashboardComponent implements AfterViewInit {
 
 
         this.passengers = this.trip.passengers || '';
+        this.curPassengers = this.trip.passengers || '';
         this.stops = this.trip.stops || '';
 
         console.log(this.stops)
@@ -487,16 +493,16 @@ export class TripDashboardComponent implements AfterViewInit {
       this.startTime = this.tripStartTime.split(".")[0];
       this.endTime = this.tripEndTime.split(".")[0];
 
-      for(let x = 0; x <= this.passengers.length; x++){
-        if(this.curNav?.userId == this.passengers[x].userId){
+      for(let x = 0; x <= this.curPassengers.length; x++){
+        if(this.curNav?.userId == this.curPassengers[x].userId){
           this.navIndex = x;
           console.log("index x: "+x);
         }
-        if(this.curMusic?.userId == this.passengers[x].userId){
+        if(this.curMusic?.userId == this.curPassengers[x].userId){
           this.musicIndex = x;
           console.log("index x: "+x);
         }
-        if(this.curSnack?.userId == this.passengers[x].userId){
+        if(this.curSnack?.userId == this.curPassengers[x].userId){
           this.snackIndex = x;
           console.log("index x: "+x);
         }
