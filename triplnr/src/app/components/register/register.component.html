@@ -56,7 +56,7 @@
             <label for="adr"><em class="fa fa-address-card-o"></em> Address</label>
             <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="handleAddressChange($event)" type="text" id="adr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
               #streetControl = "ngModel" [class.is-invalid]="streetControl.invalid && streetControl.touched"
-              name="address" placeholder="542 W. 15th Street" [(ngModel)]="streetAddress">
+              name="address" placeholder="542 W. 15th Street" [(ngModel)]="streetAddress" autocomplete='off'>
             <small class="text-danger" [class.d-none] = "streetControl.valid || streetControl.untouched">Please enter Street Address</small>
             <label for="city"><em class="fa fa-institution"></em> City</label>
             <input type="text" id="city" class="form-control" required pattern="[a-zA-Z ]+$" 

@@ -47,4 +47,8 @@ describe('UserProfileComponent', () => {
     expect(component.addFriend).toBeTruthy();
    });
 
+   it('should call ngOnInit', () => {
+    expect(component.ngOnInit).toBeTruthy();
+   });
+
 });

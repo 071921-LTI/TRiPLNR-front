@@ -4,6 +4,7 @@ import { FriendRequest } from 'src/app/models/friend-request';
 import { User } from 'src/app/models/user';
 import { FriendRequestServiceService } from 'src/app/services/friend-request-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-pending-request',
@@ -12,10 +13,12 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 })
 export class PendingRequestComponent implements OnInit {
   title:String = "PendingRequestComponent";
-  constructor(private userService: UserServiceService, private requestService:FriendRequestServiceService, private router:Router) { 
+  constructor(private userService: UserServiceService, 
+    private requestService:FriendRequestServiceService,
+    private commonService:CommonService,
+    private router:Router) { 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
-        //this.getRequests();
       }
 
       if (event instanceof NavigationEnd) {
@@ -78,7 +81,7 @@ export class PendingRequestComponent implements OnInit {
   });
     this.requestService.accept(request, this.token || '').subscribe(
       response => {
-        request = response;
+        this.commonService.sendFriend(request.from!);
       }
     );
     event?.stopPropagation()

@@ -5,6 +5,8 @@ import { Trip } from 'src/app/models/trip'
 import { User } from 'src/app/models/user';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
+import { WeatherServiceService } from 'src/app/services/weather-service.service';
+import { weather } from 'src/app/models/weather';
 
 @Component({
   selector: 'app-create-trip',
@@ -13,11 +15,19 @@ import { Options } from 'ngx-google-places-autocomplete/objects/options/options'
 })
 export class CreateTripComponent implements OnInit {
 
-  constructor(private userService: UserServiceService, private router:Router, private tripService: TripServiceService, ) { }
+  constructor(private userService: UserServiceService, private router:Router, private tripService: TripServiceService, private weather:WeatherServiceService) { 
+    let token = sessionStorage.getItem('token');
+    userService.getCurrentUser(token!).subscribe(
+      response => {
+        this.origin = response.address!;
+      }
+    )
+  }
 
   stateArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
 
   //fields needed to pass into new trip model
+  origin:String = '';
   destination: String = '';
   tripName: String = '';
 
@@ -92,9 +102,90 @@ export class CreateTripComponent implements OnInit {
     this.stops.splice(this.stops.indexOf(row),1);
   }
 
+  originIcon:string = "";
+  destinationIcon:string = "";
+  destWeather?:weather;
+  currWeather?:weather;
+
+
+  callDestWeather(origin:String,day:number){
+    //get the weather from origin and the destination
+    this.weather.getDestinationWeather(origin,day).subscribe((response) =>{
+     this.destWeather = response;
+     let iconName = response['icon']+".png";
+     this.trip = {
+      destination: this.destination,
+      tripName: this.tripName,
+      passengers: this.passengers,
+      stops: this.stops,
+      spotify: this.spotify,
+      originIcon: this.originIcon,
+      destinationIcon: iconName
+    } 
+
+    //calls trip service create, passes in new trip object with user entered fields, Authorization token and the start time string
+    this.tripService.create(this.trip, this.token!, this.startTimeString!, this.endTimeString!).subscribe(
+      response => {
+        if(response != null){
+          this.router.navigate(['/dashboard']);
+        } else {
+        this.error = "Trip Creation Error";
+      }
+    }
+    );
+   });   
+
+
+}
+
+callOriginWeather(origin:String, dest:String ,day:number , day2:number){
+  //get the weather from origin and the destination
+  this.weather.getDestinationWeather(origin,day).subscribe((response) =>{
+   this.currWeather = response;
+   let iconName = response['icon']+".png";
+   this.originIcon = iconName;
+   if(day2<15 ){
+     this.callDestWeather(dest,day2);
+   }
+   else{
+    this.trip = {
+      destination: this.destination,
+      tripName: this.tripName,
+      passengers: this.passengers,
+      stops: this.stops,
+      spotify: this.spotify,
+      originIcon: this.originIcon,
+      destinationIcon:"na.png"
+    } 
+    //calls trip service create, passes in new trip object with user entered fields, Authorization token and the start time string
+    this.tripService.create(this.trip, this.token!, this.startTimeString!, this.endTimeString!).subscribe(
+      response => {
+        if(response != null){
+          this.router.navigate(['/dashboard']);
+        } else {
+        this.error = "Trip Creation Error";
+      }
+    }
+    );
+
+   }
+ })   
+}
+
   createTrip(): void {
+    let weatherStartTime = new Date(this.startTime);
+    let weatherEndTime = new Date(this.endTime);
+    let currTime = Date.now();
+
+    let currDayDiff = Math.round((weatherStartTime.valueOf() - currTime.valueOf())/86400000);
+    let destDayDiff = Math.round((weatherEndTime.valueOf() - currTime.valueOf())/86400000);
+
+    
+      
+
     //item stored in session when loged in contains ([userID]:[username]) of current user
     this.token= sessionStorage.getItem("token") || '';
+    this.destination = this.streetAddress + " " + this.city + " " + this.state + " " + this.zip;
 
     //takes data from user input and formats it into an acceptable string to pass into a Timestamp in backend
     this.startTime = this.startTime.replace('T', ' ') || '';
@@ -117,27 +208,32 @@ export class CreateTripComponent implements OnInit {
       this.startTimeString = '0000-00-00 00:00:00';
     }
     
-    this.destination = this.streetAddress + " " + this.city + " " + this.state + " " + this.zip; 
+    if(currDayDiff >=  15 || currDayDiff <  0){
 
-    //sets fields in trip object to data entered by user
-    this.trip = {
-      destination: this.destination,
-      tripName: this.tripName,
-      passengers: this.passengers,
-      stops: this.stops,
-      spotify: this.spotify,
-    } 
-
-    //calls trip service create, passes in new trip object with user entered fields, Authorization token and the start time string
-    this.tripService.create(this.trip, this.token, this.startTimeString, this.endTimeString).subscribe(
-      response => {
-        if(response != null){
-          this.router.navigate(['/dashboard']);
-        } else {
-        this.error = "Trip Creation Error";
+      this.trip = {
+        destination: this.destination,
+        tripName: this.tripName,
+        passengers: this.passengers,
+        stops: this.stops,
+        spotify: this.spotify,
+        originIcon:"na.png",  ////
+        destinationIcon:"na.png" ///
+      } 
+  
+      //calls trip service create, passes in new trip object with user entered fields, Authorization token and the start time string
+      this.tripService.create(this.trip, this.token, this.startTimeString, this.endTimeString).subscribe(
+        response => {
+          if(response != null){
+            this.router.navigate(['/dashboard']);
+          } else {
+          this.error = "Trip Creation Error";
+        }
       }
+      );
+
+    }else{
+      this.callOriginWeather(this.origin, this.destination, currDayDiff, destDayDiff);
     }
-    )
   }
 
   ngOnInit(): void {

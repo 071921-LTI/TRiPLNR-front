@@ -63,4 +63,12 @@ describe('RegisterComponent', () => {
    it('should ngOnInit', () => {
     expect(component.ngOnInit).toBeTruthy();
    });
+
+   it('should handleAddressChange', () => {
+    expect(component.handleAddressChange).toBeTruthy();
+   });
+
+   it('should selectImage', () => {
+    expect(component.selectImage).toBeTruthy();
+   });
 });

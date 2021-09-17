@@ -4,12 +4,20 @@ import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Router } from '@angular/router';
 import { WeatherServiceService } from 'src/app/services/weather-service.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
+import { UserServiceService } from 'src/app/services/user-service.service';
+import { CommonService } from 'src/app/services/common.service';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+  private listenForTrip: Subscription;
+
   title:String= "Dashboard";
   trips : Trip[]= [];
   token?:string;
@@ -23,30 +31,62 @@ export class DashboardComponent implements OnInit {
   day:number = 0;
   IconName:String = '';
   imageSrc:String = '';
-  constructor(private tripService: TripServiceService, private router:Router, private weather:WeatherServiceService,private modalService: NgbModal) { }
-  ngOnInit(): void {
-    //Athorization token containing `[userId]:[username]` of current user
-    this.token= sessionStorage.getItem("token") || '';
-    //calls getTrips method in trip-sevice.sevice
-    this.tripService.getTrips(this.token).subscribe(
-      async response => {this.trips = response;
-      //loops through all trips and sorts into futre current and past trips list by startTime
-      for(let i = 0; i< this.trips.length; i++){
-        let startTime = new Date(this.trips[i].startTime!).getTime();
-        let endTime = new Date(this.trips[i].endTime!).getTime();
-        let timeNow = Date.now();
-        if(startTime > timeNow) {
-          this.futureTrips.push(this.trips[i]);
-        }
-        else if(startTime < timeNow && endTime > timeNow){
-          this.currentTrips.push(this.trips[i]);
-        }
-        else if(endTime < timeNow){
-          this.pastTrips.push(this.trips[i]);
-        }
+
+  constructor(private tripService: TripServiceService, 
+    private router:Router, 
+    private weather:WeatherServiceService,
+    private commonService: CommonService, 
+    private modalService: NgbModal,
+    private auth0: Auth0ServiceService,
+    private userService: UserServiceService) { 
+      this.listenForTrip= this.commonService.getTrip().subscribe
+      (message => { //message contains the data sent from service
+        const token = sessionStorage.getItem('token')?.toString();
+        this.tripsRetrieval(token!);
+      });
     }
-  })
+
+    ngOnInit(): void {
+
+    this.auth0.getUser().subscribe(res => {
+      if (res) {
+        this.userService.getUserBySub(res.sub).subscribe(result => {
+          if (result) {
+
+            sessionStorage.setItem('token', result.sub?.valueOf()!);
+
+            this.tripsRetrieval(result.sub!.toString())
+
+            // //Athorization token containing `[userId]:[username]` of current user
+            // this.token= sessionStorage.getItem("token") || '';
+            //calls getTrips method in trip-sevice.sevice
+            // this.tripService.getTrips(result.sub!.toString()).subscribe(
+            //   async response => {this.trips = response;
+            //   //loops through all trips and sorts into futre current and past trips list by startTime
+            //   for(let i = 0; i< this.trips.length; i++){
+            //     let startTime = new Date(this.trips[i].startTime!).getTime();
+            //     let endTime = new Date(this.trips[i].endTime!).getTime();
+            //     let timeNow = Date.now();
+            //     if(startTime > timeNow) {
+            //       this.futureTrips.push(this.trips[i]);
+            //     }
+            //     else if(startTime < timeNow && endTime > timeNow){
+            //       this.currentTrips.push(this.trips[i]);
+            //     }
+            //     else if(endTime < timeNow){
+            //       this.pastTrips.push(this.trips[i]);
+            //     }
+            //   }
+            // })
+
+          } else {
+            this.router.navigate(['/register'])
+          }
+        })
+      }
+    })
   }
+
   openTrip(trip:Trip){
     sessionStorage.setItem('tripId', trip.tripId?.toString() || '');
     this.router.navigate(['/trip-dashboard']);
@@ -95,5 +135,36 @@ export class DashboardComponent implements OnInit {
           this.modalService.open(content,  {size:'xl',centered: true, ariaLabelledBy: 'modal-basic-title'});
           this.callWeather(address);
         }
+  }
+
+  tripsRetrieval(token:string) {
+  
+  /*Whenever user accepts a trip invite this method is called again, so the arrays need to be cleaned out
+  so that we dont get doubles, triples, etc.*/
+  this.pastTrips = [];
+  this.currentTrips = [];
+  this.futureTrips = [];
+
+   //Athorization token containing `[userId]:[username]` of current user
+   this.token= sessionStorage.getItem("token") || '';
+   //calls getTrips method in trip-sevice.sevice
+   this.tripService.getTrips(token).subscribe(
+     async response => {this.trips = response;
+     //loops through all trips and sorts into futre current and past trips list by startTime
+     for(let i = 0; i< this.trips.length; i++){
+       let startTime = new Date(this.trips[i].startTime!).getTime();
+       let endTime = new Date(this.trips[i].endTime!).getTime();
+       let timeNow = Date.now();
+       if(startTime > timeNow) {
+         this.futureTrips.push(this.trips[i]);
+       }
+       else if(startTime < timeNow && endTime > timeNow){
+         this.currentTrips.push(this.trips[i]);
+       }
+       else if(endTime < timeNow){
+         this.pastTrips.push(this.trips[i]);
+       }
+   }
+ })
   }
 }

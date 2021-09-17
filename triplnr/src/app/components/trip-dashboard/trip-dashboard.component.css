@@ -223,11 +223,15 @@ select.is-invalid{
 }
 
 .weatherIcon1{
-  padding-left: 120px;
+  margin-left: 150px;
+  width: 100px;
+  height: 100px;
 }
 
 .weatherIcon2{
-  padding-left: 120px;
+  margin-left: 70px;
+  width: 100px;
+  height: 100px;
 }
 
 /*Modal styling*/

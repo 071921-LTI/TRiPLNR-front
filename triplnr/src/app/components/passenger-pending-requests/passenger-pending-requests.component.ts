@@ -3,6 +3,7 @@ import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { PassengerRequest } from 'src/app/models/passenger-request';
 import { PassengerRequestServiceService } from 'src/app/services/passenger-request-service.service';
 import { User } from 'src/app/models/user';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-passenger-pending-requests',
@@ -11,7 +12,9 @@ import { User } from 'src/app/models/user';
 })
 export class PassengerPendingRequestsComponent implements OnInit {
   title:String= "PassengerPendingRequestsComponent";
-  constructor(private requestService:PassengerRequestServiceService, private router:Router) { 
+  constructor(private requestService:PassengerRequestServiceService, 
+    private commonService:CommonService,
+    private router:Router) { 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
       }
@@ -65,7 +68,7 @@ export class PassengerPendingRequestsComponent implements OnInit {
   });
     this.requestService.accept(request, this.token || '').subscribe(
       response => {
-        request = response;
+        this.commonService.sendTrip(request.trip!);
       }
     );
     event?.stopPropagation()
