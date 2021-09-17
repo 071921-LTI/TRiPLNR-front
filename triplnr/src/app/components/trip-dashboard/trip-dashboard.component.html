@@ -368,7 +368,7 @@
 
           <br>
 
-
+          <ng-container *ngIf="isManager">
           <form #stopTripForm="ngForm">
 
             <div id="stopss">
@@ -442,6 +442,7 @@
 
             <!--<button class="w-100 btn btn-lg btn-dark" type="input" (click)='removeStops()'>Remove Stops</button>-->
           </form>
+        </ng-container>
 
           <h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Stops</h2>
           <div id="MyTrip" class="text-center">
@@ -452,7 +453,9 @@
                 <tr>
                   <th scope="col">Stop Number</th>
                   <th scope="col">Stop Location</th>
+                <ng-container *ngIf="isManager">
                   <th scope="col">Remove Stop?</th>
+                </ng-container>
                 </tr>
               </thead>
               <tbody>
@@ -465,10 +468,12 @@
                   <td style="width:85%; height: 16px;">
                     {{row}}
                   </td>
+                <ng-container *ngIf="isManager">
                   <td style="Width:5%">
                     <button (click)='RemoveThisStop(row)' id="btn_removeThisStop"
                       style="color:red;background:none;border:none;height:5px">X</button>
                   </td>
+                </ng-container>
                 </tr>
               </tbody>
             </table>
@@ -496,11 +501,11 @@
   <div class="checkbox mb-3">
   </div>
   <ng-container *ngIf="isManager">
-    <button [disabled]="tripUpdateForm.form.pristine && !stopsChanged && !addRoles" class="w-100 btn btn-lg btn-primary"
+    <button [disabled]="tripUpdateForm.form.pristine && !stopsChanged && !addRoles && !passChanged" class="w-100 btn btn-lg btn-primary"
       type="input" (click)="tripUpdateForm.form.markAsPristine()" (click)="tripUpdateForm.control.markAsUntouched();"
       (click)='reset()'>Reset</button>
     <br><br>
-    <button [disabled]="tripUpdateForm.form.invalid || tripUpdateForm.form.pristine && !stopsChanged"
+    <button [disabled]="tripUpdateForm.form.invalid || tripUpdateForm.form.pristine && !stopsChanged && !passChanged"
       class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
   </ng-container>
 
