@@ -278,3 +278,21 @@ select.is-invalid{
 .wDesc2{
   height: 90px;
 }
+
+.weather_table{
+  position: relative;
+}
+
+img{
+  position: relative;
+}
+
+.table-responsive-stack {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
