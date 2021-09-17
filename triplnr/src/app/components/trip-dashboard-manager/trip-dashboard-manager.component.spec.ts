@@ -34,4 +34,8 @@ describe('TripDashboardManagerComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.content span')?.textContent);
   });
+
+  it('should call ngOnInit', () => {
+    expect(component.ngOnInit).toBeTruthy();
+  });
 });

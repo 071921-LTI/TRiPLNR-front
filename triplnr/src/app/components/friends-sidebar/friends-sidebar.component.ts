@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./friends-sidebar.component.css']
 })
 export class FriendsSidebarComponent implements OnInit {
-
+  title:String = "friends-sidebar";
   private listenForFriend: Subscription;
 
   constructor(private userService:UserServiceService, 
@@ -24,6 +24,7 @@ export class FriendsSidebarComponent implements OnInit {
     private auth0Service: Auth0ServiceService, 
     private commonService: CommonService, 
     public location: Location) { 
+
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {

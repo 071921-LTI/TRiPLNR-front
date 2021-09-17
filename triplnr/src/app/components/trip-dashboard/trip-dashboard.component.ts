@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit,ChangeDetectionStrategy } from '@angular/core';
 import { Trip } from 'src/app/models/trip';
 import { User } from 'src/app/models/user';
 import { TripServiceService } from 'src/app/services/trip-service.service';
@@ -16,13 +16,15 @@ import { Options } from 'ngx-google-places-autocomplete/objects/options/options'
 declare var google: any;
 const locationButton = document.createElement("button");
 @Component({
+  //This import is used for testing, but not for production
+  //changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-trip-dashboard',
   templateUrl: './trip-dashboard.component.html',
   styleUrls: ['./trip-dashboard.component.css']
 })
 export class TripDashboardComponent implements AfterViewInit {
   private map: any;
-
+  title:String = "trip-dashboard";
   constructor(private userService: UserServiceService, private tripService: TripServiceService, private router: Router, private weather:WeatherServiceService) {
     /*var script = document.createElement("script");
     script.type = "text/javascript";
@@ -61,6 +63,7 @@ export class TripDashboardComponent implements AfterViewInit {
 
   tripName: String = '';
   passengers: Array<User> = [];
+  curPassengers: Array<User> = [];
   isManager: boolean = true;
 
   // need to add functionalit to check if playlist exists and if user roles exists and change value to true
@@ -71,6 +74,7 @@ export class TripDashboardComponent implements AfterViewInit {
   stops: Array<String> = [];
   stopsChanged: Boolean = false;
   roleChanged: Boolean = false;
+  passChanged:Boolean = false;
 
   newSpotify: string = '';
   curSpotify: string = this.trip?.spotify ||"";
@@ -163,6 +167,7 @@ export class TripDashboardComponent implements AfterViewInit {
   addPassengers(): void{
     this.passengers = [];
     this.passengers.push.apply(this.passengers, this.passengerDeckPhase2);
+    this.passChanged = true;
   }
 
 
@@ -188,13 +193,20 @@ export class TripDashboardComponent implements AfterViewInit {
     this.tripDestination=  this.desStreetAddress + ", " + this.desCity + ", " + this.desState + ", " + this.desZip;
 
     this.token = sessionStorage.getItem("token") || '';
+    
 
     this.startTime = this.startTime.replace('T', ' ')|| '';
-    //this.startTime = this.startTime + ":00";
-
+    
+    if(this.startTime?.length == 16){
+      this.startTime = this.startTime + ":00";
+    }
+    
+   
+   
     this.endTime = this.endTime.replace('T', ' ') || '';
-    //this.endTime = this.endTime + ":00";
-
+    if(this.endTime?.length == 16){
+      this.endTime = this.endTime + ":00";
+    }
 
     if (this.endTime != ":00") {
       //sets startTimeString equal to formated startTime
@@ -209,7 +221,6 @@ export class TripDashboardComponent implements AfterViewInit {
     } else {
       this.startTimeString = this.trip?.startTime;
     }
-    console.log(this.startTimeString);
 
 
     if (this.newSpotify == ''){
@@ -229,17 +240,16 @@ export class TripDashboardComponent implements AfterViewInit {
 
       spotify: this.newSpotify,
 
-      navigator: this.passengers[this.navIndex],
-      music: this.passengers[this.musicIndex],
-      snacks: this.passengers[this.snackIndex],
-
+      navigator: this.curPassengers[this.navIndex],
+      music: this.curPassengers[this.musicIndex],
+      snacks: this.curPassengers[this.snackIndex],
+      originIcon: this.trip?.originIcon,
+      destinationIcon: this.trip?.destinationIcon
 
     }
 
-    console.log(this.startTimeString);
-    console.log(this.endTimeString);
 
-    console.log(this.passengers[this.navIndex]);
+    console.log(this.curPassengers[this.navIndex]);
 
 
 
@@ -284,16 +294,16 @@ export class TripDashboardComponent implements AfterViewInit {
         this.stopsChanged = false;
         this.addRoles = false;
 
-        for(let x = 0; x <= this.passengers.length; x++){
-          if(this.curNav?.userId == this.passengers[x].userId){
+        for(let x = 0; x <= this.curPassengers.length; x++){
+          if(this.curNav?.userId == this.curPassengers[x].userId){
             this.navIndex = x;
             console.log("index x: "+x);
           }
-          if(this.curMusic?.userId == this.passengers[x].userId){
+          if(this.curMusic?.userId == this.curPassengers[x].userId){
             this.musicIndex = x;
             console.log("index x: "+x);
           }
-          if(this.curSnack?.userId == this.passengers[x].userId){
+          if(this.curSnack?.userId == this.curPassengers[x].userId){
             this.snackIndex = x;
             console.log("index x: "+x);
           }
@@ -413,6 +423,7 @@ export class TripDashboardComponent implements AfterViewInit {
 
 
         this.passengers = this.trip.passengers || '';
+        this.curPassengers = this.trip.passengers || '';
         this.stops = this.trip.stops || '';
 
         console.log(this.stops)
@@ -436,6 +447,9 @@ export class TripDashboardComponent implements AfterViewInit {
           document.getElementById('desState')?.setAttribute('readonly', 'readonly');
           document.getElementById('desZip')?.setAttribute('readonly', 'readonly');
           document.getElementById('desZip')?.setAttribute('disabled', 'disabled');
+
+          document.getElementById('txt_num_StopNum')?.setAttribute('readonly', 'readonly');
+          document.getElementById('txt_num_StopNum')?.setAttribute('disabled', 'disabled');
           
         } 
 
@@ -472,6 +486,8 @@ export class TripDashboardComponent implements AfterViewInit {
           // if(destDayDiff >=0 && destDayDiff <15){
           //   this.callDestWeather(this.tripDestination,destDayDiff);
           // }
+            this.imageDest= "assets/Weather_Icon/na.png";
+            this.imageOrigin= "assets/Weather_Icon/na.png";
        
       }else{
         this.callOriginWeather(this.tripOrigin, this.tripDestination ,currDayDiff, destDayDiff);
@@ -483,16 +499,16 @@ export class TripDashboardComponent implements AfterViewInit {
       this.startTime = this.tripStartTime.split(".")[0];
       this.endTime = this.tripEndTime.split(".")[0];
 
-      for(let x = 0; x <= this.passengers.length; x++){
-        if(this.curNav?.userId == this.passengers[x].userId){
+      for(let x = 0; x <= this.curPassengers.length; x++){
+        if(this.curNav?.userId == this.curPassengers[x].userId){
           this.navIndex = x;
           console.log("index x: "+x);
         }
-        if(this.curMusic?.userId == this.passengers[x].userId){
+        if(this.curMusic?.userId == this.curPassengers[x].userId){
           this.musicIndex = x;
           console.log("index x: "+x);
         }
-        if(this.curSnack?.userId == this.passengers[x].userId){
+        if(this.curSnack?.userId == this.curPassengers[x].userId){
           this.snackIndex = x;
           console.log("index x: "+x);
         }
@@ -692,6 +708,9 @@ evt_StopChange(row: any, e: any) {
           if(day2<15 ){
             this.callDestWeather(dest,day2);
           }
+          else{
+            this.imageDest= "assets/Weather_Icon/na.png";
+          }
         })   
   }
 
@@ -701,6 +720,7 @@ evt_StopChange(row: any, e: any) {
       this.weather.getDestinationWeather(origin,day).subscribe((response) =>{
        this.destWeather = response;
        let iconName = response['icon']+".png";
+       console.log(iconName);
        this.imageDest = "assets/Weather_Icon/" + iconName;
      })   
 

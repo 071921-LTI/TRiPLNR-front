@@ -57,4 +57,9 @@ describe('NavBarComponent', () => {
    it('should be check login', () => {
     expect(component.checkLogin).toBeTruthy;
    });
+
+   it('should logout', () => {
+    expect(component.logout).toBeTruthy;
+   });
+   
 });

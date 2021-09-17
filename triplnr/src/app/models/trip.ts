@@ -16,4 +16,6 @@ export interface Trip {
     snacks?: User;
     navigator?: User;
     music?: User;
+    originIcon?:string;
+    destinationIcon?:string;
 }

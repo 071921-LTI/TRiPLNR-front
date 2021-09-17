@@ -49,24 +49,53 @@ describe('UserPreferencesComponent', () => {
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled).toBeTruthy
     })
-it('should correctly @Output value of String input in component', () => {
-  spyOn(component.newAddressEvent, 'emit');
-  const button = fixture.nativeElement.querySelector('button');
-  fixture.nativeElement.querySelector('input').value = 'A new address';
-  const inputText = fixture.nativeElement.querySelector('input').value;
-  button.click();
-  fixture.detectChanges();
-  expect(component.newAddressEvent.emit).toBeTruthy
-});
-it('it should update adress',()=>{
-  const fixture = TestBed.createComponent(UserPreferencesComponent);
-  const app = fixture.debugElement.componentInstance;
-  app.streetAddress = 'a';
-  app.city = 'b';
-  app.state = 'c';
-  app.zip = 'd';
-  let temp = app.address;
-  app.emmitAddress;
-  expect(temp).toBeTruthy
-})
+  it('should correctly @Output value of String input in component', () => {
+    spyOn(component.newAddressEvent, 'emit');
+    const button = fixture.nativeElement.querySelector('button');
+    fixture.nativeElement.querySelector('input').value = 'A new address';
+    const inputText = fixture.nativeElement.querySelector('input').value;
+    button.click();
+    fixture.detectChanges();
+    expect(component.newAddressEvent.emit).toBeTruthy
+  });
+  it('it should update adress',()=>{
+    const fixture = TestBed.createComponent(UserPreferencesComponent);
+    const app = fixture.debugElement.componentInstance;
+    app.streetAddress = 'a';
+    app.city = 'b';
+    app.state = 'c';
+    app.zip = 'd';
+    let temp = app.address;
+    app.emmitAddress;
+    expect(temp).toBeTruthy
+  })
+
+  it('should call ngOnInit', () => {
+    expect(component.ngOnInit).toBeTruthy();
+  });
+
+  it('should emitAddress', () => {
+    expect(component.emitAddress).toBeTruthy();
+  });
+
+  it('should emitAddress', () => {
+    expect(component.handleAddressChange).toBeTruthy();
+  });
+
+  it('should reset', () => {
+    expect(component.reset).toBeTruthy();
+  });
+
+  it('should update', () => {
+    expect(component.update).toBeTruthy();
+  });
+
+  it('should update fail', () => {
+    expect(component.update()).toBeFalsy();
+  });
+
+  it('should selectImage', () => {
+    expect(component.selectImage).toBeTruthy();
+  });
+
 });
