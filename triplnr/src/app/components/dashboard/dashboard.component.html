@@ -25,9 +25,9 @@
     <td (click)="openTrip(row)">{{row.origin}}</td>
     <td (click)="openTrip(row)">{{row.destination}}</td>
     <td (click)="openTrip(row)">{{row.manager?.firstName + " " + row.manager?.lastName}}</td>
-    <td (click)="openTrip(row)">{{((row.passengers[0]?.firstName || '') + " " + (row.passengers[0]?.lastName || '')) + ", " +
-      ((row.passengers[1]?.firstName || '') + " " + (row.passengers[1]?.lastName || '')) + ", " +
-      ((row.passengers[2]?.firstName || '') + " " + (row.passengers[2]?.lastName || ''))}}</td>
+    <td (click)="openTrip(row)"><ng-container *ngFor="let pass of row.passengers; let i = index">
+      {{pass.firstName}} {{pass.lastName}}<ng-container *ngIf="!(i == row.passengers.length-1)">,</ng-container>
+    </ng-container></td>
     <td (click)="openTrip(row)">{{row.startTime | date:'medium'}}</td>
     <td (click)="openTrip(row)">{{row.endTime | date:'medium'}}</td>
     <td class="icon"><img src="assets/Weather_Icon/{{row.originIcon}}" class="img" (click)="open(content,row.origin,row.startTime)"></td>
@@ -63,9 +63,9 @@
     <td (click)="openTrip(row)">{{row.origin}}</td>
     <td (click)="openTrip(row)">{{row.destination}}</td>
     <td (click)="openTrip(row)">{{row.manager?.firstName + " " + row.manager?.lastName}}</td>
-    <td (click)="openTrip(row)">{{((row.passengers[0]?.firstName || '') + " " + (row.passengers[0]?.lastName || '')) + ", " +
-      ((row.passengers[1]?.firstName || '') + " " + (row.passengers[1]?.lastName || '')) + ", " +
-      ((row.passengers[2]?.firstName || '') + " " + (row.passengers[2]?.lastName || ''))}}</td>
+    <td (click)="openTrip(row)"><ng-container *ngFor="let pass of row.passengers; let i = index">
+      {{pass.firstName}} {{pass.lastName}}<ng-container *ngIf="!(i == row.passengers.length-1)">,</ng-container>
+    </ng-container></td>
     <td (click)="openTrip(row)">{{row.startTime | date:'medium'}}</td>
     <td (click)="openTrip(row)">{{row.endTime | date:'medium'}}</td>
     <td><img src="assets/Weather_Icon/{{row.originIcon}}" class="img" (click)="open(content,row.origin,row.startTime)"></td>
@@ -99,9 +99,9 @@
     <td (click)="openTrip(row)">{{row.origin}}</td>
     <td (click)="openTrip(row)">{{row.destination}}</td>
     <td (click)="openTrip(row)">{{row.manager?.firstName + " " + row.manager?.lastName}}</td>
-    <td (click)="openTrip(row)">{{((row.passengers[0]?.firstName || '') + " " + (row.passengers[0]?.lastName || '')) + ", " +
-      ((row.passengers[1]?.firstName || '') + " " + (row.passengers[1]?.lastName || '')) + ", " +
-      ((row.passengers[2]?.firstName || '') + " " + (row.passengers[2]?.lastName || ''))}}</td>
+    <td (click)="openTrip(row)"><ng-container *ngFor="let pass of row.passengers; let i = index">
+      {{pass.firstName}} {{pass.lastName}}<ng-container *ngIf="!(i == row.passengers.length-1)">,</ng-container>
+    </ng-container></td>
     <td (click)="openTrip(row)">{{row.startTime | date:'medium'}}</td>
     <td (click)="openTrip(row)">{{row.endTime | date:'medium'}}</td>
   </tr>

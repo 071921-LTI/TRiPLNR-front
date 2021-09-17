@@ -192,6 +192,7 @@ callOriginWeather(origin:String, dest:String ,day:number , day2:number){
 
     //item stored in session when loged in contains ([userID]:[username]) of current user
     this.token= sessionStorage.getItem("token") || '';
+    this.destination = this.streetAddress + " " + this.city + " " + this.state + " " + this.zip;
 
     //takes data from user input and formats it into an acceptable string to pass into a Timestamp in backend
     this.startTime = this.startTime.replace('T', ' ') || '';
