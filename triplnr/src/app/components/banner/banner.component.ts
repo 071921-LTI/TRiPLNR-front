@@ -10,8 +10,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./banner.component.css']
 })
 export class BannerComponent implements OnInit {
-
-
+  title:String = "banner";
   constructor(private auth0Service: Auth0ServiceService, private userService: UserServiceService, private router: Router, location: Location) {
     this.router.events.subscribe((event) => {
 

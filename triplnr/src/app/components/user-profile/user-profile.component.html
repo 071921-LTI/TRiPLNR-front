@@ -1,21 +1,25 @@
-<table class="center"  table cellpadding="10">
-  
-  <thead>
-  <tr>
-  
-  <th>First Name</th>
-  <th>Last Name</th>
-  <th>Information</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-    <td>{{userTo?.firstName}}</td>
-    <td>{{userTo?.lastName}}</td>
-    <td>information about user</td>
-</tr>
-</tbody>
-</table>
-<div class="centerbutton">
-<input type="button" value="Add Friend" (click)="addFriend()">
+<div class="container">
+  <div class='row'>
+    <div class='col-8 col-md-5 col-lg-4 col-xl-4 mx-auto mt-2 rounded p-5 put-border bg-light'>
+      <div class='d-flex justify-content-center'>
+        <img class='profile-pic rounded mb-3' [src]='userTo?.profilePic'>
+      </div>
+      <div>
+        <h5>
+          {{userTo?.firstName}} {{userTo?.lastName}}
+        </h5>
+        <p *ngIf='userTo?.bio'><strong>Bio:</strong> {{userTo?.bio}}</p>
+        <p><strong *ngIf='sharedFriends.length'>Shared Friends: </strong><ng-container *ngFor='let friend of sharedFriends'>{{friend.firstName}} {{friend.lastName}} <ng-container *ngIf='sharedFriends.indexOf(friend) !== sharedFriends.length - 1'>, </ng-container></ng-container></p>
+        <div class='border mb-3' *ngIf='pastTrips.length'>
+          <strong>Past Trips:</strong>
+          <div *ngFor='let trip of pastTrips' class='border-top p-3'>
+              {{trip.destination}}
+              <br>
+              Date: {{trip.arrival}}
+          </div>
+        </div>
+      </div>
+      <input type="button" class='btn btn-dark' value="Add Friend" (click)="addFriend()">
+    </div>
+  </div>
 </div>

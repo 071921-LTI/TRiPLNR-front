@@ -45,12 +45,16 @@ describe('PassengerPendingRequestsComponent', () => {
     expect(service).toBeTruthy();
    });
 
-   it('should get requests', () => {
-    expect(component.getRequests).toBeTruthy();
+   it('should call ngOnInit', () => {
+    expect(component.ngOnInit).toBeTruthy();
    });
 
    it('should get requests', () => {
     expect(component.getRequests).toBeTruthy();
+   });
+
+   it('should get requests fail', () => {
+    expect(component.getRequests()).toBeFalsy();
    });
 
    it('should accept requests', () => {
@@ -60,4 +64,9 @@ describe('PassengerPendingRequestsComponent', () => {
    it('should deny requests', () => {
     expect(component.denyRequest).toBeTruthy();
    });
+
+   it('should call prettierDatesAndSavePass', () => {
+    expect(component.prettierDatesAndSavePass).toBeTruthy();
+   });
+
 });

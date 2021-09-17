@@ -55,4 +55,8 @@ describe('HomepageComponent', () => {
     expect(service).toBeTruthy();
    });
 
+   it('should call ngOnInit', () => {
+    expect(component.ngOnInit).toBeTruthy();
+   });
+
 });
