@@ -300,15 +300,16 @@
           </ng-container>
           <hr>
 
-          <img src="{{imageOrigin}}" class="weatherIcon1">
-          <img src="{{imageDest}}" class="weatherIcon2">
-
-          <div>
+          <div class = "weather_table table-responsive">
             <!-- put weather here !!!!!!!!-->
 
 
+            <div class = "table-responsive-stack">
+              <img src="{{imageOrigin}}" class="weatherIcon1">
+              <img src="{{imageDest}}" class="weatherIcon2">
+            </div>
 
-            <table class="originWeatherTable">
+            <table class="originWeatherTable table-responsive">
 
               <thead>
                 <tr>
@@ -342,7 +343,7 @@
               </tbody>
             </table>
 
-            <table class="originWeatherTable2">
+            <table class="originWeatherTable2 table-responsive">
 
               <thead>
                 <tr>
@@ -453,7 +454,7 @@
                 <tr>
                   <th scope="col">Stop Number</th>
                   <th scope="col">Stop Location</th>
-                <ng-container *ngIf="isManager">
+                  <ng-container *ngIf="isManager">
                   <th scope="col">Remove Stop?</th>
                 </ng-container>
                 </tr>
@@ -468,7 +469,7 @@
                   <td style="width:85%; height: 16px;">
                     {{row}}
                   </td>
-                <ng-container *ngIf="isManager">
+                  <ng-container *ngIf="isManager">
                   <td style="Width:5%">
                     <button (click)='RemoveThisStop(row)' id="btn_removeThisStop"
                       style="color:red;background:none;border:none;height:5px">X</button>
