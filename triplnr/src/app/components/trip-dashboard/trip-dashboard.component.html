@@ -264,7 +264,7 @@
                         <select class="custom-select" id="navIndex" placeholder="Passenger" name="navIndex"
                           [(ngModel)]="navIndex" #navIndexControl="ngModel">
                           <option value="">Passenger</option>
-                          <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName
+                          <option *ngFor="let passenger of curPassengers;index as i" value="{{i}}">{{ passenger.firstName
                             }} {{ passenger.lastName }}</option>
                         </select>
                       </td>
@@ -275,7 +275,7 @@
                         <select class="custom-select" id="musicIndex" placeholder="Passenger" name="musicIndex"
                           [(ngModel)]="musicIndex" #musicIndexControl="ngModel">
                           <option value="">Passenger</option>
-                          <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName
+                          <option *ngFor="let passenger of curPassengers;index as i" value="{{i}}">{{ passenger.firstName
                             }} {{ passenger.lastName }}</option>
                         </select>
                       </td>
@@ -286,7 +286,7 @@
                         <select class="custom-select" id="snackIndex" placeholder="Passenger" name="snackIndex"
                           [(ngModel)]="snackIndex" #snackIndexControl="ngModel">
                           <option value="">Passenger</option>
-                          <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName
+                          <option *ngFor="let passenger of curPassengers;index as i" value="{{i}}">{{ passenger.firstName
                             }} {{ passenger.lastName }}</option>
                         </select>
                       </td>
@@ -502,11 +502,11 @@
   <div class="checkbox mb-3">
   </div>
   <ng-container *ngIf="isManager">
-    <button [disabled]="tripUpdateForm.form.pristine && !stopsChanged && !addRoles " class="w-100 btn btn-lg btn-primary"
+    <button [disabled]="tripUpdateForm.form.pristine && !stopsChanged && !addRoles && !passChanged" class="w-100 btn btn-lg btn-primary"
       type="input" (click)="tripUpdateForm.form.markAsPristine()" (click)="tripUpdateForm.control.markAsUntouched();"
       (click)='reset()'>Reset</button>
     <br><br>
-    <button [disabled]="tripUpdateForm.form.invalid || tripUpdateForm.form.pristine && !stopsChanged "
+    <button [disabled]="tripUpdateForm.form.invalid || tripUpdateForm.form.pristine && !stopsChanged && !passChanged"
       class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
   </ng-container>
 

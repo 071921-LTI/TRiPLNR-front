@@ -15,6 +15,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(private userService:UserServiceService, private requestService:FriendRequestServiceService, private router:Router) { }
   title:String="User Profile";
+  isFriend:boolean = false;
   ngOnInit(): void {
   
     this.token = sessionStorage.getItem("token") || '';
@@ -37,6 +38,9 @@ export class UserProfileComponent implements OnInit {
               res.forEach(friend => {
                 if (otherFriend.userId === friend.userId) {
                   this.sharedFriends.push(otherFriend);
+                }
+                if (friend.userId === this.userId){
+                  this.isFriend = true;
                 }
               })
             })

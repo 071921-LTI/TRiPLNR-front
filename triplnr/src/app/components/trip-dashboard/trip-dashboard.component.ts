@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
 import { } from 'google__maps';
 import { WeatherServiceService } from 'src/app/services/weather-service.service';
 import { weather } from 'src/app/models/weather';
-import { identifierModuleUrl, ThrowStmt } from '@angular/compiler';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 
@@ -57,6 +56,7 @@ export class TripDashboardComponent implements AfterViewInit {
 
   tripName: String = '';
   passengers: Array<User> = [];
+  curPassengers: Array<User> = [];
   isManager: boolean = true;
 
   // need to add functionalit to check if playlist exists and if user roles exists and change value to true
@@ -67,6 +67,7 @@ export class TripDashboardComponent implements AfterViewInit {
   stops: Array<String> = [];
   stopsChanged: Boolean = false;
   roleChanged: Boolean = false;
+  passChanged:Boolean = false;
 
   newSpotify: string = '';
   curSpotify: string = this.trip?.spotify ||"";
@@ -154,6 +155,7 @@ export class TripDashboardComponent implements AfterViewInit {
   addPassengers(): void{
     this.passengers = [];
     this.passengers.push.apply(this.passengers, this.passengerDeckPhase2);
+    this.passChanged = true;
   }
 
 
@@ -177,13 +179,20 @@ export class TripDashboardComponent implements AfterViewInit {
     this.tripDestination=  this.desStreetAddress + ", " + this.desCity + ", " + this.desState + ", " + this.desZip;
 
     this.token = sessionStorage.getItem("token") || '';
+    
 
     this.startTime = this.startTime.replace('T', ' ')|| '';
-    //this.startTime = this.startTime + ":00";
-
+    
+    if(this.startTime?.length == 16){
+      this.startTime = this.startTime + ":00";
+    }
+    
+   
+   
     this.endTime = this.endTime.replace('T', ' ') || '';
-    //this.endTime = this.endTime + ":00";
-
+    if(this.endTime?.length == 16){
+      this.endTime = this.endTime + ":00";
+    }
 
     if (this.endTime != ":00") {
       //sets startTimeString equal to formated startTime
@@ -216,10 +225,11 @@ export class TripDashboardComponent implements AfterViewInit {
 
       spotify: this.newSpotify,
 
-      navigator: this.passengers[this.navIndex],
-      music: this.passengers[this.musicIndex],
-      snacks: this.passengers[this.snackIndex],
-
+      navigator: this.curPassengers[this.navIndex],
+      music: this.curPassengers[this.musicIndex],
+      snacks: this.curPassengers[this.snackIndex],
+      originIcon: this.trip?.originIcon,
+      destinationIcon: this.trip?.destinationIcon
 
     }
 
@@ -264,14 +274,14 @@ export class TripDashboardComponent implements AfterViewInit {
         this.stopsChanged = false;
         this.addRoles = false;
 
-        for(let x = 0; x <= this.passengers.length; x++){
-          if(this.curNav?.userId == this.passengers[x].userId){
+        for(let x = 0; x <= this.curPassengers.length; x++){
+          if(this.curNav?.userId == this.curPassengers[x].userId){
             this.navIndex = x;
           }
-          if(this.curMusic?.userId == this.passengers[x].userId){
+          if(this.curMusic?.userId == this.curPassengers[x].userId){
             this.musicIndex = x;
           }
-          if(this.curSnack?.userId == this.passengers[x].userId){
+          if(this.curSnack?.userId == this.curPassengers[x].userId){
             this.snackIndex = x;
           }
   
@@ -388,6 +398,7 @@ export class TripDashboardComponent implements AfterViewInit {
 
 
         this.passengers = this.trip.passengers || '';
+        this.curPassengers = this.trip.passengers || '';
         this.stops = this.trip.stops || '';
 
         let token = sessionStorage.getItem('token');
@@ -410,6 +421,9 @@ export class TripDashboardComponent implements AfterViewInit {
           document.getElementById('desState')?.setAttribute('readonly', 'readonly');
           document.getElementById('desZip')?.setAttribute('readonly', 'readonly');
           document.getElementById('desZip')?.setAttribute('disabled', 'disabled');
+
+          document.getElementById('txt_num_StopNum')?.setAttribute('readonly', 'readonly');
+          document.getElementById('txt_num_StopNum')?.setAttribute('disabled', 'disabled');
           
         } 
 
@@ -455,14 +469,14 @@ export class TripDashboardComponent implements AfterViewInit {
       this.startTime = this.tripStartTime.split(".")[0];
       this.endTime = this.tripEndTime.split(".")[0];
 
-      for(let x = 0; x <= this.passengers.length; x++){
-        if(this.curNav?.userId == this.passengers[x].userId){
+      for(let x = 0; x <= this.curPassengers.length; x++){
+        if(this.curNav?.userId == this.curPassengers[x].userId){
           this.navIndex = x;
         }
-        if(this.curMusic?.userId == this.passengers[x].userId){
+        if(this.curMusic?.userId == this.curPassengers[x].userId){
           this.musicIndex = x;
         }
-        if(this.curSnack?.userId == this.passengers[x].userId){
+        if(this.curSnack?.userId == this.curPassengers[x].userId){
           this.snackIndex = x;
         }
 
