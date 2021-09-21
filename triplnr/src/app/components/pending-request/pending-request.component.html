@@ -1,7 +1,7 @@
 
 <table>
     <tr *ngFor="let row of requests" class="clickRow" (click)='getPotentialFriend(row.from?.userId)' data-toggle="modal" [attr.data-target]="'#friendModal'">
-        <td id="name"><b>Friend Request: </b>{{row.from?.firstName + " " + row.from?.lastName}}</td>
+        <td id="name"><strong>Friend Request: </strong>{{row.from?.firstName + " " + row.from?.lastName}}</td>
         <td><input type="button" value="Accept" (click)="acceptRequest(row)" id="accept"></td>
         <td><input type="button" value="Deny" (click)="denyRequest(row)" id="deny"></td>
 
@@ -16,8 +16,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p><b>From:</b> {{friend?.firstName}} {{friend?.lastName}}</p>
-                        <b>Shared Friends:</b>
+                        <p><strong>From:</strong> {{friend?.firstName}} {{friend?.lastName}}</p>
+                        <strong>Shared Friends:</strong>
                         <table id='innerTable'>
                             <tr *ngFor="let friend of sharedFriends">
                                 <td>{{friend?.firstName}} {{friend?.lastName}}</td>
