@@ -7,12 +7,10 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { RegisterComponent } from './components/register/register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { TripDashboardComponent } from './components/trip-dashboard/trip-dashboard.component';
-import { TripDashboardManagerComponent } from './components/trip-dashboard-manager/trip-dashboard-manager.component';
 import { CreateTripComponent } from './components/create-trip/create-trip.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { FormsModule } from '@angular/forms';
-import { AddressFormComponent } from './components/address-form/address-form.component';
 import { UserPreferencesComponent } from './components/user-preferences/user-preferences.component';
 import { FriendsSidebarComponent } from './components/friends-sidebar/friends-sidebar.component';
 import { PendingRequestComponent } from './components/pending-request/pending-request.component';
@@ -36,11 +34,9 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
     RegisterComponent,
     DashboardComponent,
     TripDashboardComponent,
-    TripDashboardManagerComponent,
     CreateTripComponent,
     NavBarComponent,
     BannerComponent,
-    AddressFormComponent,
     UserPreferencesComponent,
     FriendsSidebarComponent,
     PendingRequestComponent,
