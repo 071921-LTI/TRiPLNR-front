@@ -338,7 +338,7 @@ export class TripDashboardComponent implements AfterViewInit {
 
   handleAddressChangeTripDestination(address: any) {
     this.tripDestination = address.formatted_address;
-    var splitted = this.tripOrigin!.split(","); 
+    var splitted = this.tripDestination!.split(","); 
     if (splitted![2].split(" ").length > 2){
       this.desZip = splitted![2].split(" ")[2];
     }else{
