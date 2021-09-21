@@ -153,10 +153,8 @@ export class UserPreferencesComponent implements OnInit {
     //calls user service to update existing user
     this.userService.update(formData,this.token).subscribe(
       response => {
-        console.log(response);
         this.response = response;
       },error => {
-        console.log(error.error);
         this.response = error.error.message;
       }
 
@@ -175,6 +173,5 @@ export class UserPreferencesComponent implements OnInit {
   
       fileReader.readAsDataURL(file);
       this.isImageSelected=true;
-      console.log(this.isImageSelected);
     }
   }

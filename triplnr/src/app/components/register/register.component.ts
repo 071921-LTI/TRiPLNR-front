@@ -97,7 +97,6 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/dashboard']);
         }
 
-        console.log(response);
       }, error => {
         this.error = "Register Failed";
       }
