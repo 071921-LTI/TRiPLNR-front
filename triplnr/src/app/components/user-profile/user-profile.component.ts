@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FriendRequest } from 'src/app/models/friend-request';
-import { Trip } from 'src/app/models/trip';
 import { User } from 'src/app/models/user';
 import { FriendRequestServiceService } from 'src/app/services/friend-request-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
@@ -14,7 +13,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 export class UserProfileComponent implements OnInit {
 
   constructor(private userService:UserServiceService, private requestService:FriendRequestServiceService, private router:Router) { }
-  title:String="User Profile";
+  title:string="User Profile";
   isFriend:boolean = false;
   ngOnInit(): void {
   

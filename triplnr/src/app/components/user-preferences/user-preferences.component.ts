@@ -17,22 +17,22 @@ export class UserPreferencesComponent implements OnInit {
   fileInput!: ElementRef;
 
   user?:User;
-  response?: String;
+  response?:string;
 
   //token is set to the authorization token that is stored by the current session
   token = sessionStorage.getItem("token") || '';
   
   userId?: number;
-  sub?: String;
-  first?: String;
-  last?: String;
-  profilePic?: String = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png';
-  bio?: String = '';
-  streetAddress ?: String ;
-  city ?: String ;
-  state ?: String ;
-  zip ?: String ;
-  address? : String;
+  sub?:string;
+  first?:string;
+  last?:string;
+  profilePic?:string = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png';
+  bio?:string = '';
+  streetAddress ?:string ;
+  city ?:string ;
+  state ?:string ;
+  zip ?:string ;
+  address? :string;
   trips?:Trip[];
   friends?:User[];
   options = {
@@ -71,7 +71,7 @@ export class UserPreferencesComponent implements OnInit {
   }
 
   //this directive is used to emit a formatted address to be passed in to the user object
-  @Output() newAddressEvent = new EventEmitter<String>();
+  @Output() newAddressEvent = new EventEmitter<string>();
   @Input() toEmit = false;
 
 
@@ -88,14 +88,14 @@ export class UserPreferencesComponent implements OnInit {
   handleAddressChange(address: any) {
     this.address = address.formatted_address;
     var splitted = this.address!.split(","); 
-    if (splitted![2].split(" ").length > 2){
-      this.zip = splitted![2].split(" ")[2];
+    if (splitted[2].split(" ").length > 2){
+      this.zip = splitted[2].split(" ")[2];
     }else{
       this.zip = "";
     }
-    this.state = splitted![2].split(" ")[1];
-    this.city = splitted![1].split(" ")[1];
-    this.streetAddress = splitted![0];
+    this.state = splitted[2].split(" ")[1];
+    this.city = splitted[1].split(" ")[1];
+    this.streetAddress = splitted[0];
   }
 
   reset(){
@@ -168,7 +168,8 @@ export class UserPreferencesComponent implements OnInit {
       const fileReader = new FileReader();
   
       fileReader.onload = () => {
-        return this.imageFileUrl = fileReader.result;
+        this.imageFileUrl = fileReader.result;
+        return fileReader.result;
       }
   
       fileReader.readAsDataURL(file);

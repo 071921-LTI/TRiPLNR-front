@@ -4,7 +4,6 @@ import { Auth0ServiceService } from './auth0-service.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthConfig, AuthModule, } from '@auth0/auth0-angular';
-import { Router } from '@angular/router';
 describe('Auth0ServiceService', () => {
   let service: Auth0ServiceService;
   const testConfig: AuthConfig = {

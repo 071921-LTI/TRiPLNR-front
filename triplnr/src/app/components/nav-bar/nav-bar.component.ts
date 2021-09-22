@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT, Location } from '@angular/common';
-import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,7 +9,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  title:String="nav-bar";
+  title:string="nav-bar";
   constructor(@Inject(DOCUMENT) public document: Document, private router:Router, public auth: AuthService, location: Location) {
 
     this.router.events.subscribe((event) => {

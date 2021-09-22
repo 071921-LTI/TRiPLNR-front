@@ -19,14 +19,14 @@ export class TripServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getCoords(address:String):Observable<any>{
+  getCoords(address:string):Observable<any>{
     return this.http.get("https://maps.googleapis.com/maps/api/geocode/json?&address="+address+"&key="+"AIzaSyBF5PtKSivpcDm_7d-MBqAnkolq0MvKKxk").pipe(
       map(response => response)
     );
   }
   
   //called in create-trip.component.ts
-  create(trip: Trip, token:string, startTimeString:string, endTimeString:string): Observable<String>{
+  create(trip: Trip, token:string, startTimeString:string, endTimeString:string): Observable<string>{
     
     //assign headers to pass to back end along with request body
     let headers = new HttpHeaders({
@@ -37,10 +37,10 @@ export class TripServiceService {
 
     //post containing url trip object and created headers
     return this.http.post(environment.tripURL+"create", trip, {headers}).pipe(
-      map(response => response as String));
+      map(response => response as string));
   }
 
-  update(trip: Trip, token: string, startTimeString:string, endTimeString: string): Observable<String>{
+  update(trip: Trip, token: string, startTimeString:string, endTimeString: string): Observable<string>{
     
     let headers = new HttpHeaders({
     Authorization: token,
@@ -49,7 +49,7 @@ export class TripServiceService {
     });
 
     return this.http.put(environment.tripURL+"update", trip, {headers}).pipe(
-      map(response => response as String));
+      map(response => response as string));
   } 
   
   //gets all trips of a specific user

@@ -11,7 +11,7 @@ import { Options } from 'ngx-google-places-autocomplete/objects/options/options'
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  title:String = "register";
+  title:string = "register";
   [x: string]: any;
 
   constructor(private userService:UserServiceService, private router:Router, private auth0: Auth0ServiceService) { }
@@ -21,23 +21,23 @@ export class RegisterComponent implements OnInit {
 
   toEmit = false;
 
-  sub: String = '';
-  first: String = '';
-  last: String = '';
-  profilePic: String = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png';
-  bio: String = '';
-  address: String = '';
+  sub:string = '';
+  first:string = '';
+  last:string = '';
+  profilePic:string = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png';
+  bio:string = '';
+  address:string = '';
 
-  error:String = '';
+  error:string = '';
 
   user?:User;
 
-  token: String = '';
+  token:string = '';
 
-  streetAddress : String = '';
-  city : String = '';
-  state : String = '';
-  zip : String = '';
+  streetAddress :string = '';
+  city :string = '';
+  state :string = '';
+  zip :string = '';
   
 
   options = {
@@ -48,21 +48,21 @@ export class RegisterComponent implements OnInit {
   imageFileUrl: any = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png';
 
   //
-  getAddress(fullAddress : String){
+  getAddress(fullAddress :string){
     this.address = fullAddress;
   }
 
   handleAddressChange(address: any) {
     this.address = address.formatted_address;
     var splitted = this.address.split(","); 
-    if (splitted![2].split(" ").length > 2){
-      this.zip = splitted![2].split(" ")[2];
+    if (splitted[2].split(" ").length > 2){
+      this.zip = splitted[2].split(" ")[2];
     }else{
       this.zip = "";
     }
-    this.state = splitted![2].split(" ")[1];
-    this.city = splitted![1].split(" ")[1];
-    this.streetAddress = splitted![0];
+    this.state = splitted[2].split(" ")[1];
+    this.city = splitted[1].split(" ")[1];
+    this.streetAddress = splitted[0];
   }
 
 
@@ -119,7 +119,8 @@ export class RegisterComponent implements OnInit {
     const fileReader = new FileReader();
 
     fileReader.onload = () => {
-      return this.imageFileUrl = fileReader.result;
+      this.imageFileUrl = fileReader.result;
+      return fileReader.result;
     }
 
     fileReader.readAsDataURL(file);

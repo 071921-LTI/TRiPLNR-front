@@ -11,13 +11,11 @@ import { CommonService } from 'src/app/services/common.service';
   styleUrls: ['./passenger-pending-requests.component.css']
 })
 export class PassengerPendingRequestsComponent implements OnInit {
-  title:String= "PassengerPendingRequestsComponent";
+  title:string= "PassengerPendingRequestsComponent";
   constructor(private requestService:PassengerRequestServiceService, 
     private commonService:CommonService,
     private router:Router) { 
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-      }
 
       if (event instanceof NavigationEnd) {
         this.getRequests();
@@ -40,8 +38,6 @@ export class PassengerPendingRequestsComponent implements OnInit {
   prettierDatesAndSavePass(start:any, end:any, users:User[]):void {
     let toArray =  start.split("T");
     this.prettyStart = toArray[0];
-
-    toArray = [];
 
     toArray =  end.split("T");
     this.prettyEnd = toArray[0];

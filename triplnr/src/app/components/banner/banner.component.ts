@@ -10,7 +10,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./banner.component.css']
 })
 export class BannerComponent implements OnInit {
-  title:String = "banner";
+  title:string = "banner";
   constructor(private auth0Service: Auth0ServiceService, private userService: UserServiceService, private router: Router, location: Location) {
     this.router.events.subscribe((event) => {
 
@@ -35,7 +35,7 @@ export class BannerComponent implements OnInit {
   //link to project logo
   imageAlt = 'logo'
 
-  profilePic?: String;
+  profilePic?:string;
 
   ngOnInit(): void {
   }
