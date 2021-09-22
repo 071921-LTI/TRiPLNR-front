@@ -6,7 +6,7 @@ import { User } from 'src/app/models/user';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 import { WeatherServiceService } from 'src/app/services/weather-service.service';
-import { weather } from 'src/app/models/weather';
+import { Weather } from 'src/app/models/weather';
 
 @Component({
   selector: 'app-create-trip',
@@ -15,7 +15,7 @@ import { weather } from 'src/app/models/weather';
 })
 export class CreateTripComponent implements OnInit {
 
-  constructor(private userService: UserServiceService, private router:Router, private tripService: TripServiceService, private weather:WeatherServiceService) { 
+  constructor(private userService: UserServiceService, private router:Router, private tripService: TripServiceService, private weatherService:WeatherServiceService) { 
     let token = sessionStorage.getItem('token');
     userService.getCurrentUser(token!).subscribe(
       response => {
@@ -27,21 +27,21 @@ export class CreateTripComponent implements OnInit {
   stateArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
 
   //fields needed to pass into new trip model
-  origin:String = '';
-  destination: String = '';
-  tripName: String = '';
+  origin:string = '';
+  destination:string = '';
+  tripName:string = '';
 
   //Used for the tables in the new passenger management system
   friends: User[]= [];
   passengerDeck: Array<User> = [];
   passengers: Array<User> = [];
   
-  stops: Array<String> = [];
-  row: String = "";
+  stops: Array<string> = [];
+  row:string = "";
   spotify:string='';
 
   userId?: number;
-  error: String = '';
+  error:string = '';
 
   //string to pass as header in order to create TimeStamp data type in backend
   startTimeString?: string;
@@ -58,17 +58,17 @@ export class CreateTripComponent implements OnInit {
   startTime: string = '';
   endTime: string = '';
 
-  streetAddress : String = '';
-  city : String = '';
-  state : String = '';
-  zip : String = '';
+  streetAddress :string = '';
+  city :string = '';
+  state :string = '';
+  zip :string = '';
   currDate:string = '';
   currDateEnd:string = '';
 
-  stopStreetAddress : String = '';
-  stopCity : String = '';
-  stopState : String = '';
-  stopZip : String = '';
+  stopStreetAddress :string = '';
+  stopCity :string = '';
+  stopState :string = '';
+  stopZip :string = '';
 
     //Adds passenger to 'Current Passengers' table of the passanger management system  and removes them from the 'Friends' table
     addPassengerToDeck (pass:User): void {
@@ -104,13 +104,13 @@ export class CreateTripComponent implements OnInit {
 
   originIcon:string = "";
   destinationIcon:string = "";
-  destWeather?:weather;
-  currWeather?:weather;
+  destWeather?:Weather;
+  currWeather?:Weather;
 
 
-  callDestWeather(origin:String,day:number){
+  callDestWeather(origin:string,day:number){
     //get the weather from origin and the destination
-    this.weather.getDestinationWeather(origin,day).subscribe((response) =>{
+    this.weatherService.getDestinationWeather(origin,day).subscribe((response) =>{
      this.destWeather = response;
      let iconName = response['icon']+".png";
      this.trip = {
@@ -138,9 +138,9 @@ export class CreateTripComponent implements OnInit {
 
 }
 
-callOriginWeather(origin:String, dest:String ,day:number , day2:number){
+callOriginWeather(origin:string, dest:string ,day:number , day2:number){
   //get the weather from origin and the destination
-  this.weather.getDestinationWeather(origin,day).subscribe((response) =>{
+  this.weatherService.getDestinationWeather(origin,day).subscribe((response) =>{
    this.currWeather = response;
    let iconName = response['icon']+".png";
    this.originIcon = iconName;
@@ -263,7 +263,6 @@ callOriginWeather(origin:String, dest:String ,day:number , day2:number){
     if(hourEnd.length<2){
       hourEnd = "0"+hourEnd;
     }
-    let timeEnd = hours+":"+minutes;
     this.currDateEnd = date + "T" + time+":00";
 
     this.userService.getFriends(sessionStorage.getItem("token")!).subscribe(
@@ -277,34 +276,34 @@ callOriginWeather(origin:String, dest:String ,day:number , day2:number){
 
   handleAddressChangeTrip(address: any) {
     this.destination = address.formatted_address;
-    var splitted = this.destination!.split(","); 
-    if (splitted![2].split(" ").length > 2){
-      this.zip = splitted![2].split(" ")[2];
+    var splitted = this.destination.split(","); 
+    if (splitted[2].split(" ").length > 2){
+      this.zip = splitted[2].split(" ")[2];
     }else{
       this.zip = "";
     }
-    this.state = splitted![2].split(" ")[1];
-    this.city = splitted![1].split(" ")[1];
-    this.streetAddress = splitted![0];
+    this.state = splitted[2].split(" ")[1];
+    this.city = splitted[1].split(" ")[1];
+    this.streetAddress = splitted[0];
   }
 
   handleAddressChangeStop(address: any) {
     var stopAddress = address.formatted_address;
-    var splitted = stopAddress!.split(","); 
-    if (splitted![2].split(" ").length > 2){
-      this.stopZip = splitted![2].split(" ")[2];
+    var splitted = stopAddress.split(","); 
+    if (splitted[2].split(" ").length > 2){
+      this.stopZip = splitted[2].split(" ")[2];
     }else{
       this.stopZip = "";
     }
-    this.stopState = splitted![2].split(" ")[1];
-    this.stopCity = splitted![1].split(" ")[1];
-    this.stopStreetAddress = splitted![0];
+    this.stopState = splitted[2].split(" ")[1];
+    this.stopCity = splitted[1].split(" ")[1];
+    this.stopStreetAddress = splitted[0];
   }
 
   evt_StopChange(i: number, e: any) {
     let origNDX :number = i;
     let NDX_To :number = e.target.value -1;
-    let temp :String = this.stops[NDX_To];
+    let temp :string = this.stops[NDX_To];
     this.stops[NDX_To] = this.stops[origNDX];
     this.stops[origNDX] = temp;
   }

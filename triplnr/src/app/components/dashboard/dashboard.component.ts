@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
 
   private listenForTrip: Subscription;
 
-  title:String= "Dashboard";
+  title:string= "Dashboard";
   trips : Trip[]= [];
   token?:string;
   //list of trips sorted by time
@@ -29,8 +29,8 @@ export class DashboardComponent implements OnInit {
   destinationWeather:any;
   txt = "";
   day:number = 0;
-  IconName:String = '';
-  imageSrc:String = '';
+  IconName:string = '';
+  imageSrc:string = '';
 
   constructor(private tripService: TripServiceService, 
     private router:Router, 
@@ -39,8 +39,7 @@ export class DashboardComponent implements OnInit {
     private modalService: NgbModal,
     private auth0: Auth0ServiceService,
     private userService: UserServiceService) { 
-      this.listenForTrip= this.commonService.getTrip().subscribe
-      (message => { //message contains the data sent from service
+      this.listenForTrip= this.commonService.getTrip().subscribe( message => { //message contains the data sent from service
         const token = sessionStorage.getItem('token')?.toString();
         this.tripsRetrieval(token!);
       });

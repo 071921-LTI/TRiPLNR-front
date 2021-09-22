@@ -17,8 +17,8 @@
                     </div>
                     <div class="modal-body">
                         <p><strong>From:</strong> {{friend?.firstName}} {{friend?.lastName}}</p>
-                        <strong>Shared Friends:</strong>
-                        <table id='innerTable'>
+                        <strong id="share_friends">Shared Friends:</strong>
+                        <table id='innerTable' aria-describedby="share_friends">
                             <tr *ngFor="let friend of sharedFriends">
                                 <td>{{friend?.firstName}} {{friend?.lastName}}</td>
                             </tr>

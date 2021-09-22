@@ -1,6 +1,6 @@
 //weather model that matches day model in the backend
-export interface weather {
-      datetime?:String;
+export interface Weather {
+      datetime?:string;
       temp?:Float32Array;
       feelslike?:Float32Array;
       humidity?:Float32Array;
@@ -14,8 +14,8 @@ export interface weather {
       visibility?:Float32Array;
       uvindex?:number;
       severerisk?:number;
-      sunrise?:String;
-      sunset?:String;
-      conditions?:String;
-      icon?:String;
+      sunrise?:string;
+      sunset?:string;
+      conditions?:string;
+      icon?:string;
 }

@@ -3,7 +3,7 @@
   <div *ngFor="let row of profiles | filter: searchText" (click)="openProfile(row)" class="row">
     <div class='clickable border col-8 col-md-5 col-lg-4 col-xl-3 mx-auto mt-2 rounded p-2'>
       <div class='content-holder'>
-        <img class='profile-pic' [src]='row.profilePic'>
+        <img class='profile-pic' [src]='row.profilePic' alt='profile pic'>
       </div>
       <div class='content-holder'>
         {{row.firstName}} {{row.lastName}}

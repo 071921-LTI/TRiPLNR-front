@@ -14,12 +14,12 @@ export class UserServiceService {
   authToken: any = sessionStorage.getItem("token");
   
   //update users will make a http put request for the current user to the server and log the result
-  update(formData: FormData, token:string): Observable<String>{
+  update(formData: FormData, token:string): Observable<string>{
     let headers = new HttpHeaders({
       Authorization: token
     });
     return this.http.put(environment.userURL + "update", formData, {headers}).pipe(
-      map(response => response as String));
+      map(response => response as string));
   }
 
   //gets the currents info of the user that is logged in using a http get request

@@ -3,9 +3,9 @@ import { User } from "./user";
 //trip model that matches trip model in back end
 export interface Trip {
     tripId?: number;
-    destination?: String;
-    origin?: String;
-    tripName?: String;
+    destination?:string;
+    origin?:string;
+    tripName?:string;
     manager?: User;
     stops?: any;
     passengers?: any;

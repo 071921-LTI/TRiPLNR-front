@@ -12,14 +12,12 @@ import { CommonService } from 'src/app/services/common.service';
   styleUrls: ['./pending-request.component.css']
 })
 export class PendingRequestComponent implements OnInit {
-  title:String = "PendingRequestComponent";
+  title:string = "PendingRequestComponent";
   constructor(private userService: UserServiceService, 
     private requestService:FriendRequestServiceService,
     private commonService:CommonService,
     private router:Router) { 
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-      }
 
       if (event instanceof NavigationEnd) {
         this.getRequests();

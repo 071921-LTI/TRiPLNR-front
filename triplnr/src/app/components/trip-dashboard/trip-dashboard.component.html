@@ -32,7 +32,7 @@
             <h1 class="h5 mb-3 fw-normal">Origin</h1>
             <div class="form-group">
               <div class="col-50">
-                <label for="originAdr"><i class="fa fa-address-card-o"></i> Address</label>
+                <label for="originAdr"><em class="fa fa-address-card-o"></em> Address</label>
                 <input ngx-google-places-autocomplete [options]='options'
                   (onAddressChange)="handleAddressChangeTripOrigin($event)" type="text" id="originAdr"
                   class="form-control" required pattern="[a-zA-Z0-9 ]+$" #streetControl="ngModel"
@@ -41,7 +41,7 @@
                 <small class="text-danger" [class.d-none]="streetControl.valid || streetControl.untouched">Please enter
                   Street Address</small>
 
-                <label for="city"><i class="fa fa-institution"></i> City</label>
+                <label for="city"><em class="fa fa-institution"></em> City</label>
                 <input type="text" id="originCity" class="form-control" required pattern="[a-zA-Z ]+$"
                   #cityControl="ngModel" [class.is-invalid]="cityControl.invalid && cityControl.touched" name="city"
                   placeholder="New York" [(ngModel)]="originCity">
@@ -82,7 +82,7 @@
             <h1 class="h5 mb-3 fw-normal">Destination</h1>
             <div class="form-group">
               <div class="col-50">
-                <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                <label for="adr"><em class="fa fa-address-card-o"></em> Address</label>
                 <input ngx-google-places-autocomplete [options]='options'
                   (onAddressChange)="handleAddressChangeTripDestination($event)" type="text" id="desAdr"
                   class="form-control" required pattern="[a-zA-Z0-9 ]+$" #desStreetControl="ngModel"
@@ -91,7 +91,7 @@
                 <small class="text-danger" [class.d-none]="desStreetControl.valid || desStreetControl.untouched">Please
                   enter Street Address</small>
 
-                <label for="city"><i class="fa fa-institution"></i> City</label>
+                <label for="city"><em class="fa fa-institution"></em> City</label>
                 <input type="text" id="desCity" class="form-control" required pattern="[a-zA-Z ]+$"
                   #desCityControl="ngModel" [class.is-invalid]="desCityControl.invalid && desCityControl.touched"
                   name="desCity" placeholder="New York" [(ngModel)]="desCity">
@@ -250,7 +250,7 @@
             <form #passengerRoleForm="ngForm">
               <div id="MyTrip" class="text-center">
 
-                <table>
+                <table aria-describedby="MyTrip">
                   <thead>
                     <tr>
                       <th scope='col'>user Id</th>
@@ -300,16 +300,16 @@
           </ng-container>
           <hr>
 
-          <div class = "weather_table table-responsive">
+          <div class = "weather_table table-responsive" id='weatherTables'>
             <!-- put weather here !!!!!!!!-->
 
 
             <div class = "table-responsive-stack">
-              <img src="{{imageOrigin}}" class="weatherIcon1">
-              <img src="{{imageDest}}" class="weatherIcon2">
+              <img src="{{imageOrigin}}" class="weatherIcon1" alt='imageOrigin'>
+              <img src="{{imageDest}}" class="weatherIcon2" alt='imageDest'>
             </div>
 
-            <table class="originWeatherTable table-responsive">
+            <table class="originWeatherTable table-responsive" aria-describedby="weatherTables">
 
               <thead>
                 <tr>
@@ -343,7 +343,7 @@
               </tbody>
             </table>
 
-            <table class="originWeatherTable2 table-responsive">
+            <table class="originWeatherTable2 table-responsive" aria-describedby="weatherTables">
 
               <thead>
                 <tr>
@@ -381,7 +381,7 @@
                     
                    
                     
-                    <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                    <label for="adr"><em class="fa fa-address-card-o"></em> Address</label>
                     <input ngx-google-places-autocomplete [options]='options'
                       (onAddressChange)="handleAddressChangeStop($event)" type="text" id="adr" class="form-control"
                       pattern="[a-zA-Z0-9 ]+$" #stopStreetControl="ngModel"
@@ -392,7 +392,7 @@
                       Address</small>
 
 
-                    <label for="city"><i class="fa fa-institution"></i> City</label>
+                    <label for="city"><em class="fa fa-institution"></em> City</label>
                     <input type="text" id="city" class="form-control" pattern="[a-zA-Z ]+$" #stopCityControl="ngModel"
                       [class.is-invalid]="stopCityControl.invalid && stopCityControl.touched" name="city"
                       placeholder="New York" [(ngModel)]="stopCity">
@@ -441,14 +441,13 @@
             <br>
             <br>
 
-            <!--<button class="w-100 btn btn-lg btn-dark" type="input" (click)='removeStops()'>Remove Stops</button>-->
           </form>
         </ng-container>
 
           <h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Stops</h2>
           <div id="MyTrip" class="text-center">
 
-            <table style="width:fit-content">
+            <table style="width:fit-content" aria-describedby="MyTripHeader">
 
               <thead>
                 <tr>
@@ -528,8 +527,8 @@
       </div>
       <div class="modal-body">
         <div class="tableFriends" style="float: left">
-          <h3>Friends</h3>
-          <table class="table-borderless" table cellpadding="10" id='tableNone'>
+          <h3 id='friend'>Friends</h3>
+          <table class="table-borderless" table cellpadding="10" id='tableNone' aria-describedby="friend">
             <!-- populates table with datat from from friends lists -->
             <tr *ngFor="let row of passengerDeckPhase1" (click)="addPassengerToDeck(row)" class="clickRow" id='rowNone'>
               <td id='tdNone'>{{row.firstName}} {{row.lastName}}</td>
@@ -542,8 +541,8 @@
         </div>
 
         <div class="tablePassengers" style="float: right">
-          <h3>Passengers</h3>
-          <table class="table table-borderless" table cellpadding="10" id='tableNone'>
+          <h3 id='passenger'>Passengers</h3>
+          <table class="table table-borderless" table cellpadding="10" id='tableNone' aria-describedby="passenger">
             <!-- populates table with datat from passengerDeck lists -->
             <tr *ngFor="let row of passengerDeckPhase2" (click)="removePassengerFromDeck(row)" class="clickRow"
               id='rowNone'>

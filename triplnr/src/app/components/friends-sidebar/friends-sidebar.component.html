@@ -11,7 +11,7 @@
             <a routerLink = "profiles"><h1 style="text-align: center; text-decoration: underline;" >Friends </h1></a>
             <div class='friends-list p-3'>
                 <div *ngFor="let friend of friends" (click)="openProfile(friend)" class='friends-list-item p-2 border-bottom pointer'>
-                    <img src={{friend.profilePic}} class='friend-profile-pic rounded pointer' >  <em class='pointer'>{{friend.firstName}} {{friend.lastName}}</em>
+                    <img src={{friend.profilePic}} class='friend-profile-pic rounded pointer' alt="an image of a profile picture">  <em class='pointer'>{{friend.firstName}} {{friend.lastName}}</em>
                 </div>
             </div>
         </nav>

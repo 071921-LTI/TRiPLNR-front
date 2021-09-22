@@ -3,11 +3,11 @@
   <div class="container">
     <div id="tables" class="text-center"  style="width:100%">
       <div class="form-signin">
-<h1 class="h3 mb-3 fw-normal">Passengers</h1>
+<h1 class="h3 mb-3 fw-normal" id="passenger_table">Passengers</h1>
 <div id="MyTripPass" class="text-center" >
   
-  <table class="table" >
-    <thead class="table-dark" >
+  <table class="table" aria-describedby="passenger_table">
+    <thead class="table-dark"  >
       <tr>
         <th scope = 'col'>Name</th>
       </tr>
@@ -26,8 +26,7 @@
 <h1 id="MyTripStopHeader" class="h3 mb-3 fw-normal">Stops</h1>
     <div id="MyTripStop" class="text-center" >
   
-      <table style="width:fit-content">
-    
+      <table style="width:fit-content" aria-describedby="MyTripStopHeader">
         <thead>
           <tr>
             <th scope="col">Stop Number</th>
@@ -129,8 +128,8 @@
                   </div>
                       <div class="modal-body">
                         <div class = "tableFriends" style="float: left">
-                          <h3>Friends</h3>
-                          <table class="table table-borderless" table cellpadding="10" id='tableNone'>
+                          <h3 id="friends_table">Friends</h3>
+                          <table class="table table-borderless" table cellpadding="10" id='tableNone' aria-describedby="friends_table">
                             <!-- populates table with datat from from friends lists -->
                             <tr *ngFor="let row of friends" (click)="addPassengerToDeck(row)" class="clickRow" id='rowNone'>
                               <td id='tdNone'>{{row.firstName}} {{row.lastName}}</td>
@@ -143,8 +142,8 @@
                         </div>
                       
                         <div class = "tablePassengers" style="float: right">
-                          <h3>Passengers</h3>
-                          <table class="table table-borderless" table cellpadding="10"  id='tableNone'>
+                          <h3 id="passenger_table2">Passengers</h3>
+                          <table class="table table-borderless" table cellpadding="10"  id='tableNone' aria-describedby="passenger_table2">
                             <!-- populates table with datat from passengerDeck lists -->
                             <tr *ngFor="let row of passengerDeck" (click)="removePassengerFromDeck(row)" class="clickRow"  id='rowNone'>
                               <td id='tdNone'>{{row.firstName}} {{row.lastName}}</td>

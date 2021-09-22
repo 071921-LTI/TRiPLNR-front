@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { Auth0User } from 'src/app/models/auth0User';
@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./friends-sidebar.component.css']
 })
 export class FriendsSidebarComponent implements OnInit {
-  title:String = "friends-sidebar";
+  title:string = "friends-sidebar";
   private listenForFriend: Subscription;
 
   constructor(private userService:UserServiceService, 
@@ -37,8 +37,8 @@ export class FriendsSidebarComponent implements OnInit {
       
     });
 
-    this.listenForFriend= this.commonService.getFriend().subscribe
-    (message => { //message contains the data sent from service
+    this.listenForFriend= this.commonService.getFriend().subscribe( 
+      message => { //message contains the data sent from service
       this.getFriends();
     });
 

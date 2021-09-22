@@ -18,11 +18,11 @@ describe('CreateTripComponent', () => {
   profilePic:"",bio:"Test bio",address:"123 street",trips:'',
   friends:''}];
   let passengerDeck: Array<User> = [];
-  let stopStreetAddress : String = '1234';
-  let stopCity : String = "space";
-  let stopState : String = "NY";
-  let stopZip : String = "77888";
-  let stops: Array<String> = ["a stop"];
+  let stopStreetAddress :string = '1234';
+  let stopCity :string = "space";
+  let stopState :string = "NY";
+  let stopZip :string = "77888";
+  let stops: Array<string> = ["a stop"];
   let startTime: string = '2021-09-16T14:23';
   let endTime: string = '2021-09-23T14:23';
   beforeEach(async () => {
@@ -49,7 +49,6 @@ describe('CreateTripComponent', () => {
     expect(component).toBeTruthy();
   });
   it('it should should be more than 0', () => {
-    const fixture = TestBed.createComponent(CreateTripComponent);
     fixture.componentInstance.stopStreetAddress = TestStreet;
     fixture.componentInstance.stopCity = TestCity;
     fixture.componentInstance.stopState = TestState;
@@ -58,7 +57,6 @@ describe('CreateTripComponent', () => {
     expect(fixture.componentInstance.stops.length).toBeGreaterThan(0);
   });
   it('it should should remove the row it just made', () => {
-    const fixture = TestBed.createComponent(CreateTripComponent);
     fixture.componentInstance.stopStreetAddress = TestStreet;
     fixture.componentInstance.stopCity = TestCity;
     fixture.componentInstance.stopState = TestState;
@@ -96,9 +94,6 @@ describe('CreateTripComponent', () => {
   it('should change the trip address',()=>{
     let address: any = {"street":"744 walker","city":"toen","state asd":"T T","zip":"77777"};
     fixture.componentInstance.handleAddressChangeTrip(address);
-    // expect(component.state).toBeDefined;
-    // expect(component.city).toBeDefined;
-    // expect(component.streetAddress).toBeDefined;
     expect(component.handleAddressChangeTrip).toBeTruthy();
   })
   it('should calculate currDayDiff',()=>{

@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomepageComponent } from './homepage.component';
 import { HttpClientTestingModule} from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 import { AuthConfig, AuthModule, } from '@auth0/auth0-angular';
-import { User } from '@auth0/auth0-spa-js';
+
 describe('HomepageComponent', () => {
   let component: HomepageComponent;
   let fixture: ComponentFixture<HomepageComponent>;

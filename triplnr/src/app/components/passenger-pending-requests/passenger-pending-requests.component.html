@@ -23,8 +23,8 @@
                         <p><strong>Start Date:</strong> {{prettyStart}}</p>
                         <p><strong>End Date:</strong> {{prettyEnd}}</p>
 
-                        <strong>Passengers:</strong>
-                        <table id='innerTable'>
+                        <strong id="inner_passengers">Passengers:</strong>
+                        <table id='innerTable' aria-describedby="inner_passengers">
                             <tr *ngFor="let passenger of passengers">
                                 <td>{{passenger?.firstName}} {{passenger?.lastName}}</td>
                             </tr>
