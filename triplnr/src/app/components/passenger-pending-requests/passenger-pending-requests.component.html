@@ -1,4 +1,4 @@
-<table aria-describedby="a table showing options to accept or deny a trip request">
+<table>
     <tr *ngFor="let row of requests" class="clickRow" (click)='prettierDatesAndSavePass(row.trip?.startTime, row.trip?.endTime, row.trip?.passengers)' data-toggle="modal" [attr.data-target]="'#passengerModal'">
         <td id="name"><strong>Trip Invite:</strong> {{row.trip?.manager?.firstName}} {{row.trip?.manager?.lastName}}</td>
         <td><input type="button" value="Accept" (click)="acceptRequest(row)" id="accept"></td>
@@ -23,8 +23,8 @@
                         <p><strong>Start Date:</strong> {{prettyStart}}</p>
                         <p><strong>End Date:</strong> {{prettyEnd}}</p>
 
-                        <strong>Passengers:</strong>
-                        <table id='innerTable' aria-describedby="a modal showing passengers informations">
+                        <strong id="inner_passengers">Passengers:</strong>
+                        <table id='innerTable' aria-describedby="inner_passengers">
                             <tr *ngFor="let passenger of passengers">
                                 <td>{{passenger?.firstName}} {{passenger?.lastName}}</td>
                             </tr>
