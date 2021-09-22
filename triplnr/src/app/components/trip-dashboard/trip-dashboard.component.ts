@@ -209,7 +209,7 @@ export class TripDashboardComponent implements AfterViewInit {
     }
 
     if (this.newSpotify == ''){
-      this.newSpotify==this.curSpotify;
+      this.newSpotify = this.curSpotify;
     }
     
 
