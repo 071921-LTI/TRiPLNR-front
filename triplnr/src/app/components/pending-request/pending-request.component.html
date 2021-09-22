@@ -1,5 +1,5 @@
 
-<table>
+<table aria-describedby="a table showing options for an incoming friend request">
     <tr *ngFor="let row of requests" class="clickRow" (click)='getPotentialFriend(row.from?.userId)' data-toggle="modal" [attr.data-target]="'#friendModal'">
         <td id="name"><b>Friend Request: </b>{{row.from?.firstName + " " + row.from?.lastName}}</td>
         <td><input type="button" value="Accept" (click)="acceptRequest(row)" id="accept"></td>
@@ -18,7 +18,7 @@
                     <div class="modal-body">
                         <p><b>From:</b> {{friend?.firstName}} {{friend?.lastName}}</p>
                         <b>Shared Friends:</b>
-                        <table id='innerTable'>
+                        <table id='innerTable' aria-describedby="a modal showing friend information">
                             <tr *ngFor="let friend of sharedFriends">
                                 <td>{{friend?.firstName}} {{friend?.lastName}}</td>
                             </tr>
