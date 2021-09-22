@@ -2,12 +2,12 @@
 //user model that matches user model in back end
 export interface User {
     userId?: number;
-    sub?: String;
-    firstName?: String;
-    lastName?: String;
-    profilePic?: String;
-    bio?: String;
-    address?: String;
+    sub?:string;
+    firstName?:string;
+    lastName?:string;
+    profilePic?:string;
+    bio?:string;
+    address?:string;
     trips?: any;
     friends?: any;
 }

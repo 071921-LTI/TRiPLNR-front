@@ -6,8 +6,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AuthConfig, AuthModule, } from '@auth0/auth0-angular';
 import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
-import { ComplexOuterSubscriber } from 'rxjs/internal/innerSubscribe';
-import { Component } from '@angular/core';
 
 describe('BannerComponent', () => {
   let component: BannerComponent;

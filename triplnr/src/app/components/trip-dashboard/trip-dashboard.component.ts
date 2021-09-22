@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit,ChangeDetectionStrategy } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { Trip } from 'src/app/models/trip';
 import { User } from 'src/app/models/user';
 import { TripServiceService } from 'src/app/services/trip-service.service';
@@ -7,7 +7,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { environment } from 'src/environments/environment';
 import { } from 'google__maps';
 import { WeatherServiceService } from 'src/app/services/weather-service.service';
-import { weather } from 'src/app/models/weather';
+import { Weather } from 'src/app/models/weather';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 
@@ -22,15 +22,15 @@ const locationButton = document.createElement("button");
 })
 export class TripDashboardComponent implements AfterViewInit {
   private map: any;
-  title:String = "trip-dashboard";
-  constructor(private userService: UserServiceService, private tripService: TripServiceService, private router: Router, private weather:WeatherServiceService) {
+  title:string = "trip-dashboard";
+  constructor(private userService: UserServiceService, private tripService: TripServiceService, private router: Router, private weatherService:WeatherServiceService) {
   }
 
   stateArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
   roleArr = ['Music', 'Navigator', 'Snacks']
 
   userId?: number;
-  error: String = '';
+  error:string = '';
 
   //string to pass as header in order to create TimeStamp data type in backend
   startTimeString?: string;
@@ -46,15 +46,15 @@ export class TripDashboardComponent implements AfterViewInit {
   startTime!: string;
   endTime!: string;
 
-  tripManagerLast: String = '';
-  tripManagerFirst: String = '';
+  tripManagerLast:string = '';
+  tripManagerFirst:string = '';
 
-  tripOrigin: String = '';
-  tripDestination: String = '';
-  tripManager: String = '';
-  tripStop: Array<String> = [];
+  tripOrigin:string = '';
+  tripDestination:string = '';
+  tripManager:string = '';
+  tripStop: Array<string> = [];
 
-  tripName: String = '';
+  tripName:string = '';
   passengers: Array<User> = [];
   curPassengers: Array<User> = [];
   isManager: boolean = true;
@@ -64,10 +64,10 @@ export class TripDashboardComponent implements AfterViewInit {
   isRoles: boolean = false;
   addRoles:boolean = false;
   role:string = '';
-  stops: Array<String> = [];
-  stopsChanged: Boolean = false;
-  roleChanged: Boolean = false;
-  passChanged:Boolean = false;
+  stops: Array<string> = [];
+  stopsChanged: boolean = false;
+  roleChanged: boolean = false;
+  passChanged:boolean = false;
 
   newSpotify: string = '';
   curSpotify: string = this.trip?.spotify ||"";
@@ -97,13 +97,13 @@ export class TripDashboardComponent implements AfterViewInit {
 
 
 
-  stopStreetAddress : String = '';
-  stopCity : String = '';
-  stopState : String = '';
-  stopZip : String = '';
+  stopStreetAddress :string = '';
+  stopCity :string = '';
+  stopState :string = '';
+  stopZip :string = '';
 
 
-  allAddr: Array<String> = [];
+  allAddr: Array<string> = [];
   singleMap: any;
   lat?: number;
   lng?: number;
@@ -119,12 +119,12 @@ export class TripDashboardComponent implements AfterViewInit {
 
 
   //Weather vvariables
-  currWeather:weather[]=[];
-  destWeather:weather[]=[];
+  currWeather:Weather[]=[];
+  destWeather:Weather[]=[];
   tripStartTime:any;
   tripEndTime:any;
-  imageOrigin:String = "";
-  imageDest:String = "";
+  imageOrigin:string = "";
+  imageDest:string = "";
 
 
   
@@ -305,40 +305,40 @@ export class TripDashboardComponent implements AfterViewInit {
   handleAddressChangeTripOrigin(address: any) {
     this.tripOrigin = address.formatted_address;
     var splitted = this.tripOrigin!.split(","); 
-    if (splitted![2].split(" ").length > 2){
-      this.originZip = splitted![2].split(" ")[2];
+    if (splitted[2].split(" ").length > 2){
+      this.originZip = splitted[2].split(" ")[2];
     }else{
       this.originZip = "";
     }
-    this.originState = splitted![2].split(" ")[1];
-    this.originCity = splitted![1].split(" ")[1];
-    this.originStreetAddress = splitted![0];
+    this.originState = splitted[2].split(" ")[1];
+    this.originCity = splitted[1].split(" ")[1];
+    this.originStreetAddress = splitted[0];
   }
 
   handleAddressChangeTripDestination(address: any) {
     this.tripDestination = address.formatted_address;
     var splitted = this.tripDestination!.split(","); 
-    if (splitted![2].split(" ").length > 2){
-      this.desZip = splitted![2].split(" ")[2];
+    if (splitted[2].split(" ").length > 2){
+      this.desZip = splitted[2].split(" ")[2];
     }else{
       this.desZip = "";
     }
-    this.desState = splitted![2].split(" ")[1];
-    this.desCity = splitted![1].split(" ")[1];
-    this.desStreetAddress = splitted![0];
+    this.desState = splitted[2].split(" ")[1];
+    this.desCity = splitted[1].split(" ")[1];
+    this.desStreetAddress = splitted[0];
   }
 
   handleAddressChangeStop(address: any) {
     var stopAddress = address.formatted_address;
     var splitted = stopAddress!.split(","); 
-    if (splitted![2].split(" ").length > 2){
-      this.stopZip = splitted![2].split(" ")[2];
+    if (splitted[2].split(" ").length > 2){
+      this.stopZip = splitted[2].split(" ")[2];
     }else{
       this.stopZip = "";
     }
-    this.stopState = splitted![2].split(" ")[1];
-    this.stopCity = splitted![1].split(" ")[1];
-    this.stopStreetAddress = splitted![0];
+    this.stopState = splitted[2].split(" ")[1];
+    this.stopCity = splitted[1].split(" ")[1];
+    this.stopStreetAddress = splitted[0];
   }
 
   
@@ -495,7 +495,7 @@ export class TripDashboardComponent implements AfterViewInit {
     and makes sure that friends already on the passenger side aren't added to the friends 
     so that their are no duplicates. For certain reasons, comparing objects directly always comes up false, 
     hence this hack job to compare user id's instead.*/
-    this.userService.getFriends(this.token!).subscribe(async response => {this.friends = response;
+    this.userService.getFriends(this.token).subscribe(async response => {this.friends = response;
     this.passengerDeckPhase2.push.apply(this.passengerDeckPhase2, this.passengers);
 
     for(let i=0; i < this.passengers.length; i++) {
@@ -514,7 +514,7 @@ evt_StopChange(row: any, e: any) {
     
     let origNDX :number = this.stops.indexOf(row);
     let NDX_To :number = e.target.value -1;
-    let temp :String = this.stops[NDX_To];
+    let temp :string = this.stops[NDX_To];
 
     this.stops[NDX_To] = this.stops[origNDX];
     this.stops[origNDX] = temp;
@@ -538,8 +538,7 @@ evt_StopChange(row: any, e: any) {
   addMapsScript() {
     if (document.getElementById('JSScript') == null) {
       if (!document.querySelectorAll(`[src="${this.googleMapsUrl}"]`).length) {
-        document.body.appendChild //Append the following to the HTML body.
-          (
+        document.body.appendChild( //Append the following to the HTML body.
             Object.assign
               (
                 document.createElement('script'),//Create Script Element
@@ -623,7 +622,7 @@ evt_StopChange(row: any, e: any) {
     const waypts: google.maps.DirectionsWaypoint[] = [];
     for (let i = 1; i < this.allAddr.length - 1; i++) {
       waypts.push({
-        location: String(this.allAddr[i]),
+        location: this.allAddr[i],
         stopover: true,
       });
     }
@@ -661,9 +660,9 @@ evt_StopChange(row: any, e: any) {
     }
   }
   //gets called only if the weather day is within two days of current day
-  callOriginWeather(origin:String, dest:String ,day:number , day2:number){
+  callOriginWeather(origin:string, dest:string ,day:number , day2:number){
          //get the weather from origin and the destination
-         this.weather.getDestinationWeather(origin,day).subscribe((response) =>{
+         this.weatherService.getDestinationWeather(origin,day).subscribe((response) =>{
           this.currWeather = response;
           let iconName = response['icon']+".png";
           this.imageOrigin = "assets/Weather_Icon/" + iconName;
@@ -677,9 +676,9 @@ evt_StopChange(row: any, e: any) {
   }
 
     //gets called only if the weather day is within two days of current day
-    callDestWeather(origin:String,day:number){
+    callDestWeather(origin:string,day:number){
       //get the weather from origin and the destination
-      this.weather.getDestinationWeather(origin,day).subscribe((response) =>{
+      this.weatherService.getDestinationWeather(origin,day).subscribe((response) =>{
        this.destWeather = response;
        let iconName = response['icon']+".png";
        console.log(iconName);

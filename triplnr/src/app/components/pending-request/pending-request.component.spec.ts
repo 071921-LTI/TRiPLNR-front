@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PendingRequestComponent } from './pending-request.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule} from '@angular/common/http/testing';
-import { FriendRequest } from 'src/app/models/friend-request';
 import { FriendRequestServiceService } from 'src/app/services/friend-request-service.service';
 describe('PendingRequestComponent', () => {
   let component: PendingRequestComponent;
