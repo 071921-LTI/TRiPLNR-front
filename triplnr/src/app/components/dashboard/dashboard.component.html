@@ -1,7 +1,7 @@
 <body>
 <h2>Current Trips</h2>
 <div class="table-responsive">
-<table class="center table" table cellpadding="10">
+<table class="center table" table cellpadding="10" aria-describedby="table that shows general information about the trip">
   <thead>
     <tr>
       <th scope="col">Trip Name</th>
@@ -28,8 +28,8 @@
     </ng-container></td>
     <td (click)="openTrip(row)">{{row.startTime | date:'medium'}}</td>
     <td (click)="openTrip(row)">{{row.endTime | date:'medium'}}</td>
-    <td class="icon"><img src="assets/Weather_Icon/{{row.originIcon}}" class="img" (click)="open(content,row.origin,row.startTime)"></td>
-    <td><img src="assets/Weather_Icon/{{row.destinationIcon}}" class="img" (click)="open2(content,row.destination,row.endTime)"></td>
+    <td class="icon"><img src="assets/Weather_Icon/{{row.originIcon}}" class="img" (click)="open(content,row.origin,row.startTime)" alt="an icon showing the weather from origin"></td>
+    <td><img src="assets/Weather_Icon/{{row.destinationIcon}}" class="img" (click)="open2(content,row.destination,row.endTime)" alt="an icon showing the weather from destination"></td>
   </tr>
 </tbody>
 </table>
@@ -38,7 +38,7 @@
 <h2>Future Trips</h2>
 <div class="table-responsive">
 
-<table class="center table" table cellpadding="10">
+<table class="center table" table cellpadding="10" aria-describedby="table showing general information about future trips">
   <thead>
     <tr>
       <th>Trip Name</th>
@@ -64,8 +64,8 @@
     </ng-container></td>
     <td (click)="openTrip(row)">{{row.startTime | date:'medium'}}</td>
     <td (click)="openTrip(row)">{{row.endTime | date:'medium'}}</td>
-    <td><img src="assets/Weather_Icon/{{row.originIcon}}" class="img" (click)="open(content,row.origin,row.startTime)"></td>
-    <td><img src="assets/Weather_Icon/{{row.destinationIcon}}" class="img" (click)="open2(content,row.destination,row.endTime)"></td>
+    <td><img src="assets/Weather_Icon/{{row.originIcon}}" class="img" (click)="open(content,row.origin,row.startTime)" alt="an icon showing the weather from origin"></td>
+    <td><img src="assets/Weather_Icon/{{row.destinationIcon}}" class="img" (click)="open2(content,row.destination,row.endTime)" alt="an icon showing the weather from destination"></td>
   </tr>
 </tbody>
 </table>
@@ -74,8 +74,7 @@
 <br><br>
 <h2>Past Trips</h2>
 <div class="table-responsive">
-<table class="center table" table cellpadding="10">
-
+<table class="center table" table cellpadding="10" aria-describedby="table showing general info about past trips">
   <thead>
     <tr>
       <th>Trip Name</th>
@@ -108,9 +107,9 @@
   <div class="modal-body">
     <form>
       <div class="form-group">
-        <img src="{{imageSrc}}" class="img">
+        <img src="{{imageSrc}}" class="img" alt="an icon displaying the weather">
         <br><br>
-        <table class="center" table cellpadding="20" table bordercolor="#FFFFFF">
+        <table class="center" table cellpadding="20" table bordercolor="#FFFFFF" aria-describedby="table showing more weather information">
           <thead >
             <tr>
               <th>Trip_Location_Address</th>
