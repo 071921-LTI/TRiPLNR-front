@@ -32,7 +32,7 @@
             <h1 class="h5 mb-3 fw-normal">Origin</h1>
             <div class="form-group">
               <div class="col-50">
-                <label for="originAdr"><i class="fa fa-address-card-o"></i> Address</label>
+                <label for="originAdr"><em class="fa fa-address-card-o"></em> Address</label>
                 <input ngx-google-places-autocomplete [options]='options'
                   (onAddressChange)="handleAddressChangeTripOrigin($event)" type="text" id="originAdr"
                   class="form-control" required pattern="[a-zA-Z0-9 ]+$" #streetControl="ngModel"
@@ -41,7 +41,7 @@
                 <small class="text-danger" [class.d-none]="streetControl.valid || streetControl.untouched">Please enter
                   Street Address</small>
 
-                <label for="city"><i class="fa fa-institution"></i> City</label>
+                <label for="city"><em class="fa fa-institution"></em> City</label>
                 <input type="text" id="originCity" class="form-control" required pattern="[a-zA-Z ]+$"
                   #cityControl="ngModel" [class.is-invalid]="cityControl.invalid && cityControl.touched" name="city"
                   placeholder="New York" [(ngModel)]="originCity">
@@ -82,7 +82,7 @@
             <h1 class="h5 mb-3 fw-normal">Destination</h1>
             <div class="form-group">
               <div class="col-50">
-                <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                <label for="adr"><em class="fa fa-address-card-o"></em> Address</label>
                 <input ngx-google-places-autocomplete [options]='options'
                   (onAddressChange)="handleAddressChangeTripDestination($event)" type="text" id="desAdr"
                   class="form-control" required pattern="[a-zA-Z0-9 ]+$" #desStreetControl="ngModel"
@@ -91,7 +91,7 @@
                 <small class="text-danger" [class.d-none]="desStreetControl.valid || desStreetControl.untouched">Please
                   enter Street Address</small>
 
-                <label for="city"><i class="fa fa-institution"></i> City</label>
+                <label for="city"><em class="fa fa-institution"></em> City</label>
                 <input type="text" id="desCity" class="form-control" required pattern="[a-zA-Z ]+$"
                   #desCityControl="ngModel" [class.is-invalid]="desCityControl.invalid && desCityControl.touched"
                   name="desCity" placeholder="New York" [(ngModel)]="desCity">
@@ -250,7 +250,7 @@
             <form #passengerRoleForm="ngForm">
               <div id="MyTrip" class="text-center">
 
-                <table>
+                <table aria-describedby="MyTrip">
                   <thead>
                     <tr>
                       <th scope='col'>user Id</th>
@@ -264,7 +264,7 @@
                         <select class="custom-select" id="navIndex" placeholder="Passenger" name="navIndex"
                           [(ngModel)]="navIndex" #navIndexControl="ngModel">
                           <option value="">Passenger</option>
-                          <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName
+                          <option *ngFor="let passenger of curPassengers;index as i" value="{{i}}">{{ passenger.firstName
                             }} {{ passenger.lastName }}</option>
                         </select>
                       </td>
@@ -275,7 +275,7 @@
                         <select class="custom-select" id="musicIndex" placeholder="Passenger" name="musicIndex"
                           [(ngModel)]="musicIndex" #musicIndexControl="ngModel">
                           <option value="">Passenger</option>
-                          <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName
+                          <option *ngFor="let passenger of curPassengers;index as i" value="{{i}}">{{ passenger.firstName
                             }} {{ passenger.lastName }}</option>
                         </select>
                       </td>
@@ -286,7 +286,7 @@
                         <select class="custom-select" id="snackIndex" placeholder="Passenger" name="snackIndex"
                           [(ngModel)]="snackIndex" #snackIndexControl="ngModel">
                           <option value="">Passenger</option>
-                          <option *ngFor="let passenger of passengers;index as i" value="{{i}}">{{ passenger.firstName
+                          <option *ngFor="let passenger of curPassengers;index as i" value="{{i}}">{{ passenger.firstName
                             }} {{ passenger.lastName }}</option>
                         </select>
                       </td>
@@ -300,15 +300,16 @@
           </ng-container>
           <hr>
 
-          <img src="{{imageOrigin}}" class="weatherIcon1">
-          <img src="{{imageDest}}" class="weatherIcon2">
-
-          <div>
+          <div class = "weather_table table-responsive" id='weatherTables'>
             <!-- put weather here !!!!!!!!-->
 
 
+            <div class = "table-responsive-stack">
+              <img src="{{imageOrigin}}" class="weatherIcon1" alt='imageOrigin'>
+              <img src="{{imageDest}}" class="weatherIcon2" alt='imageDest'>
+            </div>
 
-            <table class="originWeatherTable">
+            <table class="originWeatherTable table-responsive" aria-describedby="weatherTables">
 
               <thead>
                 <tr>
@@ -342,7 +343,7 @@
               </tbody>
             </table>
 
-            <table class="originWeatherTable2">
+            <table class="originWeatherTable2 table-responsive" aria-describedby="weatherTables">
 
               <thead>
                 <tr>
@@ -368,7 +369,7 @@
 
           <br>
 
-
+          <ng-container *ngIf="isManager">
           <form #stopTripForm="ngForm">
 
             <div id="stopss">
@@ -378,9 +379,9 @@
                 <div class="form-group">
                   <div class="col-50">
                     
-                    <!-- potential fix for address going into weather field??  --><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> 
+                   
                     
-                    <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+                    <label for="adr"><em class="fa fa-address-card-o"></em> Address</label>
                     <input ngx-google-places-autocomplete [options]='options'
                       (onAddressChange)="handleAddressChangeStop($event)" type="text" id="adr" class="form-control"
                       pattern="[a-zA-Z0-9 ]+$" #stopStreetControl="ngModel"
@@ -391,7 +392,7 @@
                       Address</small>
 
 
-                    <label for="city"><i class="fa fa-institution"></i> City</label>
+                    <label for="city"><em class="fa fa-institution"></em> City</label>
                     <input type="text" id="city" class="form-control" pattern="[a-zA-Z ]+$" #stopCityControl="ngModel"
                       [class.is-invalid]="stopCityControl.invalid && stopCityControl.touched" name="city"
                       placeholder="New York" [(ngModel)]="stopCity">
@@ -442,17 +443,20 @@
 
             <!--<button class="w-100 btn btn-lg btn-dark" type="input" (click)='removeStops()'>Remove Stops</button>-->
           </form>
+        </ng-container>
 
           <h2 id="MyTripHeader" class="h3 mb-3 fw-normal">Stops</h2>
           <div id="MyTrip" class="text-center">
 
-            <table style="width:fit-content">
+            <table style="width:fit-content" aria-describedby="MyTripHeader">
 
               <thead>
                 <tr>
                   <th scope="col">Stop Number</th>
                   <th scope="col">Stop Location</th>
+                  <ng-container *ngIf="isManager">
                   <th scope="col">Remove Stop?</th>
+                </ng-container>
                 </tr>
               </thead>
               <tbody>
@@ -465,10 +469,12 @@
                   <td style="width:85%; height: 16px;">
                     {{row}}
                   </td>
+                  <ng-container *ngIf="isManager">
                   <td style="Width:5%">
                     <button (click)='RemoveThisStop(row)' id="btn_removeThisStop"
                       style="color:red;background:none;border:none;height:5px">X</button>
                   </td>
+                </ng-container>
                 </tr>
               </tbody>
             </table>
@@ -496,11 +502,11 @@
   <div class="checkbox mb-3">
   </div>
   <ng-container *ngIf="isManager">
-    <button [disabled]="tripUpdateForm.form.pristine && !stopsChanged && !addRoles" class="w-100 btn btn-lg btn-primary"
+    <button [disabled]="tripUpdateForm.form.pristine && !stopsChanged && !addRoles && !passChanged" class="w-100 btn btn-lg btn-primary"
       type="input" (click)="tripUpdateForm.form.markAsPristine()" (click)="tripUpdateForm.control.markAsUntouched();"
       (click)='reset()'>Reset</button>
     <br><br>
-    <button [disabled]="tripUpdateForm.form.invalid || tripUpdateForm.form.pristine && !stopsChanged"
+    <button [disabled]="tripUpdateForm.form.invalid || tripUpdateForm.form.pristine && !stopsChanged && !passChanged"
       class="w-100 btn btn-lg btn-primary" id="updateBtn" type="input" (click)="updateTrip()">Update</button>
   </ng-container>
 
@@ -522,8 +528,8 @@
       </div>
       <div class="modal-body">
         <div class="tableFriends" style="float: left">
-          <h3>Friends</h3>
-          <table class="table-borderless" table cellpadding="10" id='tableNone'>
+          <h3 id='friend'>Friends</h3>
+          <table class="table-borderless" table cellpadding="10" id='tableNone' aria-describedby="friend">
             <!-- populates table with datat from from friends lists -->
             <tr *ngFor="let row of passengerDeckPhase1" (click)="addPassengerToDeck(row)" class="clickRow" id='rowNone'>
               <td id='tdNone'>{{row.firstName}} {{row.lastName}}</td>
@@ -536,8 +542,8 @@
         </div>
 
         <div class="tablePassengers" style="float: right">
-          <h3>Passengers</h3>
-          <table class="table table-borderless" table cellpadding="10" id='tableNone'>
+          <h3 id='passenger'>Passengers</h3>
+          <table class="table table-borderless" table cellpadding="10" id='tableNone' aria-describedby="passenger">
             <!-- populates table with datat from passengerDeck lists -->
             <tr *ngFor="let row of passengerDeckPhase2" (click)="removePassengerFromDeck(row)" class="clickRow"
               id='rowNone'>

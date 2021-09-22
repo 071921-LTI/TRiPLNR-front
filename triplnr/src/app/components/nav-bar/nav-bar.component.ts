@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { AuthService } from '@auth0/auth0-angular';
 import { DOCUMENT, Location } from '@angular/common';
-import { Auth0ServiceService } from 'src/app/services/auth0-service.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({

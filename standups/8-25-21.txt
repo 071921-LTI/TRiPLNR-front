@@ -1,7 +1,0 @@
-What we did yesterday:
-- Connected angular to spring tomcat server for login page
-
-What we plan for today:
-- Restart with spring boot
-- Setup database
-- Setup registration

@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Trip } from 'src/app/models/trip';
 import { TripServiceService } from 'src/app/services/trip-service.service';
 import { Router } from '@angular/router';

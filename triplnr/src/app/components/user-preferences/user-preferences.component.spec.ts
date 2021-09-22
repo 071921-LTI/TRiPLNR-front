@@ -66,7 +66,7 @@ describe('UserPreferencesComponent', () => {
     app.state = 'c';
     app.zip = 'd';
     let temp = app.address;
-    app.emmitAddress;
+    app.emmitAddress();
     expect(temp).toBeTruthy
   })
 

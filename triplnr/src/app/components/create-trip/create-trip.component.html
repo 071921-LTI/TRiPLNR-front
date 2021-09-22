@@ -68,18 +68,18 @@
             <input type="text" required #nameControll="ngModel" id="tripName"
               [class.is-invalid]="nameControll.invalid && nameControll.touched"
               class="form-control" name = "tripName" placeholder="Trip Name" [(ngModel)]="tripName">
-            <label for="tripName"><i class="fa fa-address-card-o"></i>Trip Name</label>
+            <label for="tripName"><em class="fa fa-address-card-o"></em>Trip Name</label>
             <small class="text-danger" [class.d-none]="nameControll.valid || nameControll.untouched">Enter a trip name</small>
           </div>
 
             <div class="col-50">
-              <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+              <label for="adr"><em class="fa fa-address-card-o"></em> Address</label>
               <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="handleAddressChangeTrip($event)" type="text" id="adr" class="form-control" required pattern="[a-zA-Z0-9 ]+$" 
                 #streetControl = "ngModel" [class.is-invalid]="streetControl.invalid && streetControl.touched"
                 name="address" placeholder="542 W. 15th Street" [(ngModel)]="streetAddress">
               <small class="text-danger" [class.d-none] = "streetControl.valid || streetControl.untouched">Please enter Street Address</small>
               
-              <label for="city"><i class="fa fa-institution"></i> City</label>
+              <label for="city"><em class="fa fa-institution"></em> City</label>
               <input type="text" id="city" class="form-control" required pattern="[a-zA-Z ]+$" 
                 #cityControl="ngModel" [class.is-invalid]="cityControl.invalid && cityControl.touched"
                 name="city" placeholder="New York" [(ngModel)]="city">
@@ -217,13 +217,13 @@
     <div class="form-floating">                 <!-- [(ngModel)] referes to variable in typeScript file -->
       <div class="form-group">
         <div class="col-50">
-          <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+          <label for="adr"><em class="fa fa-address-card-o"></em> Address</label>
           <input ngx-google-places-autocomplete [options]='options' (onAddressChange)="handleAddressChangeStop($event)" type="text" id="adr" class="form-control" pattern="[a-zA-Z0-9 ]+$" 
             #stopStreetControl = "ngModel" [class.is-invalid]="stopStreetControl.invalid && stopStreetControl.touched"
             name="address" placeholder="542 W. 15th Street" [(ngModel)]="stopStreetAddress">
           <small class="text-danger" [class.d-none] = "stopStreetControl.valid || stopStreetControl.untouched">Please enter Street Address</small>
           
-          <label for="city"><i class="fa fa-institution"></i> City</label>
+          <label for="city"><em class="fa fa-institution"></em> City</label>
           <input type="text" id="city" class="form-control" pattern="[a-zA-Z ]+$" 
             #stopCityControl="ngModel" [class.is-invalid]="stopCityControl.invalid && stopCityControl.touched"
             name="city" placeholder="New York" [(ngModel)]="stopCity">
@@ -259,7 +259,6 @@
     <button class="w-100 btn btn-lg btn-dark" type="input" (click)='addStops()'>Add Stops</button>
     <br>
     <br>
-    <!--<button class="w-100 btn btn-lg btn-dark" type="input" (click)='removeStops()'>Remove Stops</button>-->
       </form>
     </div>
   </div>

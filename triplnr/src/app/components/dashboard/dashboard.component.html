@@ -4,7 +4,6 @@
 <table class="center table" table cellpadding="10" aria-describedby="table that shows general information about the trip">
   <thead>
     <tr>
-      <th scope="col">Trip Id</th>
       <th scope="col">Trip Name</th>
       <th scope="col">Trip Origin</th>
       <th scope="col">Trip Destination</th>
@@ -20,7 +19,6 @@
   <tbody>
   <!-- populates table with datat from trips lists -->
   <tr *ngFor="let row of currentTrips"  class="clickRow">
-    <td (click)="openTrip(row)">{{row.tripId}}</td>
     <td (click)="openTrip(row)" >{{row.tripName}}</td>
     <td (click)="openTrip(row)">{{row.origin}}</td>
     <td (click)="openTrip(row)">{{row.destination}}</td>
@@ -43,7 +41,6 @@
 <table class="center table" table cellpadding="10" aria-describedby="table showing general information about future trips">
   <thead>
     <tr>
-      <th>Trip Id</th>
       <th>Trip Name</th>
       <th>Trip Origin</th>
       <th>Trip Destination</th>
@@ -58,7 +55,6 @@
 
   <tbody>
   <tr *ngFor="let row of futureTrips"  class="clickRow">
-    <td (click)="openTrip(row)">{{row.tripId}}</td>
     <td (click)="openTrip(row)">{{row.tripName}}</td>
     <td (click)="openTrip(row)">{{row.origin}}</td>
     <td (click)="openTrip(row)">{{row.destination}}</td>
@@ -81,7 +77,6 @@
 <table class="center table" table cellpadding="10" aria-describedby="table showing general info about past trips">
   <thead>
     <tr>
-      <th>Trip Id</th>
       <th>Trip Name</th>
       <th>Trip Origin</th>
       <th>Trip Destination</th>
@@ -93,7 +88,6 @@
   </thead>
   <tbody>
   <tr *ngFor="let row of pastTrips" class="clickRow">
-    <td (click)="openTrip(row)">{{row.tripId}}</td>
     <td (click)="openTrip(row)">{{row.tripName}}</td>
     <td (click)="openTrip(row)">{{row.origin}}</td>
     <td (click)="openTrip(row)">{{row.destination}}</td>
